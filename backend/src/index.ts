@@ -3,12 +3,14 @@ import "dotenv/config";
 import { json } from "body-parser";
 import { AuthRouter } from "./routes/auth";
 import { connectDB } from "./db/connect";
+import { RequestFormRouter } from "./routes/requestForm";
 
 const app = express();
 app.use(json());
 
 // Routes
 app.use("/auth", AuthRouter);
+app.use("/customer", RequestFormRouter);
 
 const start = async () => {
   try {
