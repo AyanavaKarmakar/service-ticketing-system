@@ -1,8 +1,22 @@
-import { Schema } from "mongoose";
+import { Schema, Model, Document, model } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const Customer = new Schema({
+// Refer: https://mongoosejs.com/docs/typescript/statics.html
+
+export interface ICustomer {
+  username: string;
+  password: string;
+  passwordHash: string;
+}
+
+interface ICustomerDocument extends ICustomer, Document {
+  generateAuthToken: () => string;
+}
+
+interface CustomerModel extends Model<ICustomerDocument> {}
+
+export const CustomerSchema = new Schema<ICustomerDocument, CustomerModel>({
   username: {
     type: String,
     required: true,
@@ -20,7 +34,7 @@ export const Customer = new Schema({
 });
 
 // hash the password
-Customer.pre("save", function (next) {
+CustomerSchema.pre("save", function (next) {
   const customer = this;
 
   if (!customer.isModified("password")) {
@@ -37,7 +51,7 @@ Customer.pre("save", function (next) {
 });
 
 // generate auth token
-Customer.methods.generateAuthToken = function () {
+CustomerSchema.methods.generateAuthToken = function () {
   const customer = this;
   const token = jwt.sign(
     { _id: customer._id },
@@ -45,3 +59,8 @@ Customer.methods.generateAuthToken = function () {
   );
   return token;
 };
+
+export const Customer = model<ICustomerDocument, CustomerModel>(
+  "Customer",
+  CustomerSchema
+);
