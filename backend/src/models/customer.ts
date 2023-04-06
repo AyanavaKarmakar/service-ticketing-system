@@ -10,11 +10,11 @@ export interface ICustomer {
   userType: string;
 }
 
-interface ICustomerDocument extends ICustomer, Document {
+export interface ICustomerDocument extends ICustomer, Document {
   generateAuthToken: () => string;
 }
 
-interface CustomerModel extends Model<ICustomerDocument> {}
+export interface CustomerModel extends Model<ICustomerDocument> {}
 
 export const CustomerSchema = new Schema<ICustomerDocument, CustomerModel>({
   username: {

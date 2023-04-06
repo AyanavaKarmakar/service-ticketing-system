@@ -1,3 +1,5 @@
+/// <reference path="../types/custom.d.ts" />
+
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { Customer } from "../models/customer";
 import { Employee } from "../models/employee";

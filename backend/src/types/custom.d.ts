@@ -1,5 +1,5 @@
-import { ICustomer } from "../models/customer";
-import { IEmployee } from "../models/employee";
+import { type ICustomer } from "../models/customer";
+import { type IEmployee } from "../models/employee";
 
 declare global {
   namespace Express {

@@ -4,17 +4,17 @@ import jwt from "jsonwebtoken";
 
 // Refer: https://mongoosejs.com/docs/typescript/statics.html
 
-interface IEmployee {
+export interface IEmployee {
   username: string;
   password: string;
   userType: string;
 }
 
-interface IEmployeeDocument extends IEmployee, Document {
+export interface IEmployeeDocument extends IEmployee, Document {
   generateAuthToken: () => string;
 }
 
-interface EmployeeModel extends Model<IEmployeeDocument> {}
+export interface EmployeeModel extends Model<IEmployeeDocument> {}
 
 export const EmployeeSchema = new Schema<IEmployeeDocument, EmployeeModel>({
   username: {
