@@ -4,6 +4,6 @@ import { customerAuthMiddleware } from "../middleware/auth";
 
 const router = Router();
 
-router.post("/requestForm", customerAuthMiddleware, requestForm);
+router.post("/requestform", customerAuthMiddleware, requestForm);
 
 export const RequestFormRouter = router;
