@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 export interface ICustomer {
   username: string;
   password: string;
-  passwordHash: string;
 }
 
 interface ICustomerDocument extends ICustomer, Document {
@@ -21,21 +20,15 @@ export const CustomerSchema = new Schema<ICustomerDocument, CustomerModel>({
     type: String,
     required: true,
   },
-
   password: {
-    type: String,
-    required: true,
-  },
-
-  passwordHash: {
     type: String,
     required: true,
   },
 });
 
-// hash the password
+// hash the password before saving to the database
 CustomerSchema.pre("save", function (next) {
-  const customer = this;
+  const customer = this as ICustomerDocument;
 
   if (!customer.isModified("password")) {
     return next();
@@ -44,7 +37,7 @@ CustomerSchema.pre("save", function (next) {
   bcrypt
     .hash(customer.password, 10)
     .then((hash) => {
-      customer.passwordHash = hash;
+      customer.password = hash;
       next();
     })
     .catch((err) => next(err));

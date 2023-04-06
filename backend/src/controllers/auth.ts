@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import type { Errback, Request, Response } from "express";
 import { Customer } from "../models/customer";
 import bycrypt from "bcrypt";
 
@@ -17,8 +17,8 @@ export const CustomerSignup = async (req: Request, res: Response) => {
     await customer.save();
     const token = customer.generateAuthToken();
     return res.status(200).json({ token });
-  } catch (error) {
-    return res.status(400).json({ error });
+  } catch (error: any) {
+    return res.status(400).json({ error: error.message });
   }
 };
 
@@ -41,8 +41,8 @@ export const CustomerLogin = async (req: Request, res: Response) => {
     // generate & return token
     const token = customer.generateAuthToken();
     return res.status(200).json({ token });
-  } catch (error) {
-    return res.status(400).json({ error });
+  } catch (error: any) {
+    return res.status(400).json({ error: error.message });
   }
 };
 
