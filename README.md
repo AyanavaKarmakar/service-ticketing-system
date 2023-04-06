@@ -8,4 +8,3 @@
 2. ExpressJS
 3. MongoDB
 4. Mongoose
-5. SwaggerUI
