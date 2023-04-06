@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 interface IEmployee {
   username: string;
   password: string;
+  userType: string;
 }
 
 interface IEmployeeDocument extends IEmployee, Document {
@@ -23,6 +24,11 @@ export const EmployeeSchema = new Schema<IEmployeeDocument, EmployeeModel>({
   password: {
     type: String,
     required: true,
+  },
+  userType: {
+    type: String,
+    required: true,
+    default: "employee",
   },
 });
 

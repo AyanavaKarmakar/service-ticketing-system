@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 export interface ICustomer {
   username: string;
   password: string;
+  userType: string;
 }
 
 interface ICustomerDocument extends ICustomer, Document {
@@ -23,6 +24,11 @@ export const CustomerSchema = new Schema<ICustomerDocument, CustomerModel>({
   password: {
     type: String,
     required: true,
+  },
+  userType: {
+    type: String,
+    required: true,
+    default: "customer",
   },
 });
 

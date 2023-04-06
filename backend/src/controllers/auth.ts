@@ -27,9 +27,9 @@ export const CustomerLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   try {
-    // handle non-existing customer
+    // handle non-existing customer & invalid account type
     const customer = await Customer.findOne({ username });
-    if (!customer) {
+    if (!customer || customer.userType !== "customer") {
       return res.status(400).json({ error: "invalid username or password" });
     }
 
@@ -71,9 +71,9 @@ export const EmployeeLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
   try {
-    // handle non-existing employee
+    // handle non-existing employee & invalid account type
     const employee = await Employee.findOne({ username });
-    if (!employee) {
+    if (!employee || employee.userType !== "employee") {
       return res.status(400).json({ error: "invalid username or password" });
     }
 
