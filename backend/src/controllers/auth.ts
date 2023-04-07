@@ -3,6 +3,7 @@ import { Customer } from "../models/customer";
 import bycrypt from "bcrypt";
 import { Employee } from "../models/employee";
 
+// POST /auth/customer/signup
 export const CustomerSignup = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -23,6 +24,7 @@ export const CustomerSignup = async (req: Request, res: Response) => {
   }
 };
 
+// POST /auth/customer/login
 export const CustomerLogin = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -47,6 +49,7 @@ export const CustomerLogin = async (req: Request, res: Response) => {
   }
 };
 
+// POST /auth/employee/signup
 export const EmployeeSignup = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -67,6 +70,7 @@ export const EmployeeSignup = async (req: Request, res: Response) => {
   }
 };
 
+// POST /auth/employee/login
 export const EmployeeLogin = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;

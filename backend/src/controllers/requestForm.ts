@@ -4,6 +4,7 @@ import type { Request, Response } from "express";
 import { RequestForm } from "../models/requestForm";
 import type { ICustomer, ICustomerDocument } from "../models/customer";
 
+// POST /customer/requestform
 export const requestForm = async (req: Request, res: Response) => {
   try {
     const { productType, issueType, issueDescription, policyUpload } = req.body;
