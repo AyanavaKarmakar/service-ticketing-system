@@ -11,8 +11,10 @@ app.use(json());
 
 // Routes
 
-app.use("/", (req: Request, res: Response) => {
-  res.send("Welcome to the Service Ticketing System API");
+app.use("/welcome/api", (req: Request, res: Response) => {
+  res.send(
+    "Welcome to the Service Ticketing System API! Refer to the DOCS here: https://documenter.getpostman.com/view/22237577/2s93RZNqMd"
+  );
 });
 
 app.use("/auth", AuthRouter);
