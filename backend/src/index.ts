@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 import "dotenv/config";
 import { json } from "body-parser";
 import { AuthRouter } from "./routes/auth";
@@ -10,6 +10,11 @@ const app = express();
 app.use(json());
 
 // Routes
+
+app.use("/", (req: Request, res: Response) => {
+  res.send("Welcome to the Service Ticketing System API");
+});
+
 app.use("/auth", AuthRouter);
 app.use("/customer", RequestFormRouter);
 app.use("/tasks", TasksRouter);
