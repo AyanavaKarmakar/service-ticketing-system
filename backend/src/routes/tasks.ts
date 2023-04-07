@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  assignTask,
   getAllocatedTasks,
   getTaskByID,
   getUnallocatedTasks,
@@ -13,6 +14,7 @@ const router = Router();
 
 router.get("/unallocated", adminAuthMiddleware, getUnallocatedTasks);
 router.get("/allocated", adminAuthMiddleware, getAllocatedTasks);
+router.post("/:id/assign", employeeAuthMiddleware, assignTask);
 
 router.get("/:id", employeeAuthMiddleware, getTaskByID);
 
