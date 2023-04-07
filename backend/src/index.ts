@@ -4,6 +4,7 @@ import { json } from "body-parser";
 import { AuthRouter } from "./routes/auth";
 import { connectDB } from "./db/connect";
 import { RequestFormRouter } from "./routes/requestForm";
+import { TasksRouter } from "./routes/tasks";
 
 const app = express();
 app.use(json());
@@ -11,6 +12,7 @@ app.use(json());
 // Routes
 app.use("/auth", AuthRouter);
 app.use("/customer", RequestFormRouter);
+app.use("tasks", TasksRouter);
 
 const start = async () => {
   try {
