@@ -1,6 +1,12 @@
+/// <reference path="../types/custom.d.ts" />
+
 import type { Request, Response } from "express";
 import { RequestForm } from "../models/requestForm";
-import { Employee } from "../models/employee";
+import {
+  Employee,
+  type IEmployee,
+  type IEmployeeDocument,
+} from "../models/employee";
 
 // GET /tasks/unallocated
 export const getUnallocatedTasks = async (req: Request, res: Response) => {
@@ -99,6 +105,21 @@ export const deassignTask = async (req: Request, res: Response) => {
     await task.save();
 
     return res.status(200).json({ task });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// GET /tasks/mytasks
+export const getMyTasks = async (req: Request, res: Response) => {
+  try {
+    const employee = req.employee as IEmployee & IEmployeeDocument;
+
+    const myTasks = await RequestForm.find({
+      assignedEmployee: employee._id,
+    }).populate("customer");
+
+    return res.status(200).json({ tasks: myTasks });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }

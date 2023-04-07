@@ -3,6 +3,7 @@ import {
   assignTask,
   deassignTask,
   getAllocatedTasks,
+  getMyTasks,
   getTaskByID,
   getUnallocatedTasks,
 } from "../controllers/tasks";
@@ -20,6 +21,7 @@ router.post("/:id/assign", adminAuthMiddleware, assignTask);
 router.put("/:id/deassign", adminAuthMiddleware, deassignTask);
 
 // EMPLOYEE ROUTES
-router.get("/:id", employeeAuthMiddleware, getTaskByID);
+router.get("/:id/details", employeeAuthMiddleware, getTaskByID);
+router.get("/mytasks", employeeAuthMiddleware, getMyTasks);
 
 export const TasksRouter = router;
