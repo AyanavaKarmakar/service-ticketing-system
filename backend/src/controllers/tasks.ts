@@ -77,3 +77,29 @@ export const assignTask = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+// PUT /tasks/:id/deassign
+export const deassignTask = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const task = await RequestForm.findById(id).populate(
+      "assignedEmployee customer"
+    );
+
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    // handle -> if task is not assigned
+    if (!task.assignedEmployee) {
+      return res.status(400).json({ error: "Task not assigned" });
+    }
+
+    task.assignedEmployee = undefined;
+    await task.save();
+
+    return res.status(200).json({ task });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};

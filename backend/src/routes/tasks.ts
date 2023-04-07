@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   assignTask,
+  deassignTask,
   getAllocatedTasks,
   getTaskByID,
   getUnallocatedTasks,
@@ -12,10 +13,13 @@ import {
 
 const router = Router();
 
+// ADMIN ROUTES
 router.get("/unallocated", adminAuthMiddleware, getUnallocatedTasks);
 router.get("/allocated", adminAuthMiddleware, getAllocatedTasks);
-router.post("/:id/assign", employeeAuthMiddleware, assignTask);
+router.post("/:id/assign", adminAuthMiddleware, assignTask);
+router.put("/:id/deassign", adminAuthMiddleware, deassignTask);
 
+// EMPLOYEE ROUTES
 router.get("/:id", employeeAuthMiddleware, getTaskByID);
 
 export const TasksRouter = router;
