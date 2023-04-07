@@ -4,9 +4,9 @@ import bycrypt from "bcrypt";
 import { Employee } from "../models/employee";
 
 export const CustomerSignup = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
+
     // handle existing customer
     const isExistingCustomer = await Customer.findOne({ username });
     if (isExistingCustomer) {
@@ -24,9 +24,9 @@ export const CustomerSignup = async (req: Request, res: Response) => {
 };
 
 export const CustomerLogin = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
+
     // handle non-existing customer & invalid account type
     const customer = await Customer.findOne({ username });
     if (!customer || customer.userType !== "customer") {
@@ -48,9 +48,9 @@ export const CustomerLogin = async (req: Request, res: Response) => {
 };
 
 export const EmployeeSignup = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
+
     // handle existing employee
     const isExistingEmployee = await Employee.findOne({ username });
     if (isExistingEmployee) {
@@ -68,9 +68,9 @@ export const EmployeeSignup = async (req: Request, res: Response) => {
 };
 
 export const EmployeeLogin = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
   try {
+    const { username, password } = req.body;
+
     // handle non-existing employee & invalid account type
     const employee = await Employee.findOne({ username });
     if (!employee || employee.userType !== "employee") {

@@ -6,7 +6,7 @@ export interface IRequestForm extends Document {
   customer: Types.ObjectId;
   productType: string;
   issueType: string[];
-  issueDescription: string;
+  issueDescription?: string;
   policyUpload: string;
 }
 
@@ -28,7 +28,6 @@ const RequestFormSchema = new Schema<IRequestForm>({
 
   issueDescription: {
     type: String,
-    required: true,
   },
 
   policyUpload: {

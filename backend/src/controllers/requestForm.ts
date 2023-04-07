@@ -9,6 +9,11 @@ export const requestForm = async (req: Request, res: Response) => {
     const { productType, issueType, issueDescription, policyUpload } = req.body;
     const customer = req.customer as ICustomer & ICustomerDocument;
 
+    // Check if all the mandatory fields are present
+    if (!productType || !issueType || !policyUpload) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     const newRequestForm = new RequestForm({
       customer: customer._id,
       productType,
@@ -16,6 +21,8 @@ export const requestForm = async (req: Request, res: Response) => {
       issueDescription,
       policyUpload,
     });
+
+    await newRequestForm.save();
 
     res.status(201).json({ newRequestForm, message: "Request Form Created" });
   } catch (error: any) {
