@@ -1,5 +1,3 @@
-/// <reference path="../types/custom.d.ts" />
-
 import type { Request, Response } from "express";
 import { RequestForm } from "../models/requestForm";
 
