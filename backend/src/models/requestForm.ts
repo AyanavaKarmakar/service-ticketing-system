@@ -1,4 +1,4 @@
-import { Schema, Model, Document, model, Types } from "mongoose";
+import { Schema, Document, model, Types } from "mongoose";
 
 // Refer: https://mongoosejs.com/docs/typescript/statics.html
 
@@ -8,6 +8,7 @@ export interface IRequestForm extends Document {
   issueType: string[];
   issueDescription?: string;
   policyUpload: string;
+  assignedEmployee?: Types.ObjectId;
 }
 
 const RequestFormSchema = new Schema<IRequestForm>({
@@ -33,6 +34,11 @@ const RequestFormSchema = new Schema<IRequestForm>({
   policyUpload: {
     type: String,
     required: true,
+  },
+
+  assignedEmployee: {
+    type: Schema.Types.ObjectId,
+    ref: "Employee",
   },
 });
 
