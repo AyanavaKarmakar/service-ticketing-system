@@ -76,6 +76,7 @@ export const assignTask = async (req: Request, res: Response) => {
     }
 
     task.assignedEmployee = employee._id;
+    task.status = "In Progress";
     await task.save();
 
     return res.status(200).json({ task });
@@ -102,6 +103,7 @@ export const deassignTask = async (req: Request, res: Response) => {
     }
 
     task.assignedEmployee = undefined;
+    task.status = "Open";
     await task.save();
 
     return res.status(200).json({ task });

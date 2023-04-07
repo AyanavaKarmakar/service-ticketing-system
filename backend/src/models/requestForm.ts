@@ -8,6 +8,8 @@ export interface IRequestForm extends Document {
   issueType: string[];
   issueDescription?: string;
   policyUpload: string;
+  dateOfSubmission: Date;
+  status: "Open" | "In Progress" | "On Hold" | "Completed";
   assignedEmployee?: Types.ObjectId;
 }
 
@@ -34,6 +36,18 @@ const RequestFormSchema = new Schema<IRequestForm>({
   policyUpload: {
     type: String,
     required: true,
+  },
+
+  status: {
+    type: String,
+    enum: ["Open", "In Progress", "On Hold", "Completed"],
+    required: true,
+    default: "Open",
+  },
+
+  dateOfSubmission: {
+    type: Date,
+    default: Date.now,
   },
 
   assignedEmployee: {
