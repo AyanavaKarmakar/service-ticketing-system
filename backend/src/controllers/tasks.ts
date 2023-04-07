@@ -2,7 +2,6 @@
 
 import type { Request, Response } from "express";
 import { RequestForm } from "../models/requestForm";
-import type { IEmployee, IEmployeeDocument } from "../models/employee";
 
 // GET /tasks/unallocated
 export const getUnallocatedTasks = async (req: Request, res: Response) => {
