@@ -6,6 +6,7 @@ import {
   getMyTasks,
   getTaskByID,
   getUnallocatedTasks,
+  updateTaskStatus,
 } from "../controllers/tasks";
 import {
   adminAuthMiddleware,
@@ -23,5 +24,6 @@ router.put("/:id/deassign", adminAuthMiddleware, deassignTask);
 // EMPLOYEE ROUTES
 router.get("/:id/details", employeeAuthMiddleware, getTaskByID);
 router.get("/mytasks", employeeAuthMiddleware, getMyTasks);
+router.put("/:id/changestatus", employeeAuthMiddleware, updateTaskStatus);
 
 export const TasksRouter = router;
