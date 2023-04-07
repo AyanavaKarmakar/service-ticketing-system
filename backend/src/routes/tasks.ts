@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { getUnallocatedTasks } from "../controllers/tasks";
-import { employeeAuthMiddleware } from "../middleware/auth";
+import { getAllocatedTasks, getUnallocatedTasks } from "../controllers/tasks";
+import { adminAuthMiddleware } from "../middleware/auth";
 
 const router = Router();
 
-router.get("/unallocated", employeeAuthMiddleware, getUnallocatedTasks);
+router.get("/unallocated", adminAuthMiddleware, getUnallocatedTasks);
+router.get("/allocated", adminAuthMiddleware, getAllocatedTasks);
 
 export const TasksRouter = router;
