@@ -12,7 +12,7 @@ app.use(json());
 // Routes
 app.use("/auth", AuthRouter);
 app.use("/customer", RequestFormRouter);
-app.use("tasks", TasksRouter);
+app.use("/tasks", TasksRouter);
 
 const start = async () => {
   try {
