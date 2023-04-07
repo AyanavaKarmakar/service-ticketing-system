@@ -2,6 +2,8 @@
 
 User Authentication, Customer Support Request Creation and Administration Action Capability for a Service Ticketing System.
 
+___
+
 ## Technologies Used
 
 ### Backend
