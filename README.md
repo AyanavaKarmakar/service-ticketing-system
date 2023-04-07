@@ -6,7 +6,10 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ## Technologies Used
 
-### Backend [(Docs)](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
+### Backend
+
+- [Docs](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
+- [Live API](https://service-ticketing-system-api.onrender.com/) deployed on [Render](https://render.com/)
 
 1. NodeJS
 2. ExpressJS
