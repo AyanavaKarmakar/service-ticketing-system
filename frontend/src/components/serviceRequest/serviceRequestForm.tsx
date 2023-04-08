@@ -33,16 +33,53 @@ const issueTypesMap: Record<ProductType, string[]> = {
   "Washing Machine": ["Water overflowing", "Motor not working"],
 };
 
+type RequestFormType = {
+  productType: string;
+  issueType: string[];
+  issueDescription?: string;
+  policyUpload: string;
+};
+
 export const ServiceRequestForm = () => {
+  const [isError, setIsError] = useState(false);
   const [selectedIssueTypes, setSelectedIssueTypes] = useState<IssueType[]>([]);
   const [selectedProductType, setSelectedProductType] = useState<ProductType>(
     "Select a product type"
   );
 
+  const [requestForm, setRequestForm] = useState<RequestFormType>({
+    productType: selectedProductType,
+    issueType: [...selectedIssueTypes.map((issue) => issue.value)],
+    policyUpload: "",
+  });
+
+  console.log(requestForm);
+
+  // validated request form
+  useEffect(() => {
+    if (
+      requestForm.productType === "Select a product type" ||
+      !requestForm.issueType.length ||
+      requestForm.policyUpload === ""
+    ) {
+      setIsError(true);
+    } else {
+      setIsError(false);
+    }
+  }, [requestForm]);
+
   // Reset issue types when product type is changed
   useEffect(() => {
     setSelectedIssueTypes([]);
   }, [selectedProductType]);
+
+  // set issue types to request form
+  useEffect(() => {
+    setRequestForm({
+      ...requestForm,
+      issueType: [...selectedIssueTypes.map((issue) => issue.value)],
+    });
+  }, [selectedIssueTypes]);
 
   return (
     <div className="flex flex-col h-[calc(100vh-150px)] gap-3 items-center justify-center mb-3">
@@ -75,6 +112,11 @@ export const ServiceRequestForm = () => {
                 } else {
                   setSelectedIssueTypes(issueTypes);
                 }
+
+                setRequestForm({
+                  ...requestForm,
+                  productType: value as ProductType,
+                });
               }}
             >
               <SelectPrimitive.Trigger asChild aria-label="Product type">
@@ -208,6 +250,12 @@ export const ServiceRequestForm = () => {
 
           <FormPrimitive.Control asChild>
             <textarea
+              onChange={(e) =>
+                setRequestForm({
+                  ...requestForm,
+                  issueDescription: e.target.value,
+                })
+              }
               className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base"
               placeholder="Describe your issue"
             />
@@ -225,6 +273,9 @@ export const ServiceRequestForm = () => {
           <FormPrimitive.Control asChild>
             <input
               type="text"
+              onChange={(e) =>
+                setRequestForm({ ...requestForm, policyUpload: e.target.value })
+              }
               className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base"
               placeholder="Upload your policy"
             />
@@ -236,9 +287,11 @@ export const ServiceRequestForm = () => {
           className="bg-gray-800 text-white rounded-md py-2.5 px-12 text-base mt-3"
         >
           <button
+            disabled={isError}
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
-              "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
+              "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
+              isError && "cursor-not-allowed"
             )}
           >
             Submit

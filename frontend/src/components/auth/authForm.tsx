@@ -302,7 +302,7 @@ export const AuthForm = () => {
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
               "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
-              userTypeError && "bg-gray-400 cursor-not-allowed"
+              userTypeError && "cursor-not-allowed"
             )}
           >
             {isLogin && isLoading ? "Loading..." : "Log in"}
@@ -317,7 +317,7 @@ export const AuthForm = () => {
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
               "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
-              userTypeError && "bg-gray-400 cursor-not-allowed"
+              userTypeError && "cursor-not-allowed"
             )}
           >
             {!isLogin && isLoading ? "Loading..." : "Sign up"}
