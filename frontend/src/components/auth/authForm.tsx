@@ -43,9 +43,7 @@ export const AuthForm = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/${
-          isLogin ? "login" : "signup"
-        }`,
+        `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/signup`,
         {
           method: "POST",
           headers: {
@@ -78,6 +76,7 @@ export const AuthForm = () => {
     },
 
     onSuccess: () => {
+      // TODO: redirect to dashboard
       console.log("success");
     },
 
