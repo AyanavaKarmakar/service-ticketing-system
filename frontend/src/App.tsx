@@ -1,6 +1,7 @@
 import { Navbar, AuthForm } from "./components";
 import { useSelector } from "react-redux";
 import { type RootState } from "./redux/store";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const { username } = useSelector((state: RootState) => state.userData);
@@ -11,6 +12,8 @@ const App = () => {
         <Navbar />
       </nav>
       <AuthForm />
+
+      <Toaster />
 
       {username !== "" && (
         <footer>

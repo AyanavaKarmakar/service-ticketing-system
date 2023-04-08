@@ -10,14 +10,11 @@ import { clsx } from "clsx";
 import { useState, useEffect } from "react";
 import { setUserData } from "../../redux/slice/userDataSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
 
 export const AuthForm = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState({
-    error: false,
-    message: "",
-  });
   const [authForm, setAuthForm] = useState({
     username: "",
     password: "",
@@ -77,20 +74,13 @@ export const AuthForm = () => {
         const result = await response.json();
 
         if ("error" in result && result.error === "username already exists") {
-          setIsError({
-            error: true,
-            message:
-              "Username already exists. Please choose a different username.",
-          });
+          toast.error("Username already exists!");
         }
       }
     },
 
     onError: () => {
-      setIsError({
-        error: true,
-        message: "Internal server error. Please try again later.",
-      });
+      toast.error("Interval server error. Please try again!");
     },
 
     onSettled: () => {
@@ -273,12 +263,6 @@ export const AuthForm = () => {
           </button>
         </FormPrimitive.Submit>
       </div>
-
-      {isError.error && (
-        <div className="text-red-500 text-lg font-semibold">
-          {isError.message}
-        </div>
-      )}
     </FormPrimitive.Root>
   );
 };

@@ -25,6 +25,9 @@ User Authentication, Customer Support Request Creation and Administration Action
 2. TypeScript
 3. Tailwind CSS
 4. Radix UI
+5. React Query
+6. Redux Toolkit
+7. React Hot Toast
 
 ---
 
