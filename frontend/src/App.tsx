@@ -1,10 +1,10 @@
-import { Navbar, SignupForm } from "./components";
+import { Navbar, AuthForm } from "./components";
 
 const App = () => {
   return (
     <>
       <Navbar />
-      <SignupForm />
+      <AuthForm />
     </>
   );
 };

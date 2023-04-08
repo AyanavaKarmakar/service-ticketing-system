@@ -1,2 +1,2 @@
-export { SignupForm } from "./auth/signupForm";
+export { AuthForm } from "./auth/authForm";
 export { Navbar } from "./shared/navbar";
