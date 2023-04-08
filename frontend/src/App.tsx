@@ -1,7 +1,12 @@
-import { Navbar } from "./components";
+import { Navbar, SignupForm } from "./components";
 
 const App = () => {
-  return <Navbar />;
+  return (
+    <>
+      <Navbar />
+      <SignupForm />
+    </>
+  );
 };
 
 export default App;
