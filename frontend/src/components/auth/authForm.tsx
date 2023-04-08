@@ -11,8 +11,10 @@ import { useState, useEffect } from "react";
 import { setUserData } from "../../redux/slice/userDataSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const AuthForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [authForm, setAuthForm] = useState({
@@ -71,6 +73,8 @@ export const AuthForm = () => {
                 userType: authForm.userType,
               })
             );
+
+            navigate(`/dashboard/${authForm.userType}`);
           }
         } else if (response.status === 400) {
           const result = await response.json();
@@ -109,6 +113,8 @@ export const AuthForm = () => {
                 userType: authForm.userType,
               })
             );
+
+            navigate(`/dashboard/${authForm.userType}`);
           }
         } else if (response.status === 400) {
           const result = await response.json();
