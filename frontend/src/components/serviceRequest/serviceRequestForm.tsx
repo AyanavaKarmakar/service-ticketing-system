@@ -6,7 +6,8 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import { clsx } from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Listbox } from "@headlessui/react";
 
 type ProductType =
   | "Select a product type"
@@ -21,7 +22,7 @@ type IssueType = {
 };
 
 const issueTypesMap: Record<ProductType, string[]> = {
-  "Select a product type": [],
+  "Select a product type": ["Select issue type"],
   "Mobile Phone": ["Broken Screen", "Faulty Camera", "Overheating Issue"],
   TV: ["Damaged Screen", "Discoloration Of Screen", "Adapter Issues"],
   Refrigerator: [
@@ -38,7 +39,10 @@ export const ServiceRequestForm = () => {
     "Select a product type"
   );
 
-  console.log(selectedProductType, selectedIssueTypes);
+  // Reset issue types when product type is changed
+  useEffect(() => {
+    setSelectedIssueTypes([]);
+  }, [selectedProductType]);
 
   return (
     <div className="flex flex-col gap-3 items-center justify-center mb-3">
@@ -65,7 +69,12 @@ export const ServiceRequestForm = () => {
                   type: value as ProductType,
                   value: issue,
                 }));
-                setSelectedIssueTypes(issueTypes);
+
+                if (value === "Select a product type") {
+                  setSelectedIssueTypes([]);
+                } else {
+                  setSelectedIssueTypes(issueTypes);
+                }
               }}
             >
               <SelectPrimitive.Trigger asChild aria-label="Product type">
@@ -124,6 +133,73 @@ export const ServiceRequestForm = () => {
           </FormPrimitive.Control>
         </FormPrimitive.Field>
 
+        <FormPrimitive.Field name="Issue Type">
+          <FormPrimitive.Label className="text-lg font-semibold text-black">
+            Issue Type
+          </FormPrimitive.Label>
+
+          <FormPrimitive.Control asChild>
+            <Listbox
+              value={selectedIssueTypes}
+              onChange={(newValues) => {
+                // Check if the selected option is already in the list of selectedIssueTypes
+                const index = selectedIssueTypes.findIndex(
+                  (issue) =>
+                    issue.type === newValues[newValues.length - 1].type &&
+                    issue.value === newValues[newValues.length - 1].value
+                );
+
+                if (index === -1) {
+                  // If the selected option is not already in the list, update the list
+                  setSelectedIssueTypes(newValues);
+                } else {
+                  // If the selected option is already in the list, remove it from the list
+                  setSelectedIssueTypes([
+                    ...selectedIssueTypes.slice(0, index),
+                    ...selectedIssueTypes.slice(index + 1),
+                  ]);
+                }
+              }}
+              multiple
+              as="div"
+              aria-labelledby="issue-type-label"
+            >
+              <Listbox.Label id="issue-type-label" className="sr-only">
+                Issue Type
+              </Listbox.Label>
+
+              <Listbox.Button className="w-full border border-gray-300 rounded-md py-3 px-32 text-base flex items-center justify-between">
+                {selectedIssueTypes.length === 0
+                  ? "Select issue type"
+                  : selectedIssueTypes.map((issue) => issue.value).join(", ")}
+              </Listbox.Button>
+
+              <Listbox.Options>
+                {issueTypesMap[selectedProductType].map((issue) => (
+                  <Listbox.Option
+                    className={clsx(
+                      "relative flex items-center px-8 py-2 m-3 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
+                      "border-2 border-solid border-gray-900",
+                      "focus:outline-none select-none cursor-pointer",
+                      selectedIssueTypes.some(
+                        (selected) =>
+                          selected.type === selectedProductType &&
+                          selected.value === issue
+                      )
+                        ? "bg-gray-200"
+                        : ""
+                    )}
+                    key={issue}
+                    value={{ type: selectedProductType, value: issue }}
+                  >
+                    {issue}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Listbox>
+          </FormPrimitive.Control>
+        </FormPrimitive.Field>
+
         <FormPrimitive.Field name="Issue Description">
           <FormPrimitive.Label className="text-lg font-semibold text-black">
             {"Issue Description (Optional)"}
@@ -153,7 +229,7 @@ export const ServiceRequestForm = () => {
 
         <FormPrimitive.Submit
           asChild
-          className="w-full bg-gray-800 text-white rounded-md py-3 px-12 text-base"
+          className="bg-gray-800 text-white rounded-md py-3 px-12 text-base"
         >
           <button
             className={clsx(
