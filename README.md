@@ -23,6 +23,8 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 1. React.js
 2. TypeScript
+3. Tailwind CSS
+4. Radix UI
 
 ---
 
@@ -61,4 +63,16 @@ The server will start running on port `3000`
 ```bash
 cd frontend
 npm install
+```
+
+2. Create a .env file in the root directory of the frontend folder and add the following environment variables
+
+```bash
+REACT_APP_API_URL=http://localhost:3000
+```
+
+3. Run the server
+
+```bash
+npm run dev
 ```
