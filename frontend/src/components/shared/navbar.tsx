@@ -27,8 +27,10 @@ export const Navbar = () => {
 
         <NavigationMenuPrimitive.Item className="absolute right-2 top-0 pt-3">
           <NavigationMenuPrimitive.Trigger
-            // TODO: return to auth page
-            onClick={() => localStorage.removeItem("token")}
+            onClick={() => {
+              localStorage.removeItem("token");
+              location.assign("/");
+            }}
             className="hover:bg-gray-100 text-gray-700 px-3 py-2 border-2 border-solid border-black rounded-md text-sm lg:text-xl font-bold"
           >
             Log out

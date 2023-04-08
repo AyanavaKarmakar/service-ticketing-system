@@ -8,8 +8,11 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { useMutation } from "@tanstack/react-query";
 import { clsx } from "clsx";
 import { useState, useEffect } from "react";
+import { setUserData } from "../../redux/slice/userDataSlice";
+import { useDispatch } from "react-redux";
 
 export const AuthForm = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState({
     error: false,
@@ -59,11 +62,16 @@ export const AuthForm = () => {
       if (response.status === 200) {
         const result = await response.json();
 
-        console.log(result);
-
-        if ("token" in result && "username" in result && "userType" in result) {
+        if ("token" in result) {
           localStorage.setItem("token", result.token);
-          console.log(localStorage.getItem("token"));
+
+          // set the user data in the redux store
+          dispatch(
+            setUserData({
+              username: authForm.username,
+              userType: authForm.userType,
+            })
+          );
         }
       } else if (response.status === 400) {
         const result = await response.json();

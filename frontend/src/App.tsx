@@ -1,7 +1,9 @@
 import { Navbar, AuthForm } from "./components";
+import { useSelector } from "react-redux";
+import { type RootState } from "./redux/store";
 
 const App = () => {
-  console.log(localStorage.getItem("token"));
+  const { username } = useSelector((state: RootState) => state.userData);
 
   return (
     <main>
@@ -10,11 +12,13 @@ const App = () => {
       </nav>
       <AuthForm />
 
-      <footer>
-        <p className="text-center text-base text-black font-medium">
-          Logged in as username
-        </p>
-      </footer>
+      {username !== "" && (
+        <footer>
+          <p className="text-center text-base text-black font-medium">
+            Logged in as {username}
+          </p>
+        </footer>
+      )}
     </main>
   );
 };
