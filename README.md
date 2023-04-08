@@ -8,7 +8,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Log in / Sign up Form
 
-![image](https://user-images.githubusercontent.com/89210438/230733483-bbbfca7d-0b2f-4dff-b498-489d9ce9d82e.png)
+![image](https://user-images.githubusercontent.com/89210438/230742023-a5e04ce1-9a96-4d7d-a84f-d9436fc1e5ba.png)
 
 ---
 
