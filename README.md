@@ -68,7 +68,7 @@ npm install
 2. Create a .env file in the root directory of the frontend folder and add the following environment variables
 
 ```bash
-VITE_API_URL=http://localhost:3000
+REACT_APP_API_URL=http://localhost:3000
 ```
 
 3. Run the server

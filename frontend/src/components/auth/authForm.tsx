@@ -5,12 +5,10 @@ import {
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useMutation } from "@tanstack/react-query";
 import { clsx } from "clsx";
 import { useState, useEffect } from "react";
 
 export const AuthForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [authForm, setAuthForm] = useState({
     username: "",
     password: "",
@@ -32,57 +30,13 @@ export const AuthForm = () => {
     };
   }, [authForm.userType]);
 
-  const auth = useMutation({
-    mutationKey: ["auth"],
-
-    mutationFn: async () => {
-      setIsLoading(true);
-
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/auth/${authForm.userType.toLowerCase()}/${
-          isLogin ? "login" : "signup"
-        }`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: authForm.username,
-            password: authForm.password,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const result: { token: string } = await response.json();
-
-        if ("token" in result) {
-          localStorage.setItem("token", result.token);
-        }
-      }
-    },
-
-    onSuccess: () => {
-      console.log("success");
-    },
-
-    onError: (error) => {
-      console.log(error);
-    },
-
-    onSettled: () => {
-      setIsLoading(false);
-    },
-  });
-
   return (
     <FormPrimitive.Root
       onSubmit={(e) => {
         e.preventDefault();
-        auth.mutate();
+        console.log("submit");
+        console.log(authForm);
+        console.log(isLogin);
       }}
       className="flex flex-col space-y-4 items-center justify-center m-5"
     >
@@ -234,7 +188,7 @@ export const AuthForm = () => {
               userTypeError && "bg-gray-400 cursor-not-allowed"
             )}
           >
-            {isLogin && isLoading ? "Loading..." : "Log in"}
+            Log in
           </button>
         </FormPrimitive.Submit>
 
@@ -249,7 +203,7 @@ export const AuthForm = () => {
               userTypeError && "bg-gray-400 cursor-not-allowed"
             )}
           >
-            {!isLogin && isLoading ? "Loading..." : "Sign up"}
+            Sign up
           </button>
         </FormPrimitive.Submit>
       </div>
