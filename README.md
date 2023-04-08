@@ -29,6 +29,8 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ### Frontend
 
+- [Live Site](https://service-ticketing-system.vercel.app/) deployed on [Vercel](https://vercel.com/)
+
 1. React.js
 2. TypeScript
 3. Tailwind CSS
