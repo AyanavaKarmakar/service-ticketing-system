@@ -59,8 +59,11 @@ export const AuthForm = () => {
       if (response.status === 200) {
         const result = await response.json();
 
-        if ("token" in result) {
+        console.log(result);
+
+        if ("token" in result && "username" in result && "userType" in result) {
           localStorage.setItem("token", result.token);
+          console.log(localStorage.getItem("token"));
         }
       } else if (response.status === 400) {
         const result = await response.json();
@@ -73,11 +76,6 @@ export const AuthForm = () => {
           });
         }
       }
-    },
-
-    onSuccess: () => {
-      // TODO: redirect to dashboard
-      console.log("success");
     },
 
     onError: () => {

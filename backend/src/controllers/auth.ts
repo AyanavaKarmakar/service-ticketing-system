@@ -19,8 +19,6 @@ export const CustomerSignup = async (req: Request, res: Response) => {
     await customer.save();
     const token = customer.generateAuthToken();
     return res.status(200).json({
-      username: customer.username,
-      userType: customer.userType,
       token,
     });
   } catch (error: any) {
@@ -48,8 +46,6 @@ export const CustomerLogin = async (req: Request, res: Response) => {
     // generate & return token
     const token = customer.generateAuthToken();
     return res.status(200).json({
-      username: customer.username,
-      userType: customer.userType,
       token,
     });
   } catch (error: any) {
@@ -72,13 +68,9 @@ export const EmployeeSignup = async (req: Request, res: Response) => {
     const employee = new Employee({ username, password });
     await employee.save();
     const token = employee.generateAuthToken();
-    return res
-      .status(200)
-      .json({
-        username: employee.username,
-        userType: employee.userType,
-        token,
-      });
+    return res.status(200).json({
+      token,
+    });
   } catch (error: any) {
     return res.status(400).json({ error: error.message });
   }
@@ -104,8 +96,6 @@ export const EmployeeLogin = async (req: Request, res: Response) => {
     // generate & return token
     const token = employee.generateAuthToken();
     return res.status(200).json({
-      username: employee.username,
-      userType: employee.userType,
       token,
     });
   } catch (error: any) {
