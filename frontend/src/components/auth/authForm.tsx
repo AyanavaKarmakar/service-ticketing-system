@@ -42,39 +42,83 @@ export const AuthForm = () => {
     mutationFn: async () => {
       setIsLoading(true);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: authForm.username,
-            password: authForm.password,
-          }),
-        }
-      );
-
-      if (response.status === 200) {
-        const result = await response.json();
-
-        if ("token" in result) {
-          localStorage.setItem("token", result.token);
-
-          // set the user data in the redux store
-          dispatch(
-            setUserData({
+      // if the user is signing up
+      if (!isLogin) {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/signup`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
               username: authForm.username,
-              userType: authForm.userType,
-            })
-          );
-        }
-      } else if (response.status === 400) {
-        const result = await response.json();
+              password: authForm.password,
+            }),
+          }
+        );
 
-        if ("error" in result && result.error === "username already exists") {
-          toast.error("Username already exists!");
+        if (response.status === 200) {
+          const result = await response.json();
+
+          if ("token" in result) {
+            localStorage.setItem("token", result.token);
+
+            // set the user data in the redux store
+            dispatch(
+              setUserData({
+                username: authForm.username,
+                userType: authForm.userType,
+              })
+            );
+          }
+        } else if (response.status === 400) {
+          const result = await response.json();
+
+          if ("error" in result && result.error === "username already exists") {
+            toast.error("Username already exists!");
+          }
+        }
+      }
+      // if the user is logging in
+      else {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: authForm.username,
+              password: authForm.password,
+            }),
+          }
+        );
+
+        if (response.status === 200) {
+          const result = await response.json();
+
+          if ("token" in result) {
+            localStorage.setItem("token", result.token);
+
+            // set the user data in the redux store
+            dispatch(
+              setUserData({
+                username: authForm.username,
+                userType: authForm.userType,
+              })
+            );
+          }
+        } else if (response.status === 400) {
+          const result = await response.json();
+
+          if (
+            "error" in result &&
+            result.error === "invalid username or password"
+          ) {
+            toast.error("Invalid credentials!");
+          }
         }
       }
     },
