@@ -1,8 +1,22 @@
 import { useSelector } from "react-redux";
 import { type RootState } from "../../redux/store";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Footer = () => {
-  const { username } = useSelector((state: RootState) => state.userData);
+  const { username, userType } = useSelector(
+    (state: RootState) => state.userData
+  );
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // redirect to home, if user is not logged in or in the wrong dashboard
+    if (location.pathname !== `/dashboard/${userType}`) {
+      navigate("/");
+    }
+  }, [location.pathname]);
 
   return (
     <>
