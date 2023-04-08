@@ -34,6 +34,33 @@ export const SignupForm = () => {
         </FormPrimitive.Message>
       </FormPrimitive.Field>
 
+      <FormPrimitive.Field
+        className="flex flex-col space-y-2 items-start"
+        name="password"
+      >
+        <div className="font-semibold text-lg">
+          <FormPrimitive.Label className="w-full text-left">
+            Password
+          </FormPrimitive.Label>
+        </div>
+
+        <FormPrimitive.Control asChild>
+          <input
+            className="w-full border border-gray-300 rounded-md p-3 text-lg"
+            type="password"
+            placeholder="********"
+            required
+          />
+        </FormPrimitive.Control>
+
+        <FormPrimitive.Message
+          className="text-sm font-medium text-red-500"
+          match="valueMissing"
+        >
+          Please enter your password!
+        </FormPrimitive.Message>
+      </FormPrimitive.Field>
+
       <FormPrimitive.Submit asChild>
         <button
           type="submit"
