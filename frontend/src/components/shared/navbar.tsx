@@ -1,7 +1,11 @@
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { clsx } from "clsx";
+import { useSelector } from "react-redux";
+import { type RootState } from "../../redux/store";
 
 export const Navbar = () => {
+  const { username } = useSelector((state: RootState) => state.userData);
+
   return (
     <NavigationMenuPrimitive.Root className="relative">
       <NavigationMenuPrimitive.List
@@ -25,17 +29,19 @@ export const Navbar = () => {
           </NavigationMenuPrimitive.Trigger>
         </NavigationMenuPrimitive.Item>
 
-        <NavigationMenuPrimitive.Item className="absolute right-2 top-0 pt-3">
-          <NavigationMenuPrimitive.Trigger
-            onClick={() => {
-              localStorage.removeItem("token");
-              location.assign("/");
-            }}
-            className="hover:bg-gray-100 text-gray-700 px-3 py-2 border-2 border-solid border-black rounded-md text-sm lg:text-xl font-bold"
-          >
-            Log out
-          </NavigationMenuPrimitive.Trigger>
-        </NavigationMenuPrimitive.Item>
+        {username !== "" && (
+          <NavigationMenuPrimitive.Item className="absolute right-2 top-0 pt-3">
+            <NavigationMenuPrimitive.Trigger
+              onClick={() => {
+                localStorage.removeItem("token");
+                location.assign("/");
+              }}
+              className="hover:bg-gray-100 text-gray-700 px-3 py-2 border-2 border-solid border-black rounded-md text-sm lg:text-xl font-bold"
+            >
+              Log out
+            </NavigationMenuPrimitive.Trigger>
+          </NavigationMenuPrimitive.Item>
+        )}
       </NavigationMenuPrimitive.List>
     </NavigationMenuPrimitive.Root>
   );
