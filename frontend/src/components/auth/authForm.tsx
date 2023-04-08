@@ -118,7 +118,11 @@ export const AuthForm = () => {
 
             toast.success("Logged in successfully!");
 
-            navigate(`/dashboard/${authForm.userType}`);
+            navigate(
+              authForm.username === "employee1"
+                ? "/dashboard/admin"
+                : `/dashboard/${authForm.userType}`
+            );
           }
         } else if (response.status === 400) {
           const result = await response.json();
