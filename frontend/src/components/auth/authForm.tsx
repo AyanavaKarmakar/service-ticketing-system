@@ -11,6 +11,10 @@ import { useState, useEffect } from "react";
 
 export const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState({
+    error: false,
+    message: "",
+  });
   const [authForm, setAuthForm] = useState({
     username: "",
     password: "",
@@ -39,9 +43,7 @@ export const AuthForm = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        `${
-          import.meta.env.VITE_API_URL
-        }/auth/${authForm.userType.toLowerCase()}/${
+        `${import.meta.env.VITE_API_URL}/auth/${authForm.userType}/${
           isLogin ? "login" : "signup"
         }`,
         {
@@ -56,11 +58,21 @@ export const AuthForm = () => {
         }
       );
 
-      if (response.ok) {
-        const result: { token: string } = await response.json();
+      if (response.status === 200) {
+        const result = await response.json();
 
         if ("token" in result) {
           localStorage.setItem("token", result.token);
+        }
+      } else if (response.status === 400) {
+        const result = await response.json();
+
+        if ("error" in result && result.error === "username already exists") {
+          setIsError({
+            error: true,
+            message:
+              "Username already exists. Please choose a different username.",
+          });
         }
       }
     },
@@ -69,8 +81,11 @@ export const AuthForm = () => {
       console.log("success");
     },
 
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
+      setIsError({
+        error: true,
+        message: "Internal server error. Please try again later.",
+      });
     },
 
     onSettled: () => {
@@ -253,6 +268,12 @@ export const AuthForm = () => {
           </button>
         </FormPrimitive.Submit>
       </div>
+
+      {isError.error && (
+        <div className="text-red-500 text-lg font-semibold">
+          {isError.message}
+        </div>
+      )}
     </FormPrimitive.Root>
   );
 };
