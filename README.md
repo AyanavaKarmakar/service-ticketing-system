@@ -4,6 +4,14 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ---
 
+## Screenshots
+
+- Log in / Sign up Form
+
+![image](https://user-images.githubusercontent.com/89210438/230730331-967d3f5f-dcf0-4f1f-90e4-33f636164046.png)
+
+---
+
 ## Technologies Used
 
 ### Backend
