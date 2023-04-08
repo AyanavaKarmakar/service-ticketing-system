@@ -18,6 +18,9 @@ export const SignupForm = () => {
     authForm.userType === "Select a user type"
   );
 
+  // determines if the user is logging in or signing up
+  const [isLogin, setIsLogin] = useState(true);
+
   // handles the user type error
   useEffect(() => {
     setUserTypeError(authForm.userType === "Select a user type");
@@ -33,6 +36,7 @@ export const SignupForm = () => {
         e.preventDefault();
         console.log("submit");
         console.log(authForm);
+        console.log(isLogin);
       }}
       className="flex flex-col space-y-4 items-center justify-center m-5"
     >
@@ -172,11 +176,12 @@ export const SignupForm = () => {
         )}
       </FormPrimitive.Field>
 
-      <FormPrimitive.Submit asChild>
-        <div className="flex flex-row gap-x-5">
+      <div className="flex flex-row gap-x-5">
+        <FormPrimitive.Submit asChild name="login">
           <button
             type="submit"
             disabled={userTypeError}
+            onClick={() => setIsLogin(true)}
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
               "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
@@ -185,10 +190,13 @@ export const SignupForm = () => {
           >
             Log in
           </button>
+        </FormPrimitive.Submit>
 
+        <FormPrimitive.Submit asChild name="signup">
           <button
             type="submit"
             disabled={userTypeError}
+            onClick={() => setIsLogin(false)}
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
               "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
@@ -197,8 +205,8 @@ export const SignupForm = () => {
           >
             Sign up
           </button>
-        </div>
-      </FormPrimitive.Submit>
+        </FormPrimitive.Submit>
+      </div>
     </FormPrimitive.Root>
   );
 };
