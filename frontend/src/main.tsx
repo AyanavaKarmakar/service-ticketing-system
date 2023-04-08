@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
-import { Footer, Navbar } from "./components";
+import { Footer, Navbar, ServiceRequestForm } from "./components";
 import { Toaster } from "react-hot-toast";
 
 import "./index.css";
@@ -22,7 +22,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard/customer",
-    element: <Footer />,
+    element: (
+      <>
+        <ServiceRequestForm />
+        <Footer />
+      </>
+    ),
   },
   {
     path: "/dashboard/employee",
