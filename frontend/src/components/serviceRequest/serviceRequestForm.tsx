@@ -8,6 +8,8 @@ import {
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { Listbox } from "@headlessui/react";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 type ProductType =
   | "Select a product type"
@@ -41,6 +43,7 @@ type RequestFormType = {
 };
 
 export const ServiceRequestForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [selectedIssueTypes, setSelectedIssueTypes] = useState<IssueType[]>([]);
   const [selectedProductType, setSelectedProductType] = useState<ProductType>(
@@ -52,8 +55,6 @@ export const ServiceRequestForm = () => {
     issueType: [...selectedIssueTypes.map((issue) => issue.value)],
     policyUpload: "",
   });
-
-  console.log(requestForm);
 
   // validated request form
   useEffect(() => {
@@ -81,15 +82,54 @@ export const ServiceRequestForm = () => {
     });
   }, [selectedIssueTypes]);
 
+  const sendForm = useMutation({
+    mutationKey: ["sendForm"],
+
+    mutationFn: async () => {
+      setIsLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/customer/requestform`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestForm),
+        }
+      );
+
+      if (response.status === 201) {
+        toast.success(
+          "Your request has been successfully submitted! A customer care executive will be in touch with you soon."
+        );
+      } else {
+        toast.error("Interval server error. Please try again!");
+      }
+    },
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+
+    onSettled: () => {
+      setIsLoading(false);
+    },
+  });
+
   return (
     <div className="flex flex-col h-[calc(100vh-150px)] gap-3 items-center justify-center mb-3">
       <div className="font-bold text-3xl underline pb-5 text-black">
-        New Request Form
+        Request Form
       </div>
 
       <FormPrimitive.Root
         className="flex flex-col gap-y-3 justify-center items-center"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendForm.mutate();
+        }}
       >
         <FormPrimitive.Field name="Product type">
           <FormPrimitive.Label className="text-lg font-semibold text-black">
@@ -294,7 +334,7 @@ export const ServiceRequestForm = () => {
               isError && "cursor-not-allowed"
             )}
           >
-            Submit
+            {isLoading ? "Loading..." : "Submit"}
           </button>
         </FormPrimitive.Submit>
       </FormPrimitive.Root>
