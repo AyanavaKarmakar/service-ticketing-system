@@ -74,6 +74,8 @@ export const AuthForm = () => {
               })
             );
 
+            toast.success("Logged in successfully!");
+
             navigate(`/dashboard/${authForm.userType}`);
           }
         } else if (response.status === 400) {
@@ -113,6 +115,8 @@ export const AuthForm = () => {
                 userType: authForm.userType,
               })
             );
+
+            toast.success("Logged in successfully!");
 
             navigate(`/dashboard/${authForm.userType}`);
           }
