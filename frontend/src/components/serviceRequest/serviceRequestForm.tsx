@@ -45,8 +45,8 @@ export const ServiceRequestForm = () => {
   }, [selectedProductType]);
 
   return (
-    <div className="flex flex-col gap-3 items-center justify-center mb-3">
-      <div className="font-bold text-3xl underline text-black">
+    <div className="flex flex-col h-[calc(100vh-150px)] gap-3 items-center justify-center mb-3">
+      <div className="font-bold text-3xl underline pb-5 text-black">
         New Request Form
       </div>
 
@@ -80,7 +80,7 @@ export const ServiceRequestForm = () => {
               <SelectPrimitive.Trigger asChild aria-label="Product type">
                 <button
                   type="button"
-                  className="w-full border border-gray-300 rounded-md py-3 px-40 text-base flex items-center justify-between"
+                  className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-5 text-base flex items-center justify-between"
                 >
                   <SelectPrimitive.Value />
                   <SelectPrimitive.Icon className="ml-2">
@@ -168,7 +168,7 @@ export const ServiceRequestForm = () => {
                 Issue Type
               </Listbox.Label>
 
-              <Listbox.Button className="w-full border border-gray-300 rounded-md py-3 px-32 text-base flex items-center justify-between">
+              <Listbox.Button className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base flex items-center justify-between">
                 {selectedIssueTypes.length === 0
                   ? "Select issue type"
                   : selectedIssueTypes.map((issue) => issue.value).join(", ")}
@@ -185,9 +185,7 @@ export const ServiceRequestForm = () => {
                         (selected) =>
                           selected.type === selectedProductType &&
                           selected.value === issue
-                      )
-                        ? "bg-gray-200"
-                        : ""
+                      ) && "bg-gray-200"
                     )}
                     key={issue}
                     value={{ type: selectedProductType, value: issue }}
@@ -200,20 +198,26 @@ export const ServiceRequestForm = () => {
           </FormPrimitive.Control>
         </FormPrimitive.Field>
 
-        <FormPrimitive.Field name="Issue Description">
+        <FormPrimitive.Field
+          name="Issue Description"
+          className="max-w-sm w-80 lg:max-w-md lg:w-96"
+        >
           <FormPrimitive.Label className="text-lg font-semibold text-black">
             {"Issue Description (Optional)"}
           </FormPrimitive.Label>
 
           <FormPrimitive.Control asChild>
             <textarea
-              className="w-full border border-gray-300 rounded-md py-3 px-12 text-base"
+              className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base"
               placeholder="Describe your issue"
             />
           </FormPrimitive.Control>
         </FormPrimitive.Field>
 
-        <FormPrimitive.Field name="Policy Upload">
+        <FormPrimitive.Field
+          name="Policy Upload"
+          className="max-w-sm w-80 lg:max-w-md lg:w-96"
+        >
           <FormPrimitive.Label className="text-lg font-semibold text-black">
             Policy Upload
           </FormPrimitive.Label>
@@ -221,7 +225,7 @@ export const ServiceRequestForm = () => {
           <FormPrimitive.Control asChild>
             <input
               type="text"
-              className="w-full border border-gray-300 rounded-md py-3 px-12 text-base"
+              className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base"
               placeholder="Upload your policy"
             />
           </FormPrimitive.Control>
@@ -229,7 +233,7 @@ export const ServiceRequestForm = () => {
 
         <FormPrimitive.Submit
           asChild
-          className="bg-gray-800 text-white rounded-md py-3 px-12 text-base"
+          className="bg-gray-800 text-white rounded-md py-2.5 px-12 text-base mt-3"
         >
           <button
             className={clsx(

@@ -159,7 +159,7 @@ export const AuthForm = () => {
         name="username"
       >
         <div className="font-semibold text-lg">
-          <FormPrimitive.Label className="w-full text-left">
+          <FormPrimitive.Label className="max-w-sm w-80 lg:max-w-md lg:w-96 text-left">
             Username
           </FormPrimitive.Label>
         </div>
@@ -174,7 +174,7 @@ export const AuthForm = () => {
           }
         >
           <input
-            className="w-full border border-gray-300 rounded-md p-3 text-lg"
+            className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md p-3 text-lg"
             type="text"
             placeholder="johndoe"
             required
@@ -190,7 +190,7 @@ export const AuthForm = () => {
       </FormPrimitive.Field>
 
       <FormPrimitive.Field
-        className="flex flex-col space-y-2 items-start"
+        className="flex flex-col space-y-2 items-start max-w-sm w-80 lg:max-w-md lg:w-96"
         name="password"
       >
         <div className="font-semibold text-lg">
@@ -209,7 +209,7 @@ export const AuthForm = () => {
           }
         >
           <input
-            className="w-full border border-gray-300 rounded-md p-3 text-lg"
+            className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md p-3 text-lg"
             type="password"
             placeholder="********"
             required
@@ -224,7 +224,10 @@ export const AuthForm = () => {
         </FormPrimitive.Message>
       </FormPrimitive.Field>
 
-      <FormPrimitive.Field name="user-type">
+      <FormPrimitive.Field
+        name="user-type"
+        className="max-w-sm w-80 lg:max-w-md lg:w-96"
+      >
         <FormPrimitive.Control asChild>
           <SelectPrimitive.Root
             defaultValue="Select user type"
@@ -235,7 +238,7 @@ export const AuthForm = () => {
             <SelectPrimitive.Trigger asChild aria-label="User type">
               <button
                 type="button"
-                className="w-full border border-gray-300 rounded-md py-3 px-12 text-base flex items-center justify-between"
+                className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-12 text-base flex items-center justify-between"
               >
                 <SelectPrimitive.Value />
                 <SelectPrimitive.Icon className="ml-2">
@@ -284,7 +287,7 @@ export const AuthForm = () => {
         </FormPrimitive.Control>
 
         {userTypeError && (
-          <FormPrimitive.Message className="text-sm font-medium text-red-500">
+          <FormPrimitive.Message className="flex text-center justify-center py-1 text-sm font-medium text-red-500">
             Are you a customer or an employee?
           </FormPrimitive.Message>
         )}
