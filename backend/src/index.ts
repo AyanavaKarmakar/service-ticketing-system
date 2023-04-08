@@ -9,6 +9,17 @@ import { TasksRouter } from "./routes/tasks";
 const app = express();
 app.use(json());
 
+// enable CORS
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // Routes
 
 app.use("/welcome/api", (req: Request, res: Response) => {
