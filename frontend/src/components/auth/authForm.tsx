@@ -138,7 +138,7 @@ export const AuthForm = () => {
         e.preventDefault();
         auth.mutate();
       }}
-      className="flex flex-col space-y-4 items-center justify-center m-5"
+      className="flex min-h-[calc(100vh-250px)] flex-col space-y-4 items-center justify-center m-5"
     >
       <FormPrimitive.Field
         className="flex flex-col space-y-2 items-start"
