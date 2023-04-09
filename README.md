@@ -10,6 +10,10 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ![image](https://user-images.githubusercontent.com/89210438/230742023-a5e04ce1-9a96-4d7d-a84f-d9436fc1e5ba.png)
 
+- Customer Dashboard
+
+![image](https://user-images.githubusercontent.com/89210438/230783633-1b843570-c69e-404e-bf67-dfc0452b494c.png)
+
 ---
 
 ## Technologies Used
