@@ -19,7 +19,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 - [Live API](https://service-ticketing-system-api.onrender.com/welcome/api) deployed on [Render](https://render.com/)
 - [Docs](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
 
-![image](https://user-images.githubusercontent.com/89210438/230660293-1a87f187-0437-47c5-bc05-386bf78e04ac.png)
+![image](https://user-images.githubusercontent.com/89210438/230775322-b8035698-4be7-42a3-87c2-f896dfeef512.png)
 
 1. NodeJS
 2. ExpressJS
