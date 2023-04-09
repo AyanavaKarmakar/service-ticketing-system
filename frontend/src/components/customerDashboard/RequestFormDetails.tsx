@@ -39,51 +39,81 @@ export const RequestFormDetails = () => {
   });
 
   return (
-    <div className="flex flex-col h-[calc(100vh-150px)] items-center justify-center">
-      <div className="text-xl lg:text-4xl text-black font-bold p-5">
+    <div className="flex flex-col min-h-screen items-center justify-center">
+      <div className="mt-3 text-xl lg:text-4xl text-black font-bold p-5">
         Request Form Details
       </div>
 
-      <div className="flex p-5 lg:p-3 flex-col text-lg lg:text-xl text-left gap-y-1">
+      <div className="flex p-5 lg:p-3 flex-col text-lg lg:text-xl text-left gap-y-2">
         <div>
-          <span className="text-xl lg:text-2xl font-semibold">
+          <div className="text-xl lg:text-2xl font-semibold">
             {"Product Type: "}
-          </span>
+          </div>
           {getFormDetails.data?.productType}
         </div>
 
         <>
-          <span className="text-xl lg:text-2xl font-semibold">
+          <div className="text-xl lg:text-2xl font-semibold">
             {"Issue Type: "}
-          </span>
+          </div>
           {getFormDetails.data?.issueType.join(", ")}
         </>
 
         <>
-          <span className="text-xl lg:text-2xl font-semibold">
+          <div className="text-xl lg:text-2xl font-semibold">
             {"Issue Description: "}
-          </span>
+          </div>
           {getFormDetails.data?.issueDescription ?? "Description not provided"}
         </>
 
         <>
-          <span className="text-xl lg:text-2xl font-semibold">
+          <div className="text-xl lg:text-2xl font-semibold">
             {"Policy Upload: "}
-          </span>
-          {getFormDetails.data?.policyUpload}
+          </div>
+
+          {/** For docx/doc files */}
+          {(getFormDetails.data?.policyUpload.toLowerCase().endsWith(".docx") ||
+            getFormDetails.data?.policyUpload
+              .toLowerCase()
+              .endsWith(".doc")) && <></>}
+
+          {/** For pdf files */}
+          {getFormDetails.data?.policyUpload.toLowerCase().endsWith(".pdf") && (
+            <embed
+              src={`${import.meta.env.VITE_API_URL}/${
+                getFormDetails.data?.policyUpload
+              }`}
+              type="application/pdf"
+              width="100%"
+              height="100%"
+            />
+          )}
+
+          {/** For image files */}
+          {(getFormDetails.data?.policyUpload.toLowerCase().endsWith(".png") ||
+            getFormDetails.data?.policyUpload
+              .toLowerCase()
+              .endsWith(".jpg")) && (
+            <img
+              src={`${import.meta.env.VITE_API_URL}/${
+                getFormDetails.data?.policyUpload
+              }`}
+              alt="Policy Upload"
+              width="75%"
+              height="75%"
+            />
+          )}
         </>
 
         <>
-          <span className="font-semibold text-xl lg:text-2xl">
-            {"State of Submission: "}
-          </span>
+          <div className="font-semibold text-xl lg:text-2xl">
+            {"Date of Submission: "}
+          </div>
           {new Date(getFormDetails.data?.dateOfSubmission).toLocaleDateString()}
         </>
 
         <>
-          <span className="text-xl lg:text-2xl font-semibold">
-            {"Status: "}
-          </span>
+          <div className="text-xl lg:text-2xl font-semibold">{"Status: "}</div>
           {getFormDetails.data?.status}
         </>
       </div>
@@ -92,7 +122,7 @@ export const RequestFormDetails = () => {
         type="button"
         onClick={() => navigate("/dashboard/customer")}
         className={clsx(
-          "py-2.5 px-5 m-3 bg-gray-900 text-xl text-white font-semibold rounded-md",
+          "py-2.5 px-5 mb-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
           "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
         )}
       >

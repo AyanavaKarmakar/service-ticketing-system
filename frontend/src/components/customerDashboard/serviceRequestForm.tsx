@@ -132,7 +132,7 @@ export const ServiceRequestForm = () => {
   });
 
   return (
-    <div className="flex flex-col h-[calc(100vh-150px)] gap-3 items-center justify-center mb-3">
+    <div className="flex flex-col min-h-screen gap-3 items-center justify-center mb-3">
       <div className="text-xl lg:text-4xl text-black font-bold pb-5">
         Request Form
       </div>
