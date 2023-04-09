@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Sora", sans-serif;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    scroll-behavior: smooth;
+  }
+}
