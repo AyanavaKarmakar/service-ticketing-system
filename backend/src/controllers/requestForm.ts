@@ -30,3 +30,40 @@ export const requestForm = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+// GET /customer/requestform
+export const getCustomerRequestForms = async (req: Request, res: Response) => {
+  try {
+    const customer = req.customer as ICustomer & ICustomerDocument;
+
+    const requestForms = await RequestForm.find({ customer: customer._id });
+
+    res.status(200).json({ requestForms });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// GER /customer/requestform/:id
+export const getCustomerRequestFormById = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const customer = req.customer as ICustomer & ICustomerDocument;
+    const { id } = req.params;
+
+    const requestForm = await RequestForm.findOne({
+      customer: customer._id,
+      _id: id,
+    });
+
+    if (!requestForm) {
+      return res.status(404).json({ error: "Request Form not found" });
+    }
+
+    res.status(200).json({ requestForm });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
