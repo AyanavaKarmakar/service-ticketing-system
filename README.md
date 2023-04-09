@@ -14,6 +14,10 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ![image](https://user-images.githubusercontent.com/89210438/230783795-14162435-17e0-4d82-a4de-4a2ec2b74983.png)
 
+- New Service Request Form
+
+![image](https://user-images.githubusercontent.com/89210438/230793841-c00fb369-beea-4515-95a8-9cc532908541.png)
+
 ---
 
 ## Technologies Used
