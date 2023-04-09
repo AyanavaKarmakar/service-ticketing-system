@@ -28,7 +28,7 @@ const dummyData: RequestForm[] = [
 
 export const RequestsTable = () => {
   return (
-    <div className="p-6 lg:text-xl text-sm">
+    <div className="p-6 lg:text-xl text-xs overflow-x-auto">
       <table className="table-auto border-x border-b">
         <thead>
           <tr>
