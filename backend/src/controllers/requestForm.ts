@@ -44,7 +44,7 @@ export const getCustomerRequestForms = async (req: Request, res: Response) => {
   }
 };
 
-// GER /customer/requestform/:id
+// GET /customer/requestform/:id
 export const getCustomerRequestFormById = async (
   req: Request,
   res: Response
