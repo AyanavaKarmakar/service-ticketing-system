@@ -1,10 +1,13 @@
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 export const RequestsTable = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const GetRequestForms = useQuery({
     queryKey: ["requestForms"],
@@ -105,8 +108,17 @@ export const RequestsTable = () => {
                   {key === "issueType" ? data[key].join(", ") : data[key]}
                 </td>
               ))}
-              <td className="p-1 lg:p-2 border-b border-l text-left">
-                Details
+              <td
+                onClick={() =>
+                  navigate("/dashboard/customer/formdetails", {
+                    state: {
+                      requestFormId: data._id,
+                    },
+                  })
+                }
+                className="hover:text-blue-600 p-1 lg:p-2 mt-2 border-b border-l text-center flex items-center justify-center"
+              >
+                <ArrowTopRightIcon className="lg:w-5 lg:h-5" />
               </td>
             </tr>
           ))}

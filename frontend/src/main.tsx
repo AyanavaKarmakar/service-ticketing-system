@@ -17,6 +17,7 @@ import {
 } from "./components";
 
 import "./index.css";
+import { RequestFormDetails } from "./components/customerDashboard/RequestFormDetails";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <ServiceRequestForm />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/customer/formdetails",
+    element: (
+      <>
+        <RequestFormDetails />
         <Footer />
       </>
     ),
