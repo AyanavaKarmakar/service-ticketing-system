@@ -12,6 +12,10 @@ export const Footer = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (username === "") {
+      navigate("/");
+    }
+
     // redirect to home, if user is not logged in or in the wrong dashboard
     if (
       (username === "employee1" &&
@@ -35,7 +39,7 @@ export const Footer = () => {
       {username !== "" && (
         <footer>
           <p className="text-center text-base text-black font-medium">
-            Logged in as{" "}
+            {"Logged in as "}
             <span className="font-semibold underline">{username}</span>
           </p>
         </footer>
