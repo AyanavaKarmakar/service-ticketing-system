@@ -7,12 +7,18 @@ import type { ICustomer, ICustomerDocument } from "../models/customer";
 // POST /customer/requestform
 export const requestForm = async (req: Request, res: Response) => {
   try {
-    const { productType, issueType, issueDescription, policyUpload } = req.body;
+    const { productType, issueType, issueDescription } = req.body;
     const customer = req.customer as ICustomer & ICustomerDocument;
 
     // Check if all the mandatory fields are present
-    if (!productType || !issueType || !policyUpload) {
+    if (!productType || !issueType) {
       return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Check if policyUpload is present and valid
+    const policyUpload = req.file;
+    if (!policyUpload) {
+      return res.status(400).json({ error: "Policy document is required" });
     }
 
     const newRequestForm = new RequestForm({
@@ -20,7 +26,7 @@ export const requestForm = async (req: Request, res: Response) => {
       productType,
       issueType,
       issueDescription,
-      policyUpload,
+      policyUpload: policyUpload.path,
     });
 
     await newRequestForm.save();
