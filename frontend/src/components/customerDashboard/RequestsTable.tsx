@@ -1,32 +1,70 @@
+import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-
-type RequestForm = {
-  productType: string;
-  issueType: string[];
-  dateOfSubmission: string;
-  status: string;
-  details: string;
-  [key: string]: string | string[];
-};
-
-const dummyData: RequestForm[] = [
-  {
-    productType: "Car",
-    issueType: ["Claim", "Policy"],
-    dateOfSubmission: "2021-01-01",
-    status: "Open",
-    details: "View Details",
-  },
-  {
-    productType: "Home",
-    issueType: ["Claim", "Policy", "Test"],
-    dateOfSubmission: "2021-01-01",
-    status: "In Progress",
-    details: "View Details",
-  },
-];
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export const RequestsTable = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const GetRequestForms = useQuery({
+    queryKey: ["requestForms"],
+
+    queryFn: async () => {
+      setIsLoading(false);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/customer/requestform`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Request forms fetched successfully!");
+      } else {
+        toast.error("Request forms fetch failed!");
+      }
+
+      const data = await response.json();
+      const formData = data.requestForms;
+
+      // only keep the required fields
+      const filteredArray = formData.map((obj: any) => {
+        return {
+          productType: obj.productType,
+          issueType: obj.issueType,
+          status: obj.status,
+          dateOfSubmission: new Date(obj.dateOfSubmission).toLocaleDateString(),
+        };
+      });
+
+      const finalArray = filteredArray.filter((obj: any) => {
+        return (
+          obj.productType &&
+          obj.issueType &&
+          obj.issueType.length > 0 &&
+          obj.status &&
+          obj.dateOfSubmission
+        );
+      });
+
+      return finalArray;
+    },
+
+    enabled: true,
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+
+    onSettled: () => {
+      setIsLoading(false);
+    },
+  });
+
   return (
     <div className="p-6 lg:text-xl text-xs overflow-x-auto">
       <table className="table-auto border-x border-b">
@@ -39,10 +77,10 @@ export const RequestsTable = () => {
               Issue Type
             </th>
             <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
-              Date of Submission
+              Status
             </th>
             <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
-              Status
+              Date of Submission
             </th>
             <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
               Details
@@ -51,7 +89,7 @@ export const RequestsTable = () => {
         </thead>
 
         <tbody>
-          {dummyData.map((data, index) => (
+          {GetRequestForms?.data?.map((data: any, index: any) => (
             <tr
               key={index}
               className="odd:bg-gray-100 hover:!bg-stone-200 cursor-pointer"
@@ -67,10 +105,15 @@ export const RequestsTable = () => {
                   {key === "issueType" ? data[key].join(", ") : data[key]}
                 </td>
               ))}
+              <td className="p-1 lg:p-2 border-b border-l text-left">
+                Details
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {isLoading && toast.loading("Loading...")}
     </div>
   );
 };
