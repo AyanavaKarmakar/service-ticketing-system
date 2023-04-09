@@ -75,7 +75,15 @@ export const RequestFormDetails = () => {
           {(getFormDetails.data?.policyUpload.toLowerCase().endsWith(".docx") ||
             getFormDetails.data?.policyUpload
               .toLowerCase()
-              .endsWith(".doc")) && <></>}
+              .endsWith(".doc")) && (
+            <iframe
+              src={`https://docs.google.com/gview?url=${
+                import.meta.env.VITE_API_URL
+              }/${getFormDetails.data?.policyUpload}&embedded=true`}
+              width="100%"
+              height="100%"
+            />
+          )}
 
           {/** For pdf files */}
           {getFormDetails.data?.policyUpload.toLowerCase().endsWith(".pdf") && (
