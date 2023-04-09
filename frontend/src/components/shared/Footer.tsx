@@ -37,7 +37,7 @@ export const Footer = () => {
   return (
     <>
       {username !== "" && (
-        <footer>
+        <footer className="m-3">
           <p className="text-center text-base text-black font-medium">
             {"Logged in as "}
             <span className="font-semibold underline">{username}</span>

@@ -40,7 +40,7 @@ type RequestFormType = {
   productType: string;
   issueType: string[];
   issueDescription?: string;
-  policyUpload: string;
+  policyUpload: File;
 };
 
 export const ServiceRequestForm = () => {
@@ -54,7 +54,7 @@ export const ServiceRequestForm = () => {
   const [requestForm, setRequestForm] = useState<RequestFormType>({
     productType: selectedProductType,
     issueType: [...selectedIssueTypes.map((issue) => issue.value)],
-    policyUpload: "",
+    policyUpload: new File([], ""),
   });
 
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export const ServiceRequestForm = () => {
     if (
       requestForm.productType === "Select a product type" ||
       !requestForm.issueType.length ||
-      requestForm.policyUpload === ""
+      requestForm.policyUpload.name === ""
     ) {
       setIsError(true);
     } else {
@@ -91,15 +91,23 @@ export const ServiceRequestForm = () => {
     mutationFn: async () => {
       setIsLoading(true);
 
+      // send request form data
+      const formData = new FormData();
+      formData.append("productType", requestForm.productType);
+      formData.append("issueType", requestForm.issueType.join(", "));
+      if (requestForm.issueDescription) {
+        formData.append("issueDescription", requestForm.issueDescription);
+      }
+      formData.append("policyUpload", requestForm.policyUpload);
+
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/customer/requestform`,
         {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify(requestForm),
+          body: formData,
         }
       );
 
@@ -311,16 +319,25 @@ export const ServiceRequestForm = () => {
           name="Policy Upload"
           className="max-w-sm w-80 lg:max-w-md lg:w-96"
         >
-          <FormPrimitive.Label className="text-lg font-semibold text-black">
-            Policy Upload
+          <FormPrimitive.Label className="leading-none text-lg font-semibold text-black">
+            {"Policy Upload "}
+            <p className="pb-1 text-base leading-none">
+              {"(only .doc,.docx, .pdf, .png, .jpg below 2MB)"}
+            </p>
           </FormPrimitive.Label>
 
           <FormPrimitive.Control asChild>
             <input
-              type="text"
-              onChange={(e) =>
-                setRequestForm({ ...requestForm, policyUpload: e.target.value })
-              }
+              type="file"
+              multiple={false}
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  setRequestForm({
+                    ...requestForm,
+                    policyUpload: e.target.files[0],
+                  });
+                }
+              }}
               className="max-w-sm w-80 lg:max-w-md lg:w-96 border border-gray-300 rounded-md py-3 px-8 text-base"
               placeholder="Upload your policy"
             />
