@@ -36,13 +36,6 @@ const RequestFormSchema = new Schema<IRequestForm>({
   policyUpload: {
     type: String,
     required: true,
-    validate: {
-      validator: function (value: string) {
-        const allowedExtensions = /(\.pdf|\.doc|\.docx|\.jpg|\.jpeg|\.png)$/i;
-        return allowedExtensions.test(value);
-      },
-      message: "Only PDF, DOC, DOCX, JPG, and PNG files are allowed",
-    },
   },
 
   status: {
