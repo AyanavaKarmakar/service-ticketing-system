@@ -331,10 +331,10 @@ export const ServiceRequestForm = () => {
             className={clsx(
               "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
               "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
-              isError && "cursor-not-allowed"
+              (isLoading || isError) && "cursor-not-allowed"
             )}
           >
-            {isLoading ? "Loading..." : "Submit"}
+            {isLoading ? "Submitting..." : "Submit"}
           </button>
         </FormPrimitive.Submit>
       </FormPrimitive.Root>
