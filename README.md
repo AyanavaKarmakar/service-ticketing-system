@@ -39,7 +39,6 @@ User Authentication, Customer Support Request Creation and Administration Action
 6. React Query
 7. Redux Toolkit
 8. React Hot Toast
-9. React Table
 
 ---
 
