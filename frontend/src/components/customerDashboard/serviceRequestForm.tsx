@@ -322,7 +322,7 @@ export const ServiceRequestForm = () => {
           <FormPrimitive.Label className="lg:leading-none text-lg font-semibold text-black">
             {"Policy Upload "}
             <p className="pb-1 text-base lg:leading-none">
-              {"(only .doc,.docx, .pdf, .png, .jpg below 2MB)"}
+              {"(only .doc, .docx, .pdf, .png, .jpg below 2MB)"}
             </p>
           </FormPrimitive.Label>
 
