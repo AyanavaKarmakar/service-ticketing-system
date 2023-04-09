@@ -40,7 +40,7 @@ export const RequestFormDetails = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-150px)] items-center justify-center">
-      <div className="text-xl lg:text-3xl underline font-bold text-gray-900 p-5">
+      <div className="text-xl lg:text-4xl text-black font-bold p-5">
         Request Form Details
       </div>
 

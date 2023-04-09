@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 import "dotenv/config";
-import { json } from "body-parser";
+import { json, urlencoded } from "body-parser";
 import { AuthRouter } from "./routes/auth";
 import { connectDB } from "./db/connect";
 import { RequestFormRouter } from "./routes/requestForm";
@@ -8,6 +8,8 @@ import { TasksRouter } from "./routes/tasks";
 
 const app = express();
 app.use(json());
+app.use(urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 // enable CORS
 app.use((req, res, next) => {

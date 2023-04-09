@@ -5,6 +5,7 @@ import {
   requestForm,
 } from "../controllers/requestForm";
 import { customerAuthMiddleware } from "../middleware/auth";
+import { upload } from "../middleware/multer";
 
 const router = Router();
 
@@ -14,6 +15,6 @@ router.get(
   getCustomerRequestFormById
 );
 router.get("/requestform", customerAuthMiddleware, getCustomerRequestForms);
-router.post("/requestform", customerAuthMiddleware, requestForm);
+router.post("/requestform", customerAuthMiddleware, upload, requestForm);
 
 export const RequestFormRouter = router;

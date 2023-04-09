@@ -8,11 +8,15 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Log in / Sign up Form
 
-![image](https://user-images.githubusercontent.com/89210438/230742023-a5e04ce1-9a96-4d7d-a84f-d9436fc1e5ba.png)
+![image](https://user-images.githubusercontent.com/89210438/230794078-811fc7c5-94e4-4005-a733-36d166b8bcfb.png)
 
 - Customer Dashboard
 
-![image](https://user-images.githubusercontent.com/89210438/230783795-14162435-17e0-4d82-a4de-4a2ec2b74983.png)
+![image](https://user-images.githubusercontent.com/89210438/230794137-49995f9c-434d-4f35-ab46-5f11aec7ef7a.png)
+
+- New Service Request Form
+
+![image](https://user-images.githubusercontent.com/89210438/230794342-ab04cfae-58b9-41b1-b973-3ece26aa42cc.png)
 
 ---
 
