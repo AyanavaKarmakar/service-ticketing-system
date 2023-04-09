@@ -37,6 +37,7 @@ export const RequestsTable = () => {
       // only keep the required fields
       const filteredArray = formData.map((obj: any) => {
         return {
+          id: obj._id,
           productType: obj.productType,
           issueType: obj.issueType,
           status: obj.status,
@@ -46,6 +47,7 @@ export const RequestsTable = () => {
 
       const finalArray = filteredArray.filter((obj: any) => {
         return (
+          obj.id &&
           obj.productType &&
           obj.issueType &&
           obj.issueType.length > 0 &&
@@ -85,41 +87,35 @@ export const RequestsTable = () => {
             <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
               Date of Submission
             </th>
-            <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
-              Details
-            </th>
           </tr>
         </thead>
 
         <tbody>
           {GetRequestForms?.data?.map((data: any, index: any) => (
             <tr
+              onClick={() =>
+                navigate("/dashboard/customer/formdetails", {
+                  state: {
+                    requestFormId: data.id,
+                  },
+                })
+              }
               key={index}
               className="odd:bg-gray-100 hover:!bg-stone-200 cursor-pointer"
             >
-              {Object.keys(data).map((key) => (
-                <td
-                  key={key}
-                  className={clsx(
-                    "p-1 lg:p-2 border-b border-l text-left",
-                    key === "issueType" && "whitespace-nowrap"
-                  )}
-                >
-                  {key === "issueType" ? data[key].join(", ") : data[key]}
-                </td>
-              ))}
-              <td
-                onClick={() =>
-                  navigate("/dashboard/customer/formdetails", {
-                    state: {
-                      requestFormId: data._id,
-                    },
-                  })
-                }
-                className="hover:text-blue-600 p-1 lg:p-2 mt-2 border-b border-l text-center flex items-center justify-center"
-              >
-                <ArrowTopRightIcon className="lg:w-5 lg:h-5" />
-              </td>
+              {Object.keys(data)
+                .filter((key) => key !== "id")
+                .map((key) => (
+                  <td
+                    key={key}
+                    className={clsx(
+                      "p-1 lg:p-2 border-b border-l text-left",
+                      key === "issueType" && "whitespace-nowrap"
+                    )}
+                  >
+                    {key === "issueType" ? data[key].join(", ") : data[key]}
+                  </td>
+                ))}
             </tr>
           ))}
         </tbody>
