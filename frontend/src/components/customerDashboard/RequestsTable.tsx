@@ -1,20 +1,15 @@
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 export const RequestsTable = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const GetRequestForms = useQuery({
     queryKey: ["requestForms"],
 
     queryFn: async () => {
-      setIsLoading(false);
-
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/customer/requestform`,
         {
@@ -64,14 +59,14 @@ export const RequestsTable = () => {
     onError: () => {
       toast.error("Interval server error. Please try again!");
     },
-
-    onSettled: () => {
-      setIsLoading(false);
-    },
   });
 
   return (
     <div className="p-6 lg:text-xl text-xs overflow-x-auto">
+      <div className="pb-1 text-2xl font-semibold text-left">
+        Click on a row to view the details of the request form.
+      </div>
+
       <table className="table-auto border-x border-b">
         <thead>
           <tr>
@@ -120,8 +115,6 @@ export const RequestsTable = () => {
           ))}
         </tbody>
       </table>
-
-      {isLoading && toast.loading("Loading...")}
     </div>
   );
 };
