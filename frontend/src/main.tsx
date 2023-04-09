@@ -7,21 +7,38 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
-
-import { Footer, Navbar, ServiceRequestForm } from "./components";
 import { Toaster } from "react-hot-toast";
+
+import {
+  CustomerDashboardContainer,
+  Footer,
+  Navbar,
+  ServiceRequestForm,
+} from "./components";
 
 import "./index.css";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
+  // auth routes
   {
     path: "/",
     element: <App />,
   },
+
+  // customer routes
   {
     path: "/dashboard/customer",
+    element: (
+      <>
+        <CustomerDashboardContainer />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/customer/requestForm",
     element: (
       <>
         <ServiceRequestForm />
@@ -29,10 +46,14 @@ const router = createBrowserRouter([
       </>
     ),
   },
+
+  // employee routes
   {
     path: "/dashboard/employee",
     element: <Footer />,
   },
+
+  // admin routes
   {
     path: "/dashboard/admin",
     element: <Footer />,

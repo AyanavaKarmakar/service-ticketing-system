@@ -14,13 +14,17 @@ export const Footer = () => {
   useEffect(() => {
     // redirect to home, if user is not logged in or in the wrong dashboard
     if (
-      (username === "employee1" && location.pathname !== "/dashboard/admin") ||
-      (username !== "employee1" && location.pathname === "/dashboard/employee")
+      (username === "employee1" &&
+        !location.pathname.startsWith("/dashboard/admin".toLowerCase())) ||
+      (username !== "employee1" &&
+        location.pathname.startsWith("/dashboard/employee".toLowerCase()))
     ) {
       navigate("/");
     } else if (
       username !== "employee1" &&
-      location.pathname !== `/dashboard/${userType}`
+      !location.pathname
+        .toLowerCase()
+        .startsWith(`/dashboard/${userType}`.toLowerCase())
     ) {
       navigate("/");
     }

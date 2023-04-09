@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type ProductType =
   | "Select a product type"
@@ -55,6 +56,8 @@ export const ServiceRequestForm = () => {
     issueType: [...selectedIssueTypes.map((issue) => issue.value)],
     policyUpload: "",
   });
+
+  const navigate = useNavigate();
 
   // validated request form
   useEffect(() => {
@@ -104,6 +107,8 @@ export const ServiceRequestForm = () => {
         toast.success(
           "Your request has been successfully submitted! A customer care executive will be in touch with you soon."
         );
+
+        navigate("/dashboard/customer");
       } else {
         toast.error("Interval server error. Please try again!");
       }
@@ -322,21 +327,39 @@ export const ServiceRequestForm = () => {
           </FormPrimitive.Control>
         </FormPrimitive.Field>
 
-        <FormPrimitive.Submit
-          asChild
-          className="bg-gray-800 text-white rounded-md py-2.5 px-12 text-base mt-3"
-        >
-          <button
-            disabled={isError}
-            className={clsx(
-              "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
-              "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
-              (isLoading || isError) && "cursor-not-allowed"
-            )}
+        <div className="flex flex-row gap-x-12">
+          <FormPrimitive.Submit
+            asChild
+            className="bg-gray-800 text-white rounded-md py-2.5 px-12 text-base mt-3"
           >
-            {isLoading ? "Submitting..." : "Submit"}
-          </button>
-        </FormPrimitive.Submit>
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard/customer")}
+              className={clsx(
+                "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
+                "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
+              )}
+            >
+              Go Back
+            </button>
+          </FormPrimitive.Submit>
+
+          <FormPrimitive.Submit
+            asChild
+            className="bg-gray-800 text-white rounded-md py-2.5 px-12 text-base mt-3"
+          >
+            <button
+              disabled={isError}
+              className={clsx(
+                "py-2.5 px-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
+                "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
+                (isLoading || isError) && "cursor-not-allowed"
+              )}
+            >
+              {isLoading ? "Submitting..." : "Submit"}
+            </button>
+          </FormPrimitive.Submit>
+        </div>
       </FormPrimitive.Root>
     </div>
   );
