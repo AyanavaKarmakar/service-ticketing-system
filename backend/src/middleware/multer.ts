@@ -3,7 +3,7 @@ import multer from "multer";
 // Set up multer storage and file filter
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -37,6 +37,7 @@ const limits = {
 };
 
 export const upload = multer({
+  dest: "uploads/",
   storage: storage,
   fileFilter: fileFilter as any,
   limits: limits,

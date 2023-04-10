@@ -9,7 +9,7 @@ import { TasksRouter } from "./routes/tasks";
 const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads/"));
 
 // enable CORS
 app.use((req, res, next) => {
