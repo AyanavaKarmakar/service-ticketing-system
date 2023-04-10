@@ -1,11 +1,19 @@
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@radix-ui/react-icons";
+import * as SelectPrimitive from "@radix-ui/react-select";
 import { useQuery } from "@tanstack/react-query";
 import { clsx } from "clsx";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const TaskDetails = () => {
   const navigate = useNavigate();
   const { requestFormId } = useLocation().state;
+  const [selectedEmployee, setSelectedEmployee] = useState("Assign Task");
 
   const getTaskDetails = useQuery({
     queryKey: ["requestForm"],
@@ -135,16 +143,85 @@ export const TaskDetails = () => {
         </>
       </div>
 
-      <button
-        type="button"
-        onClick={() => navigate("/dashboard/admin")}
-        className={clsx(
-          "py-2.5 px-5 mb-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
-          "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
-        )}
-      >
-        Go Back
-      </button>
+      <div className="flex flex-col mt-3 gap-y-3">
+        <div className="tetx-xl lg:text-2xl font-semibold">
+          {"Assign Task to: "}
+        </div>
+
+        <SelectPrimitive.Root defaultValue="Assign Task">
+          <SelectPrimitive.Trigger asChild aria-label="Employee List">
+            <button
+              type="button"
+              className="border border-gray-300 rounded-md p-3 text-base flex items-center justify-between"
+            >
+              <SelectPrimitive.Value />
+              <SelectPrimitive.Icon className="ml-2">
+                <ChevronDownIcon />
+              </SelectPrimitive.Icon>
+            </button>
+          </SelectPrimitive.Trigger>
+
+          <SelectPrimitive.Content>
+            <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700">
+              <ChevronUpIcon />
+            </SelectPrimitive.ScrollUpButton>
+
+            <SelectPrimitive.Viewport className="bg-white p-2 rounded-lg shadow-lg">
+              <SelectPrimitive.Group>
+                {["Assign Task", "Employee2", "Employee3"].map(
+                  (user, index) => (
+                    <SelectPrimitive.Item
+                      value={user}
+                      key={`${user}-${index}`}
+                      disabled={user === "Assign Task"}
+                      className={clsx(
+                        "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
+                        "radix-disabled:opacity-50",
+                        "focus:outline-none select-none cursor-pointer"
+                      )}
+                    >
+                      <SelectPrimitive.ItemText>
+                        {user}
+                      </SelectPrimitive.ItemText>
+
+                      <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
+                        <CheckIcon />
+                      </SelectPrimitive.ItemIndicator>
+                    </SelectPrimitive.Item>
+                  )
+                )}
+              </SelectPrimitive.Group>
+            </SelectPrimitive.Viewport>
+
+            <SelectPrimitive.ScrollDownButton className="flex items-center justify-center text-gray-700">
+              <ChevronDownIcon />
+            </SelectPrimitive.ScrollDownButton>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Root>
+
+        <button
+          type="button"
+          disabled={selectedEmployee === "Assign Task"}
+          className={clsx(
+            "py-2.5 px-5 bg-teal-900 text-xl text-white font-semibold rounded-md",
+            "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
+            selectedEmployee === "Assign Task" && "cursor-not-allowed"
+          )}
+        >
+          Confirm
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard/admin")}
+          className={clsx(
+            "py-2.5 px-5 mb-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
+            "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
+          )}
+        >
+          Go Back
+        </button>
+      </div>
     </div>
   );
 };
