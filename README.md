@@ -66,7 +66,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - [Live API](https://service-ticketing-system-api.onrender.com/welcome/api) deployed on [Render](https://render.com/)
 - [Docs](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
-- Note: Server maybe slow at first useage due to coldstarts
+- Note: Server maybe slow at first usage due to coldstarts
 
 ![image](https://user-images.githubusercontent.com/89210438/230775322-b8035698-4be7-42a3-87c2-f896dfeef512.png)
 
