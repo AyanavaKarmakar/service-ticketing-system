@@ -12,7 +12,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ![image](https://user-images.githubusercontent.com/89210438/230794078-811fc7c5-94e4-4005-a733-36d166b8bcfb.png)
 
-- Customer Dashboard
+- Dashboard
 
 ![image](https://user-images.githubusercontent.com/89210438/230889870-5443fb33-c537-4edb-ad52-7a543bbf9698.png)
 
@@ -37,9 +37,10 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 1. NodeJS
 2. ExpressJS
-3. MongoDB
-4. Mongoose
-5. TypeScript
+3. Multer
+4. MongoDB
+5. Mongoose
+6. TypeScript
 
 ### Frontend
 
