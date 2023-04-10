@@ -32,7 +32,7 @@ export const TaskDetails = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            employeeId: selectedEmployee,
+            assignedEmployee: selectedEmployee,
           }),
         }
       );
