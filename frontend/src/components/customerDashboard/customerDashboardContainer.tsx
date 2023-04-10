@@ -7,7 +7,7 @@ export const CustomerDashboardContainer = () => {
 
   return (
     <div className="flex flex-col gap-y-3 items-center justify-center">
-      <div className="text-center pt-5 pb-3 text-xl lg:text-4xl text-black font-bold">
+      <div className="text-center pt-10 pb-5 text-xl lg:text-5xl text-black font-bold">
         Customer Dashboard
       </div>
 
