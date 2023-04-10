@@ -36,9 +36,21 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ![image](https://user-images.githubusercontent.com/89210438/230932985-a8a84bfa-3a58-4ea2-baa8-7652964968b3.png)
 
+- Assign Unallocated Tasks
+
+![image](https://user-images.githubusercontent.com/89210438/230948213-14614cf1-2018-4a67-b80a-906ce01d78ed.png)
+
 - Allocated Tasks
 
 ![image](https://user-images.githubusercontent.com/89210438/230933053-ede91615-33e8-4fa2-8c45-b0cd4d2fb637.png)
+
+- De-assign Allocated tasks
+
+![image](https://user-images.githubusercontent.com/89210438/230948297-cc55591e-773d-486d-96a2-8505db4ff6b9.png)
+
+- Update Task Status
+
+![image](https://user-images.githubusercontent.com/89210438/230948416-62cb46c5-dcd9-419a-957f-8cbb0fbd3922.png)
 
 ---
 
