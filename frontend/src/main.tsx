@@ -13,6 +13,7 @@ import {
   AdminDashboardContainer,
   AllocatedTasks,
   CustomerDashboardContainer,
+  EmployeeDashboardContainer,
   Footer,
   Navbar,
   ServiceRequestForm,
@@ -65,7 +66,12 @@ const router = createBrowserRouter([
   // employee routes
   {
     path: "/dashboard/employee",
-    element: <Footer />,
+    element: (
+      <>
+        <EmployeeDashboardContainer />
+        <Footer />
+      </>
+    ),
   },
 
   // admin routes

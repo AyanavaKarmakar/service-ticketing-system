@@ -1,3 +1,5 @@
+export { EmployeeDashboardContainer } from "./employeeDashboard.tsx/employeeDashboardContainer";
+
 export { MyTasks } from "./adminDashboard/myTasks";
 
 export { TaskDetails } from "./adminDashboard/taskDetails";
