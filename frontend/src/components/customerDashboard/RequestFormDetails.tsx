@@ -45,12 +45,12 @@ export const RequestFormDetails = () => {
       </div>
 
       <div className="flex p-5 lg:p-3 flex-col text-lg lg:text-xl text-left gap-y-2">
-        <div>
+        <>
           <div className="text-xl lg:text-2xl font-semibold">
             {"Product Type: "}
           </div>
           {getFormDetails.data?.productType}
-        </div>
+        </>
 
         <>
           <div className="text-xl lg:text-2xl font-semibold">
