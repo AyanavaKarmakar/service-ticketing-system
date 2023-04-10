@@ -52,6 +52,12 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ![image](https://user-images.githubusercontent.com/89210438/230948416-62cb46c5-dcd9-419a-957f-8cbb0fbd3922.png)
 
+### 4. Employee (NON-ADMIN)
+
+- Dashboard
+
+![image](https://user-images.githubusercontent.com/89210438/230951267-3515730d-d14f-407b-b7bc-480a3729ddf0.png)
+
 ---
 
 ## Technologies Used
