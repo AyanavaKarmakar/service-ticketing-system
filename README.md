@@ -6,11 +6,13 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 ## Screenshots
 
-### 1. Customer
+### 1. Shared
 
 - Log in / Sign up Form
 
 ![image](https://user-images.githubusercontent.com/89210438/230794078-811fc7c5-94e4-4005-a733-36d166b8bcfb.png)
+
+### 2. Customer
 
 - Dashboard
 
@@ -23,6 +25,20 @@ User Authentication, Customer Support Request Creation and Administration Action
 - Service Request Form Details
 
 ![image](https://user-images.githubusercontent.com/89210438/230892007-95b90417-f2be-411d-99bb-87454828e8dc.png)
+
+### 3. Employee (ADMIN)
+
+- Dashboard
+
+![image](https://user-images.githubusercontent.com/89210438/230932734-6a55731a-3feb-4e85-adcd-958e005e9bb9.png)
+
+- Unallocated Tasks
+
+![image](https://user-images.githubusercontent.com/89210438/230932985-a8a84bfa-3a58-4ea2-baa8-7652964968b3.png)
+
+- Allocated Tasks
+
+![image](https://user-images.githubusercontent.com/89210438/230933053-ede91615-33e8-4fa2-8c45-b0cd4d2fb637.png)
 
 ---
 
