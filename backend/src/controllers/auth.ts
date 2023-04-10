@@ -102,3 +102,13 @@ export const EmployeeLogin = async (req: Request, res: Response) => {
     return res.status(400).json({ error: error.message });
   }
 };
+
+// GET /auth/allemployees
+export const GetAllEmployees = async (req: Request, res: Response) => {
+  try {
+    const employees = await Employee.find();
+    return res.status(200).json({ employees });
+  } catch (error: any) {
+    return res.status(400).json({ error: error.message });
+  }
+};
