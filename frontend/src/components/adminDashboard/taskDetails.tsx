@@ -2,9 +2,10 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  SymbolIcon,
 } from "@radix-ui/react-icons";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { clsx } from "clsx";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -13,7 +14,44 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const TaskDetails = () => {
   const navigate = useNavigate();
   const { requestFormId } = useLocation().state;
+  const [isLoading, setLoading] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState("Assign Task");
+
+  const assignTask = useMutation({
+    mutationKey: ["assignTask"],
+
+    mutationFn: async () => {
+      setLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/tasks/${requestFormId}/assign`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            employeeId: selectedEmployee,
+          }),
+        }
+      );
+
+      if (response.status === 200) {
+        setLoading(false);
+        toast.success("Task assigned successfully!");
+        navigate("/dashboard/admin");
+      }
+    },
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
 
   const getAllEmployees = useQuery({
     queryKey: ["employees"],
@@ -84,28 +122,28 @@ export const TaskDetails = () => {
           <div className="text-xl lg:text-2xl font-semibold">
             {"Customer: "}
           </div>
-          {getTaskDetails.data?.customer?.username}
+          {getTaskDetails?.data?.customer?.username}
         </>
 
         <>
           <div className="text-xl lg:text-2xl font-semibold">
             {"Product Type: "}
           </div>
-          {getTaskDetails.data?.productType}
+          {getTaskDetails?.data?.productType}
         </>
 
         <>
           <div className="text-xl lg:text-2xl font-semibold">
             {"Issue Type: "}
           </div>
-          {getTaskDetails.data?.issueType.join(", ")}
+          {getTaskDetails?.data?.issueType.join(", ")}
         </>
 
         <>
           <div className="text-xl lg:text-2xl font-semibold">
             {"Issue Description: "}
           </div>
-          {getTaskDetails.data?.issueDescription ?? "Description not provided"}
+          {getTaskDetails?.data?.issueDescription ?? "Description not provided"}
         </>
 
         <>
@@ -114,24 +152,28 @@ export const TaskDetails = () => {
           </div>
 
           {/** For docx/doc files */}
-          {(getTaskDetails.data?.policyUpload.toLowerCase().endsWith(".docx") ||
-            getTaskDetails.data?.policyUpload
+          {(getTaskDetails?.data?.policyUpload
+            .toLowerCase()
+            .endsWith(".docx") ||
+            getTaskDetails?.data?.policyUpload
               .toLowerCase()
               .endsWith(".doc")) && (
             <iframe
               src={`https://docs.google.com/gview?url=${
                 import.meta.env.VITE_API_URL
-              }/${getTaskDetails.data?.policyUpload}&embedded=true`}
+              }/${getTaskDetails?.data?.policyUpload}&embedded=true`}
               width="100%"
               height="100%"
             />
           )}
 
           {/** For pdf files */}
-          {getTaskDetails.data?.policyUpload.toLowerCase().endsWith(".pdf") && (
+          {getTaskDetails?.data?.policyUpload
+            .toLowerCase()
+            .endsWith(".pdf") && (
             <embed
               src={`${import.meta.env.VITE_API_URL}/${
-                getTaskDetails.data?.policyUpload
+                getTaskDetails?.data?.policyUpload
               }`}
               type="application/pdf"
               width="100%"
@@ -140,13 +182,13 @@ export const TaskDetails = () => {
           )}
 
           {/** For image files */}
-          {(getTaskDetails.data?.policyUpload.toLowerCase().endsWith(".png") ||
-            getTaskDetails.data?.policyUpload
+          {(getTaskDetails?.data?.policyUpload.toLowerCase().endsWith(".png") ||
+            getTaskDetails?.data?.policyUpload
               .toLowerCase()
               .endsWith(".jpg")) && (
             <img
               src={`${import.meta.env.VITE_API_URL}/${
-                getTaskDetails.data?.policyUpload
+                getTaskDetails?.data?.policyUpload
               }`}
               alt="Policy Upload"
               width="75%"
@@ -159,12 +201,14 @@ export const TaskDetails = () => {
           <div className="font-semibold text-xl lg:text-2xl">
             {"Date of Submission: "}
           </div>
-          {new Date(getTaskDetails.data?.dateOfSubmission).toLocaleDateString()}
+          {new Date(
+            getTaskDetails?.data?.dateOfSubmission
+          ).toLocaleDateString()}
         </>
 
         <>
           <div className="text-xl lg:text-2xl font-semibold">{"Status: "}</div>
-          {getTaskDetails.data?.status}
+          {getTaskDetails?.data?.status}
         </>
       </div>
 
@@ -173,7 +217,10 @@ export const TaskDetails = () => {
           {"Assign Task to: "}
         </div>
 
-        <SelectPrimitive.Root defaultValue="Assign Task">
+        <SelectPrimitive.Root
+          defaultValue="Assign Task"
+          onValueChange={(value) => setSelectedEmployee(value)}
+        >
           <SelectPrimitive.Trigger asChild aria-label="Employee List">
             <button
               type="button"
@@ -195,10 +242,10 @@ export const TaskDetails = () => {
               <SelectPrimitive.Group>
                 {[
                   "Assign Task",
-                  ...getAllEmployees.data.map(
+                  ...getAllEmployees?.data?.map(
                     (employee: any) => employee.username
                   ),
-                ].map((user, index) => (
+                ]?.map((user, index) => (
                   <SelectPrimitive.Item
                     value={user}
                     key={`${user}-${index}`}
@@ -233,8 +280,13 @@ export const TaskDetails = () => {
             "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
             selectedEmployee === "Assign Task" && "cursor-not-allowed"
           )}
+          onClick={() => assignTask.mutate()}
         >
-          Confirm
+          {isLoading ? (
+            <SymbolIcon className="w-8 h-6 animate-spin" />
+          ) : (
+            "Assign Task"
+          )}
         </button>
 
         <button
