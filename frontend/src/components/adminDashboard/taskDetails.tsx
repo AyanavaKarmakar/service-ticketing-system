@@ -15,6 +15,33 @@ export const TaskDetails = () => {
   const { requestFormId } = useLocation().state;
   const [selectedEmployee, setSelectedEmployee] = useState("Assign Task");
 
+  const getAllEmployees = useQuery({
+    queryKey: ["employees"],
+
+    enabled: true,
+
+    queryFn: async () => {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/allemployees`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const data = await response.json();
+        return data.employees;
+      }
+    },
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+  });
+
   const getTaskDetails = useQuery({
     queryKey: ["requestForm"],
 
@@ -45,8 +72,6 @@ export const TaskDetails = () => {
       toast.error("Interval server error. Please try again!");
     },
   });
-
-  console.log(getTaskDetails.data);
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
@@ -168,28 +193,29 @@ export const TaskDetails = () => {
 
             <SelectPrimitive.Viewport className="bg-white p-2 rounded-lg shadow-lg">
               <SelectPrimitive.Group>
-                {["Assign Task", "Employee2", "Employee3"].map(
-                  (user, index) => (
-                    <SelectPrimitive.Item
-                      value={user}
-                      key={`${user}-${index}`}
-                      disabled={user === "Assign Task"}
-                      className={clsx(
-                        "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
-                        "radix-disabled:opacity-50",
-                        "focus:outline-none select-none cursor-pointer"
-                      )}
-                    >
-                      <SelectPrimitive.ItemText>
-                        {user}
-                      </SelectPrimitive.ItemText>
+                {[
+                  "Assign Task",
+                  ...getAllEmployees.data.map(
+                    (employee: any) => employee.username
+                  ),
+                ].map((user, index) => (
+                  <SelectPrimitive.Item
+                    value={user}
+                    key={`${user}-${index}`}
+                    disabled={user === "Assign Task"}
+                    className={clsx(
+                      "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
+                      "radix-disabled:opacity-50",
+                      "focus:outline-none select-none cursor-pointer"
+                    )}
+                  >
+                    <SelectPrimitive.ItemText>{user}</SelectPrimitive.ItemText>
 
-                      <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
-                        <CheckIcon />
-                      </SelectPrimitive.ItemIndicator>
-                    </SelectPrimitive.Item>
-                  )
-                )}
+                    <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
+                      <CheckIcon />
+                    </SelectPrimitive.ItemIndicator>
+                  </SelectPrimitive.Item>
+                ))}
               </SelectPrimitive.Group>
             </SelectPrimitive.Viewport>
 
