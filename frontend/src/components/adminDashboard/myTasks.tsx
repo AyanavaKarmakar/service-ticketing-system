@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { clsx } from "clsx";
 import { toast } from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import {
   CheckIcon,
@@ -16,6 +16,43 @@ export const MyTasks = () => {
   const { requestFormId } = useLocation().state;
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("Set Status");
+
+  const assignStatus = useMutation({
+    mutationKey: ["setStatus"],
+
+    mutationFn: async () => {
+      setIsLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/tasks/${requestFormId}/changestatus`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            status,
+          }),
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Status updated successfully!");
+        navigate("/dashboard/admin");
+      } else {
+        toast.error("Status update failed!");
+      }
+    },
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+
+    onSettled: () => {
+      setIsLoading(false);
+    },
+  });
 
   const getTaskDetails = useQuery({
     queryKey: ["requestForm"],
@@ -35,6 +72,7 @@ export const MyTasks = () => {
 
       if (response.status === 200) {
         toast.success("Requested task fetched successfully!");
+        setIsLoading(false);
       } else {
         toast.error("Requested task fetch failed!");
       }
@@ -150,7 +188,10 @@ export const MyTasks = () => {
       </div>
 
       <div className="flex flex-col gap-y-3">
-        <SelectPrimitive.Root defaultValue={"Set Status"}>
+        <SelectPrimitive.Root
+          defaultValue={"Set Status"}
+          onValueChange={(value) => setStatus(value)}
+        >
           <SelectPrimitive.Trigger
             asChild
             aria-label="Current Status"
@@ -206,6 +247,7 @@ export const MyTasks = () => {
         <button
           type="button"
           disabled={status === "Set Status"}
+          onClick={() => assignStatus.mutate()}
           className={clsx(
             "py-2.5 px-5 bg-teal-900 text-xl text-white font-semibold rounded-md",
             "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
