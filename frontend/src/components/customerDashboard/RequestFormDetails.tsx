@@ -40,7 +40,7 @@ export const RequestFormDetails = () => {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
-      <div className="mt-3 text-xl lg:text-4xl text-black font-bold p-5">
+      <div className="mt-3 text-4xl text-black font-bold p-5">
         Request Form Details
       </div>
 

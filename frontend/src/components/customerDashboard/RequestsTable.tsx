@@ -62,8 +62,8 @@ export const RequestsTable = () => {
   });
 
   return (
-    <div className="p-6 lg:text-xl text-xs overflow-x-auto">
-      <div className="pb-1 text-xl font-semibold text-center">
+    <div className="p-6 lg:text-xl text-xs">
+      <div className="pb-1 text-md lg:text-xl font-semibold text-center">
         Click on a row to view the details of the request form.
       </div>
 
