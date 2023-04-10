@@ -12,7 +12,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Customer Dashboard
 
-![image](https://user-images.githubusercontent.com/89210438/230794137-49995f9c-434d-4f35-ab46-5f11aec7ef7a.png)
+![image](https://user-images.githubusercontent.com/89210438/230889870-5443fb33-c537-4edb-ad52-7a543bbf9698.png)
 
 - New Service Request Form
 
