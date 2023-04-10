@@ -4,6 +4,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  SymbolIcon,
 } from "@radix-ui/react-icons";
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
@@ -373,7 +374,11 @@ export const ServiceRequestForm = () => {
                 (isLoading || isError) && "cursor-not-allowed"
               )}
             >
-              {isLoading ? "Submitting..." : "Submit"}
+              {isLoading ? (
+                <SymbolIcon className="w-8 h-6 animate-spin" />
+              ) : (
+                "Submit"
+              )}
             </button>
           </FormPrimitive.Submit>
         </div>

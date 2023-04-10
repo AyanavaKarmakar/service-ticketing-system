@@ -3,6 +3,7 @@ import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  SymbolIcon,
 } from "@radix-ui/react-icons";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { useMutation } from "@tanstack/react-query";
@@ -305,7 +306,11 @@ export const AuthForm = () => {
               (isLoading || userTypeError) && "cursor-not-allowed"
             )}
           >
-            {isLogin && isLoading ? "Logging in..." : "Log in"}
+            {isLogin && isLoading ? (
+              <SymbolIcon className="w-8 h-6 animate-spin" />
+            ) : (
+              "Log in"
+            )}
           </button>
         </FormPrimitive.Submit>
 
@@ -320,7 +325,11 @@ export const AuthForm = () => {
               (isLoading || userTypeError) && "cursor-not-allowed"
             )}
           >
-            {!isLogin && isLoading ? "Signing up..." : "Sign up"}
+            {!isLogin && isLoading ? (
+              <SymbolIcon className="w-8 h-6 animate-spin" />
+            ) : (
+              "Sign up"
+            )}
           </button>
         </FormPrimitive.Submit>
       </div>
