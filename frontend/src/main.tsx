@@ -22,6 +22,7 @@ import {
 
 import "./index.css";
 import { RequestFormDetails } from "./components/customerDashboard/RequestFormDetails";
+import { MyTasks } from "./components/adminDashboard/myTasks";
 
 const queryClient = new QueryClient();
 
@@ -100,6 +101,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <TaskDetails />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/admin/mytasks",
+    element: (
+      <>
+        <MyTasks />
         <Footer />
       </>
     ),

@@ -1,3 +1,5 @@
+export { MyTasks } from "./adminDashboard/myTasks";
+
 export { TaskDetails } from "./adminDashboard/taskDetails";
 export { AllocatedTasks } from "./adminDashboard/allocatedTasks";
 export { UnallocatedTasks } from "./adminDashboard/unallocatedTasks";

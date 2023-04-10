@@ -126,7 +126,7 @@ export const AdminDashboardContainer = () => {
             {getMyTasks.data?.map((data: any, index: any) => (
               <tr
                 onClick={() =>
-                  navigate("/dashboard/admin/taskdetails", {
+                  navigate("/dashboard/admin/mytasks", {
                     state: {
                       requestFormId: data.id,
                     },
