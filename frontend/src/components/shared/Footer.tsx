@@ -21,7 +21,7 @@ export const Footer = () => {
       (username === "employee1" &&
         !location.pathname.startsWith("/dashboard/admin".toLowerCase())) ||
       (username !== "employee1" &&
-        location.pathname.startsWith("/dashboard/employee".toLowerCase()))
+        location.pathname.startsWith("/dashboard/admin".toLowerCase()))
     ) {
       navigate("/");
     } else if (

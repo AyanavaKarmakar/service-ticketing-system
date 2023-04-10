@@ -1,12 +1,14 @@
+export { MyTasks } from "./employeeDashboard.tsx/myTasks";
 export { EmployeeDashboardContainer } from "./employeeDashboard.tsx/employeeDashboardContainer";
 
-export { MyTasks } from "./adminDashboard/myTasks";
+export { MyTasks as AdminMyTasks } from "./adminDashboard/myTasks";
 
 export { TaskDetails } from "./adminDashboard/taskDetails";
 export { AllocatedTasks } from "./adminDashboard/allocatedTasks";
 export { UnallocatedTasks } from "./adminDashboard/unallocatedTasks";
 export { AdminDashboardContainer } from "./adminDashboard/adminDashboardContainer";
 
+export { RequestFormDetails } from "./customerDashboard/RequestFormDetails";
 export { CustomerDashboardContainer } from "./customerDashboard/customerDashboardContainer";
 export { ServiceRequestForm } from "./customerDashboard/serviceRequestForm";
 

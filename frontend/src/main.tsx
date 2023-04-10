@@ -10,6 +10,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import {
+  RequestFormDetails,
   AdminDashboardContainer,
   AllocatedTasks,
   CustomerDashboardContainer,
@@ -19,11 +20,11 @@ import {
   ServiceRequestForm,
   TaskDetails,
   UnallocatedTasks,
+  MyTasks,
+  AdminMyTasks,
 } from "./components";
 
 import "./index.css";
-import { RequestFormDetails } from "./components/customerDashboard/RequestFormDetails";
-import { MyTasks } from "./components/adminDashboard/myTasks";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +74,15 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/dashboard/employee/mytasks",
+    element: (
+      <>
+        <MyTasks />
+        <Footer />
+      </>
+    ),
+  },
 
   // admin routes
   {
@@ -115,7 +125,7 @@ const router = createBrowserRouter([
     path: "/dashboard/admin/mytasks",
     element: (
       <>
-        <MyTasks />
+        <AdminMyTasks />
         <Footer />
       </>
     ),
