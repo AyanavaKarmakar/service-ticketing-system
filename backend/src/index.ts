@@ -5,6 +5,8 @@ import { AuthRouter } from "./routes/auth";
 import { connectDB } from "./db/connect";
 import { RequestFormRouter } from "./routes/requestForm";
 import { TasksRouter } from "./routes/tasks";
+import path from "path";
+import fs from "fs";
 
 const app = express();
 app.use(json());
@@ -39,6 +41,13 @@ const start = async () => {
     console.log("Connecting to DB...");
     await connectDB(process.env.MONGODB_URI as string);
     console.log("Connected to DB!");
+
+    // create upload directory if it does not exist
+    const uploadDir = path.join("uploads/");
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+      console.log("Created uploads directory!");
+    }
 
     app.listen(3000, () => {
       console.log("server is listening on port 3000!");
