@@ -96,7 +96,7 @@ export const UnallocatedTasks = () => {
             {getTasks.data?.map((data: any, index: any) => (
               <tr
                 onClick={() =>
-                  navigate("/dashboard/admin/formdetails", {
+                  navigate("/dashboard/admin/taskdetails", {
                     state: {
                       requestFormId: data.id,
                     },

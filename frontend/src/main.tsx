@@ -16,6 +16,7 @@ import {
   Footer,
   Navbar,
   ServiceRequestForm,
+  TaskDetails,
   UnallocatedTasks,
 } from "./components";
 
@@ -90,6 +91,15 @@ const router = createBrowserRouter([
     element: (
       <>
         <AllocatedTasks />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/admin/taskdetails",
+    element: (
+      <>
+        <TaskDetails />
         <Footer />
       </>
     ),
