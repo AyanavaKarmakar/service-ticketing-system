@@ -2,10 +2,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { clsx } from "clsx";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  SymbolIcon,
+} from "@radix-ui/react-icons";
+import { useState } from "react";
 
 export const MyTasks = () => {
   const navigate = useNavigate();
   const { requestFormId } = useLocation().state;
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("Set Status");
 
   const getTaskDetails = useQuery({
     queryKey: ["requestForm"],
@@ -139,16 +149,87 @@ export const MyTasks = () => {
         </>
       </div>
 
-      <button
-        type="button"
-        onClick={() => navigate("/dashboard/admin")}
-        className={clsx(
-          "py-2.5 px-5 my-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
-          "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
-        )}
-      >
-        Go Back
-      </button>
+      <div className="flex flex-col gap-y-3">
+        <SelectPrimitive.Root defaultValue={"Set Status"}>
+          <SelectPrimitive.Trigger
+            asChild
+            aria-label="Current Status"
+            className="mt-5"
+          >
+            <button
+              type="button"
+              className="border border-gray-300 rounded-md p-3 text-base flex items-center justify-between"
+            >
+              <SelectPrimitive.Value />
+              <SelectPrimitive.Icon className="ml-2">
+                <ChevronDownIcon />
+              </SelectPrimitive.Icon>
+            </button>
+          </SelectPrimitive.Trigger>
+
+          <SelectPrimitive.Content>
+            <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700">
+              <ChevronUpIcon />
+            </SelectPrimitive.ScrollUpButton>
+
+            <SelectPrimitive.Viewport className="bg-white p-2  rounded-lg shadow-lg">
+              <SelectPrimitive.Group>
+                {["Set Status", "On Hold", "Completed"].map((status, index) => (
+                  <SelectPrimitive.Item
+                    value={status}
+                    key={`${status}-${index}`}
+                    disabled={status === "Set Status"}
+                    className={clsx(
+                      "relative flex items-center px-6 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
+                      "radix-disabled:opacity-50",
+                      "focus:outline-none select-none cursor-pointer"
+                    )}
+                  >
+                    <SelectPrimitive.ItemText>
+                      {status}
+                    </SelectPrimitive.ItemText>
+
+                    <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
+                      <CheckIcon />
+                    </SelectPrimitive.ItemIndicator>
+                  </SelectPrimitive.Item>
+                ))}
+              </SelectPrimitive.Group>
+            </SelectPrimitive.Viewport>
+
+            <SelectPrimitive.ScrollDownButton className="flex items-center justify-center text-gray-700">
+              <ChevronDownIcon />
+            </SelectPrimitive.ScrollDownButton>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Root>
+
+        <button
+          type="button"
+          disabled={status === "Set Status"}
+          className={clsx(
+            "py-2.5 px-5 bg-teal-900 text-xl text-white font-semibold rounded-md",
+            "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
+            status === "Set Status" && "cursor-not-allowed"
+          )}
+        >
+          {isLoading ? (
+            <SymbolIcon className="w-8 h-6 animate-spin" />
+          ) : (
+            "Confirm"
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard/admin")}
+          className={clsx(
+            "py-2.5 px-5 mb-5 bg-gray-900 text-xl text-white font-semibold rounded-md",
+            "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
+          )}
+        >
+          Go Back
+        </button>
+      </div>
     </div>
   );
 };

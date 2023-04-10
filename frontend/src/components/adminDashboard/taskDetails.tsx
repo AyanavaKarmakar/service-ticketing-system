@@ -277,11 +277,11 @@ export const TaskDetails = () => {
                       ...(getAllEmployees?.data?.map(
                         (employee: any) => employee.username
                       ) ?? []),
-                    ]?.map((user, index) => (
+                    ]?.map((emp, index) => (
                       <SelectPrimitive.Item
-                        value={user}
-                        key={`${user}-${index}`}
-                        disabled={user === "Assign Task"}
+                        value={emp}
+                        key={`${emp}-${index}`}
+                        disabled={emp === "Assign Task"}
                         className={clsx(
                           "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
                           "radix-disabled:opacity-50",
@@ -289,7 +289,7 @@ export const TaskDetails = () => {
                         )}
                       >
                         <SelectPrimitive.ItemText>
-                          {user}
+                          {emp}
                         </SelectPrimitive.ItemText>
 
                         <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
