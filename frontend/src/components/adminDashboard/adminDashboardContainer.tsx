@@ -99,7 +99,7 @@ export const AdminDashboardContainer = () => {
         My Tasks
       </div>
 
-      <div className="pb-1 text-md lg:text-xl font-semibold text-center">
+      <div className="pb-1 text-md lg:text-xl font-semibold text-center mx-3">
         Click on a row to view the details of the request form.
       </div>
 

@@ -331,7 +331,7 @@ export const TaskDetails = () => {
           <>
             <div className="text-lg lg:text-xl font-semibold">
               {"Assigned To: "}
-              <span className="text-base lg:text-md">
+              <span className="text-base lg:text-lg">
                 {getTaskDetails?.data?.assignedEmployee.username}
               </span>
             </div>
