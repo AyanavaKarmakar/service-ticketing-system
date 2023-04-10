@@ -35,9 +35,10 @@ export const AllocatedTasks = () => {
       const filteredArray = formData.map((obj: any) => {
         return {
           id: obj._id,
-          customer: obj.customer.username,
+          employee: obj.assignedEmployee.username,
           productType: obj.productType,
           issueType: obj.issueType,
+          status: obj.status,
           dateOfSubmission: new Date(obj.dateOfSubmission).toLocaleDateString(),
         };
       });
@@ -45,10 +46,11 @@ export const AllocatedTasks = () => {
       const finalArray = filteredArray.filter((obj: any) => {
         return (
           obj.id &&
-          obj.customer &&
+          obj.employee &&
           obj.productType &&
           obj.issueType &&
           obj.issueType.length > 0 &&
+          obj.status &&
           obj.dateOfSubmission
         );
       });
@@ -78,13 +80,16 @@ export const AllocatedTasks = () => {
           <thead>
             <tr>
               <th className="font-bold p-1 lg:p-2 border-b border-l border-gray-700 text-left bg-gray-700 text-white">
-                Customer
+                Employee Assigned
               </th>
               <th className="font-bold p-1 lg:p-2 border-b border-l border-gray-700 text-left bg-gray-700 text-white">
                 Product Type
               </th>
               <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
                 Issue Type
+              </th>
+              <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
+                Status
               </th>
               <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
                 Date of Submission

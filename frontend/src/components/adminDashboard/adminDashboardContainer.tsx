@@ -38,6 +38,7 @@ export const AdminDashboardContainer = () => {
           customer: obj.customer.username,
           productType: obj.productType,
           issueType: obj.issueType,
+          status: obj.status,
           dateOfSubmission: new Date(obj.dateOfSubmission).toLocaleDateString(),
         };
       });
@@ -49,6 +50,7 @@ export const AdminDashboardContainer = () => {
           obj.productType &&
           obj.issueType &&
           obj.issueType.length > 0 &&
+          obj.status &&
           obj.dateOfSubmission
         );
       });
@@ -115,6 +117,9 @@ export const AdminDashboardContainer = () => {
               </th>
               <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
                 Issue Type
+              </th>
+              <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
+                Status
               </th>
               <th className="font-bold p-1 lg:p-2 border-b border-l text-left border-gray-700 bg-gray-700 text-white">
                 Date of Submission
