@@ -17,6 +17,39 @@ export const TaskDetails = () => {
   const [isLoading, setLoading] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState("Assign Task");
 
+  const deassignTask = useMutation({
+    mutationKey: ["deassignTask"],
+
+    mutationFn: async () => {
+      setLoading(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/tasks/${requestFormId}/deassign`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setLoading(false);
+        toast.success("Task deassigned successfully!");
+        navigate("/dashboard/admin");
+      }
+    },
+
+    onError: () => {
+      toast.error("Interval server error. Please try again!");
+    },
+
+    onSettled: () => {
+      setLoading(false);
+    },
+  });
+
   const assignTask = useMutation({
     mutationKey: ["assignTask"],
 
@@ -213,81 +246,112 @@ export const TaskDetails = () => {
       </div>
 
       <div className="flex flex-col mt-3 gap-y-3">
-        <div className="tetx-xl lg:text-2xl font-semibold">
-          {"Assign Task to: "}
-        </div>
+        {/** if task is not assigned yet */}
+        {getTaskDetails?.data?.status === "Open" && (
+          <>
+            <SelectPrimitive.Root
+              defaultValue="Assign Task"
+              onValueChange={(value) => setSelectedEmployee(value)}
+            >
+              <SelectPrimitive.Trigger asChild aria-label="Employee List">
+                <button
+                  type="button"
+                  className="border border-gray-300 rounded-md p-3 text-base flex items-center justify-between"
+                >
+                  <SelectPrimitive.Value />
+                  <SelectPrimitive.Icon className="ml-2">
+                    <ChevronDownIcon />
+                  </SelectPrimitive.Icon>
+                </button>
+              </SelectPrimitive.Trigger>
 
-        <SelectPrimitive.Root
-          defaultValue="Assign Task"
-          onValueChange={(value) => setSelectedEmployee(value)}
-        >
-          <SelectPrimitive.Trigger asChild aria-label="Employee List">
+              <SelectPrimitive.Content>
+                <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700">
+                  <ChevronUpIcon />
+                </SelectPrimitive.ScrollUpButton>
+
+                <SelectPrimitive.Viewport className="bg-white p-2 rounded-lg shadow-lg">
+                  <SelectPrimitive.Group>
+                    {[
+                      "Assign Task",
+                      ...(getAllEmployees?.data?.map(
+                        (employee: any) => employee.username
+                      ) ?? []),
+                    ]?.map((user, index) => (
+                      <SelectPrimitive.Item
+                        value={user}
+                        key={`${user}-${index}`}
+                        disabled={user === "Assign Task"}
+                        className={clsx(
+                          "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
+                          "radix-disabled:opacity-50",
+                          "focus:outline-none select-none cursor-pointer"
+                        )}
+                      >
+                        <SelectPrimitive.ItemText>
+                          {user}
+                        </SelectPrimitive.ItemText>
+
+                        <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
+                          <CheckIcon />
+                        </SelectPrimitive.ItemIndicator>
+                      </SelectPrimitive.Item>
+                    ))}
+                  </SelectPrimitive.Group>
+                </SelectPrimitive.Viewport>
+
+                <SelectPrimitive.ScrollDownButton className="flex items-center justify-center text-gray-700">
+                  <ChevronDownIcon />
+                </SelectPrimitive.ScrollDownButton>
+              </SelectPrimitive.Content>
+            </SelectPrimitive.Root>
+
             <button
               type="button"
-              className="border border-gray-300 rounded-md p-3 text-base flex items-center justify-between"
+              disabled={selectedEmployee === "Assign Task"}
+              className={clsx(
+                "py-2.5 px-5 bg-teal-900 text-xl text-white font-semibold rounded-md",
+                "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
+                selectedEmployee === "Assign Task" && "cursor-not-allowed"
+              )}
+              onClick={() => assignTask.mutate()}
             >
-              <SelectPrimitive.Value />
-              <SelectPrimitive.Icon className="ml-2">
-                <ChevronDownIcon />
-              </SelectPrimitive.Icon>
+              {isLoading ? (
+                <SymbolIcon className="w-8 h-6 animate-spin" />
+              ) : (
+                "Assign Task"
+              )}
             </button>
-          </SelectPrimitive.Trigger>
+          </>
+        )}
 
-          <SelectPrimitive.Content>
-            <SelectPrimitive.ScrollUpButton className="flex items-center justify-center text-gray-700">
-              <ChevronUpIcon />
-            </SelectPrimitive.ScrollUpButton>
+        {/** if task is assigned */}
+        {(getTaskDetails?.data?.status === "In Progress" ||
+          getTaskDetails?.data?.status === "On Hold") && (
+          <>
+            <div className="text-lg lg:text-xl font-semibold">
+              {"Assigned To: "}
+              <span className="text-base lg:text-md">
+                {getTaskDetails?.data?.assignedEmployee.username}
+              </span>
+            </div>
 
-            <SelectPrimitive.Viewport className="bg-white p-2 rounded-lg shadow-lg">
-              <SelectPrimitive.Group>
-                {[
-                  "Assign Task",
-                  ...(getAllEmployees?.data?.map(
-                    (employee: any) => employee.username
-                  ) ?? []),
-                ]?.map((user, index) => (
-                  <SelectPrimitive.Item
-                    value={user}
-                    key={`${user}-${index}`}
-                    disabled={user === "Assign Task"}
-                    className={clsx(
-                      "relative flex items-center px-8 py-2 rounded-md text-sm text-gray-700 font-medium focus:bg-gray-100",
-                      "radix-disabled:opacity-50",
-                      "focus:outline-none select-none cursor-pointer"
-                    )}
-                  >
-                    <SelectPrimitive.ItemText>{user}</SelectPrimitive.ItemText>
-
-                    <SelectPrimitive.ItemIndicator className="absolute left-2 inline-flex items-center">
-                      <CheckIcon />
-                    </SelectPrimitive.ItemIndicator>
-                  </SelectPrimitive.Item>
-                ))}
-              </SelectPrimitive.Group>
-            </SelectPrimitive.Viewport>
-
-            <SelectPrimitive.ScrollDownButton className="flex items-center justify-center text-gray-700">
-              <ChevronDownIcon />
-            </SelectPrimitive.ScrollDownButton>
-          </SelectPrimitive.Content>
-        </SelectPrimitive.Root>
-
-        <button
-          type="button"
-          disabled={selectedEmployee === "Assign Task"}
-          className={clsx(
-            "py-2.5 px-5 bg-teal-900 text-xl text-white font-semibold rounded-md",
-            "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75",
-            selectedEmployee === "Assign Task" && "cursor-not-allowed"
-          )}
-          onClick={() => assignTask.mutate()}
-        >
-          {isLoading ? (
-            <SymbolIcon className="w-8 h-6 animate-spin" />
-          ) : (
-            "Assign Task"
-          )}
-        </button>
+            <button
+              type="button"
+              className={clsx(
+                "py-2.5 px-5 bg-red-900 text-xl text-white font-semibold rounded-md",
+                "focus:outline-none focus-visible:ring focus-visible:ring-gray-700 focus-visible:ring-opacity-75"
+              )}
+              onClick={() => deassignTask.mutate()}
+            >
+              {isLoading ? (
+                <SymbolIcon className="w-8 h-6 animate-spin" />
+              ) : (
+                "De-assign Task"
+              )}
+            </button>
+          </>
+        )}
 
         <button
           type="button"
