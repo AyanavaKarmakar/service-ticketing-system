@@ -242,9 +242,9 @@ export const TaskDetails = () => {
               <SelectPrimitive.Group>
                 {[
                   "Assign Task",
-                  ...getAllEmployees?.data?.map(
+                  ...(getAllEmployees?.data?.map(
                     (employee: any) => employee.username
-                  ),
+                  ) ?? []),
                 ]?.map((user, index) => (
                   <SelectPrimitive.Item
                     value={user}
