@@ -10,6 +10,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import {
+  AdminDashboardContainer,
   CustomerDashboardContainer,
   Footer,
   Navbar,
@@ -66,7 +67,12 @@ const router = createBrowserRouter([
   // admin routes
   {
     path: "/dashboard/admin",
-    element: <Footer />,
+    element: (
+      <>
+        <AdminDashboardContainer />
+        <Footer />,
+      </>
+    ),
   },
 ]);
 
