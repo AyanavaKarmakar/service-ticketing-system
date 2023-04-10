@@ -64,9 +64,13 @@ export const AdminDashboardContainer = () => {
   });
 
   return (
-    <div className="flex flex-col gap-y-3 items-center justify-center">
-      <div className="text-center pt-6 pb-4 lg:pt-10 lg:pb-5 text-3xl lg:text-5xl text-black font-bold">
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-center pt-6 pb-2 lg:pt-10 lg:pb-5 text-4xl lg:text-6xl text-black font-bold">
         Admin Dashboard
+      </div>
+
+      <div className="text-center pb-4 lg:pt-10 lg:pb-5 text-2xl lg:text-4xl text-black font-bold">
+        Service Requests
       </div>
 
       <div className="flex flex-row gap-x-5">
