@@ -1,3 +1,5 @@
+export { AllocatedTasks } from "./adminDashboard/allocatedTasks";
+export { UnallocatedTasks } from "./adminDashboard/unallocatedTasks";
 export { AdminDashboardContainer } from "./adminDashboard/adminDashboardContainer";
 
 export { CustomerDashboardContainer } from "./customerDashboard/customerDashboardContainer";

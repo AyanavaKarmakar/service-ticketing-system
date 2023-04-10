@@ -11,10 +11,12 @@ import { Toaster } from "react-hot-toast";
 
 import {
   AdminDashboardContainer,
+  AllocatedTasks,
   CustomerDashboardContainer,
   Footer,
   Navbar,
   ServiceRequestForm,
+  UnallocatedTasks,
 } from "./components";
 
 import "./index.css";
@@ -71,6 +73,24 @@ const router = createBrowserRouter([
       <>
         <AdminDashboardContainer />
         <Footer />,
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/admin/unallocated",
+    element: (
+      <>
+        <UnallocatedTasks />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/dashboard/admin/allocated",
+    element: (
+      <>
+        <AllocatedTasks />
+        <Footer />
       </>
     ),
   },
