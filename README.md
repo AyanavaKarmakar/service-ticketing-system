@@ -80,6 +80,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 4. MongoDB
 5. Mongoose
 6. TypeScript
+7. Cloudinary
 
 ### Frontend
 

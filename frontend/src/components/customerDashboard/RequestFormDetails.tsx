@@ -77,9 +77,7 @@ export const RequestFormDetails = () => {
               .toLowerCase()
               .endsWith(".doc")) && (
             <iframe
-              src={`https://docs.google.com/gview?url=${
-                import.meta.env.VITE_API_URL
-              }/${getFormDetails.data?.policyUpload}&embedded=true`}
+              src={`https://docs.google.com/gview?url=${getFormDetails.data?.policyUpload}&embedded=true`}
               width="100%"
               height="100%"
             />
@@ -88,9 +86,7 @@ export const RequestFormDetails = () => {
           {/** For pdf files */}
           {getFormDetails.data?.policyUpload.toLowerCase().endsWith(".pdf") && (
             <embed
-              src={`${import.meta.env.VITE_API_URL}/${
-                getFormDetails.data?.policyUpload
-              }`}
+              src={getFormDetails?.data?.policyUpload}
               type="application/pdf"
               width="100%"
               height="100%"
@@ -103,9 +99,7 @@ export const RequestFormDetails = () => {
               .toLowerCase()
               .endsWith(".jpg")) && (
             <img
-              src={`${import.meta.env.VITE_API_URL}/${
-                getFormDetails.data?.policyUpload
-              }`}
+              src={getFormDetails?.data?.policyUpload}
               alt="Policy Upload"
               width="75%"
               height="75%"

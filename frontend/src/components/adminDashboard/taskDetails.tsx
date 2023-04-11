@@ -192,9 +192,7 @@ export const TaskDetails = () => {
               .toLowerCase()
               .endsWith(".doc")) && (
             <iframe
-              src={`https://docs.google.com/gview?url=${
-                import.meta.env.VITE_API_URL
-              }/${getTaskDetails?.data?.policyUpload}&embedded=true`}
+              src={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
               width="100%"
               height="100%"
             />
@@ -205,9 +203,7 @@ export const TaskDetails = () => {
             .toLowerCase()
             .endsWith(".pdf") && (
             <embed
-              src={`${import.meta.env.VITE_API_URL}/${
-                getTaskDetails?.data?.policyUpload
-              }`}
+              src={getTaskDetails?.data?.policyUpload}
               type="application/pdf"
               width="100%"
               height="100%"
@@ -220,9 +216,7 @@ export const TaskDetails = () => {
               .toLowerCase()
               .endsWith(".jpg")) && (
             <img
-              src={`${import.meta.env.VITE_API_URL}/${
-                getTaskDetails?.data?.policyUpload
-              }`}
+              src={getTaskDetails?.data?.policyUpload}
               alt="Policy Upload"
               width="75%"
               height="75%"

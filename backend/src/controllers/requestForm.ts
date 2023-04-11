@@ -4,6 +4,16 @@ import type { Request, Response } from "express";
 import { RequestForm } from "../models/requestForm";
 import type { ICustomer, ICustomerDocument } from "../models/customer";
 
+// Cloudinary Setup
+const cloudinary = require("cloudinary").v2;
+
+// Configuration
+cloudinary.config({
+  cloud_name: "dvjxtbdpk",
+  api_key: "814971469177413",
+  api_secret: "pIs3iAqD9lDCfut54pQH6ESj4pI",
+});
+
 // POST /customer/requestform
 export const requestForm = async (req: Request, res: Response) => {
   try {
@@ -16,22 +26,29 @@ export const requestForm = async (req: Request, res: Response) => {
     }
 
     // Check if policyUpload is present and valid
-    const policyUpload = req.file;
+    let policyUpload = req.file;
     if (!policyUpload) {
       return res.status(400).json({ error: "Policy document is required" });
     }
 
-    const newRequestForm = new RequestForm({
-      customer: customer._id,
-      productType,
-      issueType,
-      issueDescription,
-      policyUpload: policyUpload.path,
-    });
+    cloudinary.uploader.upload(
+      policyUpload.path,
+      async (error: any, result: any) => {
+        const newRequestForm = new RequestForm({
+          customer: customer._id,
+          productType,
+          issueType,
+          issueDescription,
+          policyUpload: result.url,
+        });
 
-    await newRequestForm.save();
+        await newRequestForm.save();
 
-    res.status(201).json({ newRequestForm, message: "Request Form Created" });
+        res
+          .status(201)
+          .json({ newRequestForm, message: "Request Form Created" });
+      }
+    );
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }
