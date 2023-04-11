@@ -1,6 +1,4 @@
-# Service Ticketing System
-
-User Authentication, Customer Support Request Creation and Administration Action Capability for a Service Ticketing System.
+![service-ticketing-system](https://user-images.githubusercontent.com/89210438/231180928-d4df240b-a553-4eb6-a115-ceae39a3ce3f.png)
 
 ---
 
