@@ -16,7 +16,8 @@
     "mongoose",
     "jwt",
     "bcrypt",
-    "multer"
+    "multer",
+    "cloudinary"
   ],
   "author": "AyanavaKarmakar",
   "license": "MIT",
