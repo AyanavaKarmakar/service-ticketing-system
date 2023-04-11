@@ -4,37 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
-    "dev": "ts-node-dev src/index.ts"
+    "start": "node src/index.js",
+    "dev": "ts-node-dev src/index.ts",
+    "build": "npm install && tsc"
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
-  "keywords": [
-    "typescript",
-    "node",
-    "express",
-    "mongodb",
-    "mongoose",
-    "jwt",
-    "bcrypt",
-    "multer"
-  ],
-  "author": "AyanavaKarmakar",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.7",
-    "pre-commit": "^1.2.2",
-    "raf": "^3.4.1",
-    "rim": "^0.0.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.3"
   },
