@@ -5,8 +5,7 @@ import App from "./App";
 import { store } from "./redux/store";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import {
@@ -28,7 +27,7 @@ import "./index.css";
 
 const queryClient = new QueryClient();
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   // auth routes
   {
     path: "/",
