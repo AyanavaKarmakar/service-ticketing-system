@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "ts-node-dev src/index.ts",
-    "build": "npm install && tsc"
+    "build": "tsc",
+    "start": "node ./dist/application.js",
+    "dev": "ts-node-dev src/index.ts"
   },
   "keywords": [
     "node",
