@@ -8,9 +8,18 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "npm install && tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "node",
+    "typescript",
+    "express",
+    "mongodb",
+    "mongoose",
+    "jwt",
+    "bcrypt",
+    "multer"
+  ],
+  "author": "AyanavaKarmakar",
+  "license": "MIT",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
