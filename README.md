@@ -113,9 +113,9 @@ npm install
 ```bash
 MONGODB_URI=mongodb://localhost:27017/your-database-name
 JWT_SECRET=your-secret-key
-CLOUDINARY_CLOUD_NAME =  "cloud"
-API_KEY = "key"
-API_SECRET = "secret"
+CLOUDINARY_CLOUD_NAME=cloud
+CLOUDINARY_API_KEY=key
+CLOUDINARY_API_SECRET=secret
 ```
 
 3. Run the server
