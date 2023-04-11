@@ -30,11 +30,11 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Dashboard
 
-![image](https://user-images.githubusercontent.com/89210438/230932734-6a55731a-3feb-4e85-adcd-958e005e9bb9.png)
+![image](https://user-images.githubusercontent.com/89210438/230956398-7b1e845e-8d38-4fa6-afb1-3681f3a3bb53.png)
 
 - Unallocated Tasks
 
-![image](https://user-images.githubusercontent.com/89210438/230932985-a8a84bfa-3a58-4ea2-baa8-7652964968b3.png)
+![image](https://user-images.githubusercontent.com/89210438/230956159-8523a27d-9c77-42dd-9217-26c0d84c8f9f.png)
 
 - Assign Unallocated Tasks
 
@@ -42,7 +42,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Allocated Tasks
 
-![image](https://user-images.githubusercontent.com/89210438/230933053-ede91615-33e8-4fa2-8c45-b0cd4d2fb637.png)
+![image](https://user-images.githubusercontent.com/89210438/230956735-d13055ac-ab64-48f6-a66c-66f6a46f5f98.png)
 
 - De-assign Allocated tasks
 
@@ -50,13 +50,17 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - Update Task Status
 
-![image](https://user-images.githubusercontent.com/89210438/230948416-62cb46c5-dcd9-419a-957f-8cbb0fbd3922.png)
+![image](https://user-images.githubusercontent.com/89210438/230957136-66f0efb6-b057-4be9-b28b-74019190da9c.png)
 
 ### 4. Employee (NON-ADMIN)
 
 - Dashboard
 
-![image](https://user-images.githubusercontent.com/89210438/230951267-3515730d-d14f-407b-b7bc-480a3729ddf0.png)
+![image](https://user-images.githubusercontent.com/89210438/230956916-9f4dda51-2951-4b1b-930a-7d31cd484f28.png)
+
+- Update Task Status
+
+![image](https://user-images.githubusercontent.com/89210438/230957032-6694ec5b-8ba9-46f4-a8ea-e3945a452d86.png)
 
 ---
 
@@ -66,6 +70,7 @@ User Authentication, Customer Support Request Creation and Administration Action
 
 - [Live API](https://service-ticketing-system-api.onrender.com/welcome/api) deployed on [Render](https://render.com/)
 - [Docs](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
+- Note: Server maybe slow at first usage due to coldstarts
 
 ![image](https://user-images.githubusercontent.com/89210438/230775322-b8035698-4be7-42a3-87c2-f896dfeef512.png)
 
