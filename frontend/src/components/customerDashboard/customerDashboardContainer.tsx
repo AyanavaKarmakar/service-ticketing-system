@@ -21,6 +21,10 @@ export const CustomerDashboardContainer = () => {
         Create Request
       </button>
 
+      <div className="text-center lg:pt-10 text-2xl lg:text-4xl text-black font-bold">
+        My Requests
+      </div>
+
       <div className="lg:w-auto lg:overflow-hidden overflow-scroll w-full">
         <RequestsTable />
       </div>
