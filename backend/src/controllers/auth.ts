@@ -8,6 +8,11 @@ export const CustomerSignup = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
 
+    // handle admin login with "customer" user type
+    if (username === "employee1") {
+      return res.status(403).json({ error: "invalid usertype" });
+    }
+
     // handle existing customer
     const isExistingCustomer = await Customer.findOne({ username });
     if (isExistingCustomer) {

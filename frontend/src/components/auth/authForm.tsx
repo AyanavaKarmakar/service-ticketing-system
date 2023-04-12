@@ -85,6 +85,9 @@ export const AuthForm = () => {
           if ("error" in result && result.error === "username already exists") {
             toast.error("Username already exists!");
           }
+        } else if (response.status === 403) {
+          // handle admin using customer signup route
+          toast.error("Invalid Request! Please select a different user type.");
         }
       }
       // if the user is logging in
