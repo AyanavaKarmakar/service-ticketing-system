@@ -5,6 +5,7 @@ import { AuthRouter } from "./routes/auth";
 import { connectDB } from "./db/connect";
 import { RequestFormRouter } from "./routes/requestForm";
 import { TasksRouter } from "./routes/tasks";
+import { limiter } from "./middleware/rateLimiter";
 import path from "path";
 import fs from "fs";
 
@@ -26,15 +27,15 @@ app.use((req, res, next) => {
 
 // Routes
 
-app.use("/welcome/api", (req: Request, res: Response) => {
+app.use("/welcome/api", limiter, (req: Request, res: Response) => {
   res.send(
     "Welcome to the Service Ticketing System API! Refer to the DOCS here: https://documenter.getpostman.com/view/22237577/2s93RZNqMd"
   );
 });
 
-app.use("/auth", AuthRouter);
-app.use("/customer", RequestFormRouter);
-app.use("/tasks", TasksRouter);
+app.use("/auth", limiter, AuthRouter);
+app.use("/customer", limiter, RequestFormRouter);
+app.use("/tasks", limiter, TasksRouter);
 
 const start = async () => {
   try {
