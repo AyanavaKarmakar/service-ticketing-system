@@ -68,7 +68,7 @@
 
 - [Live API](https://service-ticketing-system-api.onrender.com/welcome/api) deployed on [Render](https://render.com/)
 - [Docs](https://documenter.getpostman.com/view/22237577/2s93RZNqMd)
-- **Note**: Server maybe slow at first usage due to coldstarts
+- **Note**: The API is rate limited to 100 requests per 15 minutes per IP address.
 
 ![image](https://user-images.githubusercontent.com/89210438/230775322-b8035698-4be7-42a3-87c2-f896dfeef512.png)
 
@@ -79,6 +79,7 @@
 5. Mongoose
 6. TypeScript
 7. Cloudinary
+8. Express-Rate-Limiter
 
 ### Frontend
 
