@@ -1,4 +1,5 @@
 import multer from "multer";
+import type { Request } from "express";
 
 // Set up multer storage and file filter
 const storage = multer.diskStorage({
@@ -10,11 +11,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (
-  req: Request,
-  file: Express.Multer.File,
-  cb: (error: Error | null, acceptFile: boolean) => void
-) => {
+const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   const allowedMimeTypes = [
     "application/pdf",
     "application/msword",
@@ -41,6 +38,6 @@ const limits = {
 export const upload = multer({
   dest: "uploads/",
   storage: storage,
-  fileFilter: fileFilter as any,
+  fileFilter: fileFilter,
   limits: limits,
 }).single("policyUpload");

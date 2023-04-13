@@ -1,4 +1,8 @@
-import express, { type Request, type Response } from "express";
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
 import "dotenv/config";
 import { json, urlencoded } from "body-parser";
 import { AuthRouter } from "./routes/auth";
@@ -6,6 +10,7 @@ import { connectDB } from "./db/connect";
 import { RequestFormRouter } from "./routes/requestForm";
 import { TasksRouter } from "./routes/tasks";
 import { limiter } from "./middleware/rateLimiter";
+import { MulterError } from "multer";
 import path from "path";
 import fs from "fs";
 
@@ -36,6 +41,21 @@ app.use("/welcome/api", limiter, (req: Request, res: Response) => {
 app.use("/auth", limiter, AuthRouter);
 app.use("/customer", limiter, RequestFormRouter);
 app.use("/tasks", limiter, TasksRouter);
+
+// handle multer-specific errors
+app.use(
+  (err: Error | null, req: Request, res: Response, next: NextFunction) => {
+    if (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
+    } else {
+      return res.status(500).json({
+        message: "Something went wrong!",
+      });
+    }
+  }
+);
 
 const start = async () => {
   try {
