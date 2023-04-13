@@ -9,6 +9,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
+
 const fileFilter = (
   req: Request,
   file: Express.Multer.File,
@@ -32,6 +33,7 @@ const fileFilter = (
     );
   }
 };
+
 const limits = {
   fileSize: 2000000, // 2MB file size limit
 };
