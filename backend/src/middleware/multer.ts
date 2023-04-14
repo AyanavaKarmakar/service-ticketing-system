@@ -1,17 +1,32 @@
-import multer from "multer";
+import multer, { FileFilterCallback, MulterError } from "multer";
 import type { Request } from "express";
+
+type DestinationCallback = (error: Error | null, destination: string) => void;
+type FileNameCallback = (error: Error | null, filename: string) => void;
 
 // Set up multer storage and file filter
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: DestinationCallback
+  ): void => {
     cb(null, "uploads/");
   },
-  filename: function (req, file, cb) {
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: FileNameCallback
+  ): void => {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
-const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
+const fileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: FileFilterCallback
+) => {
   const allowedMimeTypes = [
     "application/pdf",
     "application/msword",
@@ -19,15 +34,12 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
     "image/jpeg",
     "image/png",
   ];
+
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(
-      new Error(
-        "Invalid file type. Only PDF, DOC, DOCX, JPG, and PNG files are allowed."
-      ),
-      false
-    );
+    cb(null, false);
+    cb(new MulterError("LIMIT_UNEXPECTED_FILE"));
   }
 };
 
@@ -37,7 +49,25 @@ const limits = {
 
 export const upload = multer({
   dest: "uploads/",
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: limits,
+  storage,
+  fileFilter,
+  limits,
 }).single("policyUpload");
+
+/*
+
+Error handling:
+
+for file size limit error, returns this response:
+
+{
+    "message": "File too large"
+}
+
+for wrong file type, returns this response:
+ 
+{
+    "message": "Unexpected field"
+}
+
+ */

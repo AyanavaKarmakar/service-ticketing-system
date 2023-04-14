@@ -45,7 +45,7 @@ app.use("/tasks", limiter, TasksRouter);
 // handle multer-specific errors
 app.use(
   (err: Error | null, req: Request, res: Response, next: NextFunction) => {
-    if (err) {
+    if (err instanceof MulterError) {
       return res.status(500).json({
         message: err.message,
       });
