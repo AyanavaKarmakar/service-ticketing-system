@@ -118,6 +118,16 @@ export const ServiceRequestForm = () => {
         );
 
         navigate("/dashboard/customer");
+      } else if (response.status === 500) {
+        const data = await response.json();
+
+        if (data.message === "File too large") {
+          toast.error("File size should be less than 2MB!");
+        }
+
+        if (data.message === "Unexpected field") {
+          toast.error("File type not supported!");
+        }
       } else {
         toast.error("Interval server error. Please try again!");
       }
