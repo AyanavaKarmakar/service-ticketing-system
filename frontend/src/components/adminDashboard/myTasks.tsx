@@ -148,11 +148,11 @@ export const MyTasks = () => {
               data={getTaskDetails?.data?.policyUpload}
               type="application/pdf"
             >
-              <iframe
+              <embed
                 src={`https://docs.google.com/viewer?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
                 width="100%"
                 height="100%"
-              ></iframe>
+              />
             </object>
           )}
 
