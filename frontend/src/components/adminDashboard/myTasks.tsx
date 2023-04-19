@@ -149,7 +149,9 @@ export const MyTasks = () => {
               type="application/pdf"
             >
               <embed
-                src={`https://docs.google.com/viewer?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
+                src={`https://docs.google.com/viewer?url=${encodeURIComponent(
+                  getTaskDetails?.data?.policyUpload
+                )}&embedded=true`}
                 width="100%"
                 height="100%"
               />
