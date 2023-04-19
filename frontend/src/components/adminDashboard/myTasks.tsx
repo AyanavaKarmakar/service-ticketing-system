@@ -134,7 +134,7 @@ export const MyTasks = () => {
               .toLowerCase()
               .endsWith(".doc")) && (
             <iframe
-              src={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
+              src={`https://docs.google.com/gview?url=\\${getTaskDetails?.data?.policyUpload}&embedded=true`}
               width="100%"
               height="100%"
             />
@@ -145,7 +145,7 @@ export const MyTasks = () => {
             .toLowerCase()
             .endsWith(".pdf") && (
             <iframe
-              src={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
+              src={`https://docs.google.com/gview?url=\\${getTaskDetails?.data?.policyUpload}&embedded=true`}
               width="100%"
               height="100%"
             />
