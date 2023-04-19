@@ -140,6 +140,7 @@ export const MyTasks = () => {
                 height="100%"
               />
               <a
+                className="text-blue-500 hover:text-blue-700"
                 href={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
                 target="_blank"
               >
