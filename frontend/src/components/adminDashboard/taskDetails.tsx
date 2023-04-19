@@ -202,16 +202,12 @@ export const TaskDetails = () => {
           {getTaskDetails?.data?.policyUpload
             .toLowerCase()
             .endsWith(".pdf") && (
-            <object
-              data={getTaskDetails?.data?.policyUpload}
+            <embed
+              src={getTaskDetails?.data?.policyUpload}
               type="application/pdf"
-            >
-              <iframe
-                src={`https://docs.google.com/viewer?url=\${getTaskDetails?.data?.policyUpload}&embedded=true`}
-                width="100%"
-                height="100%"
-              ></iframe>
-            </object>
+              width="100%"
+              height="100%"
+            />
           )}
 
           {/** For image files */}
