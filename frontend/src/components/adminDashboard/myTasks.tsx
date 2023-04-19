@@ -133,11 +133,19 @@ export const MyTasks = () => {
             getTaskDetails?.data?.policyUpload
               .toLowerCase()
               .endsWith(".doc")) && (
-            <iframe
-              src={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
-              width="100%"
-              height="100%"
-            />
+            <>
+              <iframe
+                src={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
+                width="100%"
+                height="100%"
+              />
+              <a
+                href={`https://docs.google.com/gview?url=${getTaskDetails?.data?.policyUpload}&embedded=true`}
+                target="_blank"
+              >
+                View File
+              </a>
+            </>
           )}
 
           {/** For pdf files */}
