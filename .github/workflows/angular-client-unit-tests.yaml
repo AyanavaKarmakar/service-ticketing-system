@@ -1,4 +1,4 @@
-name: Tests
+name: CI—Angular Client Unit Tests
 on:
   push:
     branches: "*"
