@@ -15,5 +15,7 @@ jobs:
           node-version: "16.x"
       - name: Install dependencies
         run: cd angular-client && npm install
+      - name: Install ng
+        run: npm install -g @angular/cli
       - name: Test
         run: ng test --no-watch --no-progress
