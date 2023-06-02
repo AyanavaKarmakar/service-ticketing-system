@@ -16,4 +16,4 @@ jobs:
       - name: Install dependencies
         run: cd angular-client && npm install
       - name: Test
-        run: cd angular-client && npm run test -- --prod
+        run: cd angular-client && npm run test
