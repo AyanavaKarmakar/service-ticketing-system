@@ -8,7 +8,7 @@
 .
 ├── backend [built using Node.js / Express.js]
 ├── backend [built using Node.js / Express.js]
-├── backend [built using Node.js / Express.js]
+├── angular-client [built using Angular (WIP)]
 └── nest-client [built using Nest.js (WIP)]
 ```
 
