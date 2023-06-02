@@ -7,9 +7,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthComponent } from './pages/auth/auth/auth.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, AuthComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
