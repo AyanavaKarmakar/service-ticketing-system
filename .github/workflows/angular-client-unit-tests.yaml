@@ -18,4 +18,4 @@ jobs:
       - name: Install ng
         run: npm install -g @angular/cli
       - name: Test
-        run: ng test --no-watch --no-progress
+        run: cd angular-client && ng test --no-watch --no-progress
