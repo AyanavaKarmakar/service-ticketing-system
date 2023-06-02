@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   hide = true;
+
+  selectedValue: string = '';
+
+  userTypes: string[] = ['customer', 'employee'];
 }
