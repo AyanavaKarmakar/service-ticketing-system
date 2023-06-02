@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent {}
+export class AuthComponent {
+  hide = true;
+}
