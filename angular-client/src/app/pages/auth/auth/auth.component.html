@@ -1,4 +1,8 @@
-<div class="flex flex-col gap-3 justify-center items-center min-h-[calc(100vh-100px)] mx-auto">
+<div class="flex flex-col gap-3 justify-center min-h-[calc(100vh-100px)] max-w-sm mx-auto">
+    <div class="text-center text-5xl font-semibold mb-3">
+        Auth Portal
+    </div>
+
     <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
         <input matInput placeholder="John Doe">
@@ -15,9 +19,9 @@
         </button>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="fill">
         <mat-label>Select User Type</mat-label>
-        <mat-select>
+        <mat-select class="w-full">
             <mat-option *ngFor="let user of userTypes" [value]="user">
                 {{user}}
             </mat-option>
@@ -25,7 +29,7 @@
     </mat-form-field>
 
     <div class="flex flex-row gap-3 justify-between">
-        <button mat-raised-button color="primary" class="text-lg">Login</button>
-        <button mat-raised-button color="accent" class="text-lg">Register</button>
+        <button mat-raised-button color="primary" class="text-xl">Login</button>
+        <button mat-raised-button color="accent" class="text-xl">Register</button>
     </div>
 </div>
