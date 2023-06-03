@@ -6,14 +6,15 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
-const AUTH_URL = 'http://localhost:3000/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private AUTH_URL = 'http://localhost:3000/auth';
+
+  constructor(private http: HttpClient, private matSnackBar: MatSnackBar) {}
 
   /**
    *
@@ -33,10 +34,14 @@ export class AuthService {
     };
 
     this.http
-      .post(`${AUTH_URL}/customer/login`, body, httpOptions)
+      .post(`${this.AUTH_URL}/customer/login`, body, httpOptions)
       .pipe(
         tap(() => {
           console.log('Logged in successfully!');
+
+          this.matSnackBar.open('Logged in successfully!', 'Close', {
+            duration: 3000,
+          });
         }),
         catchError((error: HttpErrorResponse) => {
           console.error('An error occurred during login:', error.message);
