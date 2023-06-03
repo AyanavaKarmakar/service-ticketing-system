@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AuthService {
   private AUTH_URL = 'http://localhost:3000/auth';
 
-  constructor(private http: HttpClient, private matSnackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private matSnackBar: MatSnackBar,
+    private cookieService: CookieService,
+    private userService: UserService
+  ) {}
+
+  /**
+   *
+   * @returns true if the user is authenticated, false otherwise
+   */
+  isAuthenticated(): boolean {
+    const token = this.cookieService.get('authToken');
+    return !!token;
+  }
 
   /**
    *
@@ -50,8 +66,9 @@ export class AuthService {
         })
       )
       .subscribe({
-        next: (response) => {
-          console.log(response);
+        next: (token) => {
+          this.cookieService.set('token', token.toString(), { expires: 7 });
+          this.userService.setUsername(username);
         },
 
         error: (error) => {

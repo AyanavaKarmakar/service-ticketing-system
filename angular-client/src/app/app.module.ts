@@ -16,7 +16,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AuthService } from './services/auth.service';
+
+import { AuthService } from './services/auth/auth.service';
+import { UserService } from './services/user/user.service';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
@@ -33,7 +36,7 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
     MatSnackBarModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService, AuthGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
