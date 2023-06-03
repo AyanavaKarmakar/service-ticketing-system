@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './pages/home/home/home.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
@@ -29,7 +30,7 @@ import { HomeComponent } from './pages/home/home/home.component';
     MatButtonModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
