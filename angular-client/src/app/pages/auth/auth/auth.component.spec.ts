@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -28,7 +31,9 @@ describe('AuthComponent', () => {
         MatButtonModule,
         MatSelectModule,
         BrowserAnimationsModule,
+        HttpClientModule,
       ],
+      providers: [AuthService, MatSnackBar],
     }).compileComponents();
   });
 

@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -12,8 +15,9 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, MatToolbarModule],
+      imports: [RouterTestingModule, MatToolbarModule, HttpClientModule],
       declarations: [AppComponent, NavbarComponent],
+      providers: [AuthService, MatSnackBar],
     }).compileComponents();
   });
 
