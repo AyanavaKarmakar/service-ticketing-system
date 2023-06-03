@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './pages/auth/auth/auth.component';
@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    HttpClientModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

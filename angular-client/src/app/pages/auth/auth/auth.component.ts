@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,4 +9,10 @@ export class AuthComponent {
   hide = true;
 
   userTypes: string[] = ['customer', 'employee'];
+
+  constructor(private authService: AuthService) {}
+
+  loginUser(): void {
+    this.authService.loginCustomer('customer1', '123');
+  }
 }
