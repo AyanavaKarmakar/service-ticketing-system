@@ -9,6 +9,8 @@ import { throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user/user.service';
+import { Router } from '@angular/router';
+import { IAuthResponse } from 'src/app/types/AuthResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +22,8 @@ export class AuthService {
     private http: HttpClient,
     private matSnackBar: MatSnackBar,
     private cookieService: CookieService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   /**
@@ -50,11 +53,9 @@ export class AuthService {
     };
 
     this.http
-      .post(`${this.AUTH_URL}/customer/login`, body, httpOptions)
+      .post<IAuthResponse>(`${this.AUTH_URL}/customer/login`, body, httpOptions)
       .pipe(
         tap(() => {
-          console.log('Logged in successfully!');
-
           this.matSnackBar.open('Logged in successfully!', 'Close', {
             duration: 3000,
           });
@@ -66,9 +67,10 @@ export class AuthService {
         })
       )
       .subscribe({
-        next: (token) => {
-          this.cookieService.set('token', token.toString(), { expires: 7 });
+        next: (response) => {
+          this.cookieService.set('token', response.token, { expires: 7 });
           this.userService.setUsername(username);
+          this.router.navigate(['/home']);
         },
 
         error: (error) => {
