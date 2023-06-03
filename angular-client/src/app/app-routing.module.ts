@@ -6,7 +6,7 @@ import { HomeComponent } from './pages/home/home/home.component';
 
 const routes: Routes = [
   {
-    path: '*',
+    path: '**',
     redirectTo: 'auth',
     pathMatch: 'full',
   },
