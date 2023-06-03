@@ -14,9 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { HomeComponent } from './pages/home/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, AuthComponent],
+  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
