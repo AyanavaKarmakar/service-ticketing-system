@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private username = new BehaviorSubject<string>('');
+  constructor(private cookieService: CookieService) {}
 
   /**
    *
    * @param username
    */
   setUsername(username: string): void {
-    this.username.next(username);
+    this.cookieService.set('username', username);
   }
 
-  getUsername(): BehaviorSubject<string> {
-    return this.username;
+  getUsername(): string {
+    return this.cookieService.get('username');
   }
-
-  constructor() {}
 }

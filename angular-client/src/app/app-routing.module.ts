@@ -6,11 +6,6 @@ import { HomeComponent } from './pages/home/home/home.component';
 
 const routes: Routes = [
   {
-    path: '**',
-    redirectTo: 'auth',
-    pathMatch: 'full',
-  },
-  {
     path: 'auth',
     component: AuthComponent,
   },
@@ -18,6 +13,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuardService],
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
 ];
 

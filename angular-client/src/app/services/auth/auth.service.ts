@@ -35,6 +35,15 @@ export class AuthService {
     return !!token;
   }
 
+  logOut(): void {
+    this.cookieService.delete('authToken');
+    this.userService.setUsername('');
+    this.router.navigate(['/auth']);
+    this.matSnackBar.open('Logged out successfully!', 'Close', {
+      duration: 3000,
+    });
+  }
+
   /**
    *
    * @param username username of the customer
@@ -68,7 +77,7 @@ export class AuthService {
       )
       .subscribe({
         next: (response) => {
-          this.cookieService.set('token', response.token, { expires: 7 });
+          this.cookieService.set('authToken', response.token, { expires: 7 });
           this.userService.setUsername(username);
           this.router.navigate(['/home']);
         },

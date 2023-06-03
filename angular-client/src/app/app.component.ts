@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   private handleNavigation(): void {
     const isAuthenticated = this.authService.isAuthenticated();
 
-    if (isAuthenticated) {
+    if (isAuthenticated && this.router.url.includes('/auth')) {
       this.router.navigate(['home']);
     } else {
       this.router.navigate(['auth']);
