@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
@@ -32,6 +33,7 @@ describe('AuthComponent', () => {
         MatSelectModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        FormsModule,
       ],
       providers: [AuthService, MatSnackBar],
     }).compileComponents();
