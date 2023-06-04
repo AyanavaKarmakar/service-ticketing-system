@@ -69,8 +69,10 @@ export class AuthService {
             duration: 3000,
           });
         }),
-        catchError((error: HttpErrorResponse) => {
-          console.error('An error occurred during login:', error.message);
+        catchError(() => {
+          this.matSnackBar.open('Login failed. Please try again.', 'Close', {
+            duration: 3000,
+          });
 
           return throwError(() => new Error('Login failed. Please try again.'));
         })
