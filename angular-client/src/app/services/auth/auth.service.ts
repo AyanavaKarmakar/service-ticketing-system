@@ -7,13 +7,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 import { IAuthResponse } from 'src/app/types/AuthResponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private AUTH_URL = 'http://localhost:3000/auth';
-
   constructor(
     private http: HttpClient,
     private matSnackBar: MatSnackBar,
@@ -58,7 +57,11 @@ export class AuthService {
     };
 
     this.http
-      .post<IAuthResponse>(`${this.AUTH_URL}/customer/login`, body, httpOptions)
+      .post<IAuthResponse>(
+        `${environment.authUrl}/customer/login`,
+        body,
+        httpOptions
+      )
       .pipe(
         tap(() => {
           this.matSnackBar.open('Logged in successfully!', 'Close', {
