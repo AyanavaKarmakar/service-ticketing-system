@@ -29,7 +29,8 @@
     </mat-form-field>
 
     <div class=" flex flex-row gap-3 justify-between">
-        <button mat-raised-button color="primary" class="text-xl" [disabled]="!isFormValid()">Login</button>
+        <button mat-raised-button color="primary" class="text-xl" [disabled]="!isFormValid()"
+            (click)="loginUser()">Login</button>
         <button mat-raised-button color="accent" class="text-xl" [disabled]="!isFormValid()">Register</button>
     </div>
 
