@@ -5,13 +5,13 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input matInput placeholder="John Doe">
+        <input matInput placeholder="John Doe" [(ngModel)]="username">
         <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" placeholder="**********">
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="**********" [(ngModel)]="password">
 
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
@@ -21,7 +21,7 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Select User Type</mat-label>
-        <mat-select class="w-full">
+        <mat-select class="w-full" [(ngModel)]="userType">
             <mat-option *ngFor="let user of userTypes" [value]="user">
                 {{user}}
             </mat-option>
@@ -29,7 +29,11 @@
     </mat-form-field>
 
     <div class=" flex flex-row gap-3 justify-between">
-        <button mat-raised-button color="primary" class="text-xl" (click)="loginUser()">Login</button>
-        <button mat-raised-button color="accent" class="text-xl">Register</button>
+        <button mat-raised-button color="primary" class="text-xl" [disabled]="!isFormValid()">Login</button>
+        <button mat-raised-button color="accent" class="text-xl" [disabled]="!isFormValid()">Register</button>
     </div>
+
+    username: {{username}}
+    password: {{password}}
+    userType: {{userType}}
 </div>

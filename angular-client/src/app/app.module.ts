@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
@@ -35,6 +36,7 @@ import { AuthGuardService } from './services/auth-guard/auth-guard.service';
     MatSelectModule,
     HttpClientModule,
     MatSnackBarModule,
+    FormsModule,
   ],
   providers: [AuthService, UserService, AuthGuardService],
   bootstrap: [AppComponent],

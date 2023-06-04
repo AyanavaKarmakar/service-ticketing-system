@@ -8,11 +8,19 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class AuthComponent {
   hide = true;
 
+  username = '';
+  password = '';
+  userType: 'customer' | 'employee' | '' = '';
+
   userTypes: string[] = ['customer', 'employee'];
 
   constructor(private authService: AuthService) {}
 
+  isFormValid(): boolean {
+    return this.username !== '' && this.password !== '' && this.userType !== '';
+  }
+
   loginUser(): void {
-    this.authService.loginCustomer('customer1', '123');
+    this.authService.loginCustomer(this.username, this.password);
   }
 }
