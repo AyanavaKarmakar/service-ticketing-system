@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
-import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
