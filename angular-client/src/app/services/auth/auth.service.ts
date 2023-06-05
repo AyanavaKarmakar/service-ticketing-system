@@ -45,7 +45,7 @@ export class AuthService {
    * @param username username of the customer
    * @param password password of the customer
    * @param userType type of the user (customer or employee)
-   * @param authType type of authentication (login or register)
+   * @param authType type of authentication (login or signup)
    */
   authenticateUser(
     username: string,
