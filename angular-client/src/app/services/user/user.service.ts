@@ -19,6 +19,10 @@ export class UserService {
     return this.cookieService.get('username');
   }
 
+  /**
+   * 
+   * @param userType 
+   */
   setUserType(userType: string): void {
     this.cookieService.set('userType', userType);
   }
