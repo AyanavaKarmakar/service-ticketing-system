@@ -36,11 +36,12 @@ export class AuthComponent {
     );
   }
 
-  loginUser(): void {
-    this.authService.loginUser(
+  authenticateUser(authType: string): void {
+    this.authService.authenticateUser(
       this.usernameFormControl.value!,
       this.passwordFormControl.value!,
-      this.userTypeFormControl.value!
+      this.userTypeFormControl.value!,
+      authType
     );
   }
 }

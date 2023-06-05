@@ -44,8 +44,15 @@ export class AuthService {
    *
    * @param username username of the customer
    * @param password password of the customer
+   * @param userType type of the user (customer or employee)
+   * @param authType type of authentication (login or register)
    */
-  loginUser(username: string, password: string, userType: string): void {
+  authenticateUser(
+    username: string,
+    password: string,
+    userType: string,
+    authType: string
+  ): void {
     const body: { [key: string]: string } = {
       username,
       password,
@@ -59,7 +66,7 @@ export class AuthService {
 
     this.http
       .post<IAuthResponse>(
-        `${environment.authUrl}/${userType}/login`,
+        `${environment.authUrl}/${userType}/${authType}`,
         body,
         httpOptions
       )
