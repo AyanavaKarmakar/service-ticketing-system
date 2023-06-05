@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   hide = true;
 
   userTypes: string[] = ['customer', 'employee'];
@@ -26,7 +28,28 @@ export class AuthComponent {
     Validators.minLength(1),
   ]);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
+
+  ngOnInit(): void {
+    this.handleNavigation();
+  }
+
+  /**
+   * It redirects the user to the home page if the user is authenticated.
+   * Otherwise, it redirects the user to the auth page.
+   */
+  private handleNavigation(): void {
+    const isAuthenticated = this.authService.isAuthenticated();
+    const userType = this.userService.getUserType();
+
+    if (isAuthenticated && this.router.url.includes('/auth')) {
+      this.router.navigate([`${userType}/home`]);
+    }
+  }
 
   isFormValid(): boolean {
     return (
