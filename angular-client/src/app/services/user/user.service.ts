@@ -18,4 +18,12 @@ export class UserService {
   getUsername(): string {
     return this.cookieService.get('username');
   }
+
+  setUserType(userType: string): void {
+    this.cookieService.set('userType', userType);
+  }
+
+  getUserType(): string {
+    return this.cookieService.get('userType');
+  }
 }

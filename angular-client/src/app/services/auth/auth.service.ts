@@ -32,7 +32,8 @@ export class AuthService {
 
   logOut(): void {
     this.cookieService.delete('authToken');
-    this.userService.setUsername('');
+    this.cookieService.delete('username');
+    this.cookieService.delete('userType');
     this.router.navigate(['/auth']);
     this.matSnackBar.open('Logged out successfully!', 'Close', {
       duration: 3000,
@@ -44,7 +45,7 @@ export class AuthService {
    * @param username username of the customer
    * @param password password of the customer
    */
-  loginCustomer(username: string, password: string): void {
+  loginCustomer(username: string, password: string, userType: string): void {
     const body: { [key: string]: string } = {
       username,
       password,
@@ -80,6 +81,7 @@ export class AuthService {
         next: (response) => {
           this.cookieService.set('authToken', response.token, { expires: 7 });
           this.userService.setUsername(username);
+          this.userService.setUserType(userType);
           this.router.navigate(['/home']);
         },
 

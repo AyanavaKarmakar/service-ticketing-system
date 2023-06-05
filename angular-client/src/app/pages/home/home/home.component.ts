@@ -7,10 +7,12 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
   username = '';
+  userType = '';
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.username = this.userService.getUsername();
+    this.userType = this.userService.getUserType();
   }
 }
