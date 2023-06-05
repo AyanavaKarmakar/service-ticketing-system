@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -11,7 +14,8 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [MatToolbarModule],
+      imports: [MatToolbarModule, HttpClientModule],
+      providers: [AuthService, MatSnackBar],
     }).compileComponents();
   });
 

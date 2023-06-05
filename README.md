@@ -2,6 +2,16 @@
 
 ---
 
+## Monorepo Structure
+
+```bash
+.
+├── backend [built using Node.js / Express.js]
+├── frontend [built using React.js / Vite.js]
+├── angular-client [built using Angular (WIP)]
+└── nest-client [built using Nest.js (WIP)]
+```
+
 ## Screenshots
 
 ### 1. Shared
