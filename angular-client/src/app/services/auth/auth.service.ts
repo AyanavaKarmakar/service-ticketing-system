@@ -89,7 +89,12 @@ export class AuthService {
           this.cookieService.set('authToken', response.token, { expires: 7 });
           this.userService.setUsername(username);
           this.userService.setUserType(userType);
-          this.router.navigate(['/home']);
+
+          if (username === 'employee1') {
+            this.router.navigate([`admin/home`]);
+          } else {
+            this.router.navigate([`${userType}/home`]);
+          }
         },
 
         error: (error) => {

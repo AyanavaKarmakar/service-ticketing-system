@@ -10,7 +10,7 @@ const routes: Routes = [
     component: AuthComponent,
   },
   {
-    path: 'home',
+    path: ':userType/home',
     component: HomeComponent,
     canActivate: [AuthGuardService],
   },
