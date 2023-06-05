@@ -37,7 +37,7 @@ export class AuthComponent {
   }
 
   loginUser(): void {
-    this.authService.loginCustomer(
+    this.authService.loginUser(
       this.usernameFormControl.value!,
       this.passwordFormControl.value!,
       this.userTypeFormControl.value!
