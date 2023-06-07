@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="max-w-full mx-auto border-x flex justify-between">
-    <a routerLink="/home">Service Ticketing System</a>
+    <a [routerLink]="this.userService.getUserType() + '/home'">Service Ticketing System</a>
 
     <button *ngIf="authService.isAuthenticated()" (click)="authService.logOut()" mat-flat-button color="warn"
         class="text-xl">Log Out</button>
