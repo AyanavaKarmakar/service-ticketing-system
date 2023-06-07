@@ -92,4 +92,92 @@ describe('AuthComponent', () => {
       expect(await options[i].getText()).toBe(component.userTypes[i]);
     }
   });
+
+  it('should disable login and signup buttons when form is invalid', () => {
+    component.usernameFormControl.setValue('');
+    component.passwordFormControl.setValue('');
+    component.userTypeFormControl.setValue('');
+
+    fixture.detectChanges();
+
+    const loginButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="primary"]'
+    );
+
+    const signupButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="accent"]'
+    );
+
+    expect(loginButton.disabled).toBeTrue();
+    expect(signupButton.disabled).toBeTrue();
+  });
+
+  it('should enable login and signup buttons when form is invalid', () => {
+    component.usernameFormControl.setValue('JohnDoe');
+    component.passwordFormControl.setValue('password');
+    component.userTypeFormControl.setValue('customer');
+
+    fixture.detectChanges();
+
+    const loginButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="primary"]'
+    );
+
+    const signupButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="accent"]'
+    );
+
+    expect(loginButton.disabled).toBeFalse();
+    expect(signupButton.disabled).toBeFalse();
+  });
+
+  it('should call the authService.authenticateUser() method with the correct arguments when login button is clicked', () => {
+    const authService = TestBed.inject(AuthService);
+    spyOn(authService, 'authenticateUser');
+
+    component.usernameFormControl.setValue('JohnDoe');
+    component.passwordFormControl.setValue('password');
+    component.userTypeFormControl.setValue('customer');
+
+    fixture.detectChanges();
+
+    const loginButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="primary"]'
+    );
+
+    loginButton.click();
+
+    expect(authService.authenticateUser).toHaveBeenCalledTimes(1);
+    expect(authService.authenticateUser).toHaveBeenCalledWith(
+      'JohnDoe',
+      'password',
+      'customer',
+      'login'
+    );
+  });
+
+  it('should call the authService.authenticateUser() method with the correct arguments when signup button is clicked', () => {
+    const authService = TestBed.inject(AuthService);
+    spyOn(authService, 'authenticateUser');
+
+    component.usernameFormControl.setValue('JohnDoe');
+    component.passwordFormControl.setValue('password');
+    component.userTypeFormControl.setValue('customer');
+
+    fixture.detectChanges();
+
+    const signupButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      'button[color="accent"]'
+    );
+
+    signupButton.click();
+
+    expect(authService.authenticateUser).toHaveBeenCalledTimes(1);
+    expect(authService.authenticateUser).toHaveBeenCalledWith(
+      'JohnDoe',
+      'password',
+      'customer',
+      'signup'
+    );
+  });
 });
