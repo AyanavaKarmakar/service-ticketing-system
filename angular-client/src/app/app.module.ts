@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
@@ -37,6 +38,7 @@ import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service'
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     AppRoutingModule,
   ],
   providers: [AuthService, UserService, AuthGuardService],

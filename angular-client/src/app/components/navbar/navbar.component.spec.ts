@@ -6,6 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/user/user.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -14,8 +16,20 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [MatToolbarModule, HttpClientModule],
-      providers: [AuthService, MatSnackBar],
+      imports: [MatToolbarModule, HttpClientModule, RouterModule],
+      providers: [
+        AuthService,
+        UserService,
+        MatSnackBar,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: new Map(),
+            },
+          },
+        },
+      ],
     }).compileComponents();
   });
 
