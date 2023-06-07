@@ -157,3 +157,9 @@ VITE_API_URL = http://localhost:3000
 ```bash
 npm run dev
 ```
+
+--- 
+
+### WIP [Angular CLient](https://service-ticketing-system-angular-client-gn7576kzj.vercel.app/)
+
+---
