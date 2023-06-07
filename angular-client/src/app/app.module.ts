@@ -26,7 +26,6 @@ import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service'
   declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
@@ -38,6 +37,7 @@ import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service'
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [AuthService, UserService, AuthGuardService],
   bootstrap: [AppComponent],
