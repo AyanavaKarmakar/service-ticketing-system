@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user/user.service';
 export class AuthComponent implements OnInit {
   hide = true;
 
+  isLoading = false;
+
   userTypes: string[] = ['customer', 'employee'];
 
   usernameFormControl = new FormControl('', [
@@ -36,6 +38,10 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+
+    this.authService
+      .getIsLoadingState()
+      .subscribe((state: boolean) => (this.isLoading = state));
   }
 
   /**

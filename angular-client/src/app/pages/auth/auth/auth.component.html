@@ -42,9 +42,9 @@
     </mat-form-field>
 
     <div class=" flex flex-row gap-3 justify-between">
-        <button mat-raised-button color="primary" class="text-xl" [disabled]="!isFormValid()"
-            (click)="authenticateUser('login')">Login</button>
-        <button mat-raised-button color="accent" class="text-xl" [disabled]="!isFormValid()"
-            (click)="authenticateUser('signup')">Signup</button>
+        <button mat-raised-button color="primary" class="text-xl" [disabled]="!isFormValid() || isLoading"
+            (click)="authenticateUser('login')">{{isLoading ? '...' : 'Login'}}</button>
+        <button mat-raised-button color="accent" class="text-xl" [disabled]="!isFormValid() || isLoading"
+            (click)="authenticateUser('signup')">{{isLoading ? '...' : 'Signup'}}</button>
     </div>
 </div>

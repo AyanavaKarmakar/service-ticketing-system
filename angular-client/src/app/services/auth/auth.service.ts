@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user/user.service';
@@ -13,6 +13,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+  private isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  getIsLoadingState(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+
+  /**
+   *
+   * @param isLoading true if the app is loading, false otherwise
+   */
+  setIsLoadingState(isLoading: boolean): void {
+    this.isLoading.next(isLoading);
+  }
+
   constructor(
     private http: HttpClient,
     private matSnackBar: MatSnackBar,
@@ -53,6 +69,8 @@ export class AuthService {
     userType: string,
     authType: string
   ): void {
+    this.setIsLoadingState(true);
+
     const body: { [key: string]: string } = {
       username,
       password,
@@ -96,9 +114,13 @@ export class AuthService {
             this.userService.setUserType(userType);
             this.router.navigate([`${userType}/home`]);
           }
+
+          this.setIsLoadingState(false);
         },
 
         error: (error) => {
+          this.setIsLoadingState(false);
+
           console.error('An error occurred during login:', error.message);
         },
       });
