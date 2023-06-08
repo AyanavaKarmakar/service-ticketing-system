@@ -160,6 +160,6 @@ npm run dev
 
 --- 
 
-### WIP [Angular CLient](https://service-ticketing-system-angular-client-gn7576kzj.vercel.app/)
+### WIP [Angular CLient](https://service-ticketing-system-bql1.vercel.app)
 
 ---
