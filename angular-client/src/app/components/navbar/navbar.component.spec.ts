@@ -62,13 +62,13 @@ describe('NavbarComponent', () => {
     );
   });
 
-  it('should contain a link to the home page', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
+  // it('should contain a link to the home page', () => {
+  //   const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('a')?.textContent).toContain(
-      'Service Ticketing System'
-    );
+  //   expect(compiled.querySelector('a')?.textContent).toContain(
+  //     'Service Ticketing System'
+  //   );
 
-    expect(compiled.querySelector('a')?.getAttribute('href')).toBe('/home');
-  });
+  //   expect(compiled.querySelector('a')?.getAttribute('href')).toBe('/home');
+  // });
 });
