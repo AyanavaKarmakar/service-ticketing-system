@@ -84,7 +84,6 @@ export class AuthService {
   }
 
   /**
-   *
    * @param username username of the customer
    * @param password password of the customer
    * @param userType type of the user (customer or employee)

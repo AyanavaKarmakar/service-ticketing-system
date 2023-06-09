@@ -8,8 +8,7 @@ export class UserService {
   constructor(private cookieService: CookieService) {}
 
   /**
-   *
-   * @param username
+   * @param username username of the user
    */
   setUsername(username: string): void {
     this.cookieService.set('username', username);
@@ -20,8 +19,7 @@ export class UserService {
   }
 
   /**
-   * 
-   * @param userType 
+   * @param userType type of the user
    */
   setUserType(userType: string): void {
     this.cookieService.set('userType', userType);
