@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NavbarComponent } from './navbar.component';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -62,13 +60,13 @@ describe('NavbarComponent', () => {
     );
   });
 
-  // it('should contain a link to the home page', () => {
-  //   const compiled = fixture.nativeElement as HTMLElement;
+  it('should contain a link to the home page', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
 
-  //   expect(compiled.querySelector('a')?.textContent).toContain(
-  //     'Service Ticketing System'
-  //   );
+    expect(compiled.querySelector('a')?.textContent).toContain(
+      'Service Ticketing System'
+    );
 
-  //   expect(compiled.querySelector('a')?.getAttribute('href')).toBe('/home');
-  // });
+    expect(compiled.querySelector('a')?.getAttribute('href')).toBe('/auth');
+  });
 });
