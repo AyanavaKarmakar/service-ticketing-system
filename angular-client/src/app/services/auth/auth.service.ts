@@ -13,20 +13,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  private isLoadingSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
-  getIsLoadingState(): Observable<boolean> {
-    return this.isLoading.asObservable();
+  get isLoading$(): Observable<boolean> {
+    return this.isLoadingSubject.asObservable();
+  }
+
+  get isLoading(): boolean {
+    return this.isLoadingSubject.getValue();
   }
 
   /**
-   *
    * @param isLoading true if the app is loading, false otherwise
    */
-  setIsLoadingState(isLoading: boolean): void {
-    this.isLoading.next(isLoading);
+  set isLoading(isLoading: boolean) {
+    this.isLoadingSubject.next(isLoading);
   }
 
   constructor(
@@ -69,7 +71,7 @@ export class AuthService {
     userType: string,
     authType: string
   ): void {
-    this.setIsLoadingState(true);
+    this.isLoading = true;
 
     const body: { [key: string]: string } = {
       username,
@@ -115,11 +117,11 @@ export class AuthService {
             this.router.navigate([`${userType}/home`]);
           }
 
-          this.setIsLoadingState(false);
+          this.isLoading = false;
         },
 
         error: (error) => {
-          this.setIsLoadingState(false);
+          this.isLoading = false;
 
           console.error('An error occurred during login:', error.message);
         },

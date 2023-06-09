@@ -39,9 +39,9 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.handleNavigation();
 
-    this.authService
-      .getIsLoadingState()
-      .subscribe((state: boolean) => (this.isLoading = state));
+    this.authService.isLoading$.subscribe(
+      (isLoading) => (this.isLoading = isLoading)
+    );
   }
 
   /**
