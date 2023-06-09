@@ -23,6 +23,18 @@ export class AuthService {
     return this.isLoadingSubject.getValue();
   }
 
+  private isAuthenticatedSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(this.checkInitialAuthStatus());
+
+  get isAuthenticated$(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
+  }
+
+  private checkInitialAuthStatus(): boolean {
+    const token = this.cookieService.get('authToken');
+    return !!token;
+  }
+
   /**
    * @param isLoading true if the app is loading, false otherwise
    */
@@ -39,19 +51,33 @@ export class AuthService {
   ) {}
 
   /**
-   *
    * @returns true if the user is authenticated, false otherwise
    */
   isAuthenticated(): boolean {
-    const token = this.cookieService.get('authToken');
-    return !!token;
+    return this.isAuthenticatedSubject.getValue();
+  }
+
+  /**
+   * @param name name of the cookie to be deleted
+   */
+  private deleteCookie(name: string): void {
+    const path = '/';
+    const domain = window.location.hostname;
+    const secure = true;
+    const sameSite = 'None';
+
+    this.cookieService.delete(name, path, domain, secure, sameSite);
   }
 
   logOut(): void {
-    this.cookieService.delete('authToken');
-    this.cookieService.delete('username');
-    this.cookieService.delete('userType');
+    this.isAuthenticatedSubject.next(false);
+
+    this.deleteCookie('authToken');
+    this.deleteCookie('username');
+    this.deleteCookie('userType');
+
     this.router.navigate(['/auth']);
+
     this.matSnackBar.open('Logged out successfully!', 'Close', {
       duration: 3000,
     });
@@ -117,6 +143,7 @@ export class AuthService {
           }
 
           this.isLoading = false;
+          this.isAuthenticatedSubject.next(true);
         },
 
         error: (error) => {
