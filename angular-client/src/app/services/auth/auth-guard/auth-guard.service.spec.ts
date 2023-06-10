@@ -3,7 +3,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 describe('AuthGuardService', () => {
   let service: AuthGuardService;
@@ -24,23 +24,20 @@ describe('AuthGuardService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should allow access if user is authenticated', () => {
-    const authService = TestBed.inject(AuthService);
-    spyOn(authService, 'isAuthenticated').and.returnValue(true);
+  it('should navigate to /auth if user is not authenticated', () => {
+    const routerSpy = spyOn(service['router'], 'navigate');
 
-    const canActivate = service.canActivate();
-    expect(canActivate).toBeTrue();
-  });
+    const isAuthenticatedSpy = spyOn(
+      service['authService'],
+      'isAuthenticated'
+    ).and.returnValue(false);
 
-  it('should navigate to auth page if user is not authenticated', () => {
-    const authService = TestBed.inject(AuthService);
-    spyOn(authService, 'isAuthenticated').and.returnValue(false);
+    const route = new ActivatedRouteSnapshot();
+    const state = { url: '/mock-url' } as RouterStateSnapshot;
+    const result = service.canActivate(route, state);
 
-    const router = TestBed.inject(Router);
-    spyOn(router, 'navigate');
-
-    service.canActivate();
-
-    expect(router.navigate).toHaveBeenCalledWith(['/auth']);
+    expect(isAuthenticatedSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith(['/auth']);
+    expect(result).toBe(false);
   });
 });
