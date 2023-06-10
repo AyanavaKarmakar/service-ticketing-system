@@ -22,9 +22,10 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
 import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service';
+import { CustomerComponent } from './pages/home/home/customer/customer/customer.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
+  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent, CustomerComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

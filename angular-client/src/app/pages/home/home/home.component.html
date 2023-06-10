@@ -3,6 +3,11 @@
         {{userType | titlecase}} Dashboard
     </span>
 
+    <!-- Customer Dashboard -->
+    <div *ngIf="userType === 'customer'">
+        <app-customer></app-customer>
+    </div>
+
     <footer class="mb-3 lg:mb-5 mt-8 lg:mt-12 text-md lg:text-lg">
         Logged in as <span class="underline font-semibold">{{username}}</span>
     </footer>
