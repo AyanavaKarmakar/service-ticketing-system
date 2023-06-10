@@ -1,7 +1,10 @@
 <mat-toolbar color="primary" class="max-w-full mx-auto border-x flex justify-between">
-    <a [routerLink]="this.authService.isAuthenticated() ? this.userService.getUserType() + '/home' : '/auth'">Service
-        Ticketing System</a>
+    <a [routerLink]="this.authService.isAuthenticated() ? this.userService.getUserType() + '/home' : '/auth'">
+        <span class="text-lg lg:text-3xl">
+            Service Ticketing System
+        </span>
+    </a>
 
     <button *ngIf="authService.isAuthenticated$ | async" (click)="authService.logOut()" mat-flat-button color="warn"
-        class="text-xl">Log Out</button>
+        class="text-lg lg:text-xl">Log Out</button>
 </mat-toolbar>

@@ -1,5 +1,9 @@
-<h1 class="flex justify-center items-center min-h-[calc(100vh-100px)] min-w-screen mx-auto">
+<div class="flex flex-col gap-3 justify-center items-center min-h-[calc(100vh-100px)]">
     <span class="text-lg lg:text-5xl font-semibold text-center">
-        Welcome to the Home Page {{username}} — {{userType}}!
+        {{userType | titlecase}} Dashboard
     </span>
-</h1>
+
+    <footer class="mb-3 lg:mb-5 mt-8 lg:mt-12 text-md lg:text-lg">
+        Logged in as <span class="underline font-semibold">{{username}}</span>
+    </footer>
+</div>
