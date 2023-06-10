@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CookieService } from 'ngx-cookie-service';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let cookieService: CookieService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,114 +19,125 @@ describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AuthService);
-    cookieService = TestBed.inject(CookieService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('should return true if the user is authenticated', () => {
-  //   spyOn(cookieService, 'get').and.returnValue('authToken');
+  it('should return true if the user is authenticated', () => {
+    const isAuthenticated = true;
 
-  //   const isAuthenticated = service.isAuthenticated();
+    spyOn(service['isAuthenticatedSubject'], 'getValue').and.returnValue(
+      isAuthenticated
+    );
 
-  //   expect(isAuthenticated).toBe(true);
-  // });
+    const result = service.isAuthenticated();
 
-  // it('should return false if the user is not authenticated', () => {
-  //   spyOn(cookieService, 'get').and.returnValue('');
+    expect(result).toBe(isAuthenticated);
+  });
 
-  //   const isAuthenticated = service.isAuthenticated();
+  it('should return false if the user is not authenticated', () => {
+    const isAuthenticated = false;
 
-  //   expect(isAuthenticated).toBeFalse();
-  // });
+    spyOn(service['isAuthenticatedSubject'], 'getValue').and.returnValue(
+      isAuthenticated
+    );
 
-  // it('should logout the user', () => {
-  //   const cookieDeleteSpy = spyOn(cookieService, 'delete').and.callThrough();
-  //   const routeNavigateSpy = spyOn(service['router'], 'navigate').and.stub();
-  //   const snackBarOpenSpy = spyOn(service['matSnackBar'], 'open').and.stub();
+    const result = service.isAuthenticated();
 
-  //   service.logOut();
+    expect(result).toBe(isAuthenticated);
+  });
 
-  //   expect(cookieDeleteSpy).toHaveBeenCalledTimes(3);
-  //   expect(cookieDeleteSpy).toHaveBeenCalledWith(
-  //     'authToken',
-  //     '/',
-  //     'localhost',
-  //     true,
-  //     'None'
-  //   );
-  //   expect(cookieDeleteSpy).toHaveBeenCalledWith(
-  //     'username',
-  //     '/',
-  //     'localhost',
-  //     true,
-  //     'None'
-  //   );
-  //   expect(cookieDeleteSpy).toHaveBeenCalledWith(
-  //     'userType',
-  //     '/',
-  //     'localhost',
-  //     true,
-  //     'None'
-  //   );
+  it('should logout the user', () => {
+    const isAuthenticatedSubjectNextSpy = spyOn(
+      service['isAuthenticatedSubject'],
+      'next'
+    );
 
-  //   expect(routeNavigateSpy).toHaveBeenCalledTimes(1);
-  //   expect(routeNavigateSpy).toHaveBeenCalledWith(['/auth']);
+    const userServiceDeleteAllCookiesSpy = spyOn(
+      service['userService'],
+      'deleteAllCookies'
+    );
 
-  //   expect(snackBarOpenSpy).toHaveBeenCalledTimes(1);
-  //   expect(snackBarOpenSpy).toHaveBeenCalledWith(
-  //     'Logged out successfully!',
-  //     'Close',
-  //     { duration: 3000 }
-  //   );
-  // });
+    const routerNavigateSpy = spyOn(service['router'], 'navigate');
 
-  // it('should authenticate the user', () => {
-  //   const expectedToken = 'authToken';
+    const matSnackBarOpenSpy = spyOn(service['matSnackBar'], 'open');
 
-  //   const fakeResponse = {
-  //     token: expectedToken,
-  //   };
+    service.logOut();
 
-  //   const httpClientPostSpy = spyOn(service['http'], 'post').and.returnValue(
-  //     of(fakeResponse)
-  //   );
+    expect(isAuthenticatedSubjectNextSpy).toHaveBeenCalledWith(false);
 
-  //   const cookieSetSpy = spyOn(cookieService, 'set').and.stub();
+    expect(userServiceDeleteAllCookiesSpy).toHaveBeenCalledWith([
+      'authToken',
+      'username',
+      'userType',
+    ]);
 
-  //   const userServiceSetUsernameSpy = spyOn(
-  //     service['userService'],
-  //     'setUsername'
-  //   ).and.stub();
+    expect(routerNavigateSpy).toHaveBeenCalledWith(['/auth']);
 
-  //   const userServiceSetUserTypeSpy = spyOn(
-  //     service['userService'],
-  //     'setUserType'
-  //   ).and.stub();
+    expect(matSnackBarOpenSpy).toHaveBeenCalledWith(
+      'Logged out successfully!',
+      'Close',
+      { duration: 3000 }
+    );
+  });
 
-  //   const routerNavigateSpy = spyOn(service['router'], 'navigate').and.stub();
-  //   const snackBarOpenSpy = spyOn(service['matSnackBar'], 'open').and.stub();
+  it('should authenticate the user', (done) => {
+    // Arrange
+    const username = 'testuser';
+    const password = 'testpassword';
+    const userType = 'customer';
+    const authType = 'login';
+    const authToken = 'testtoken';
+    const response = { token: authToken };
 
-  //   service.authenticateUser('testUser', 'testPassword', 'customer', 'login');
+    const httpPostSpy = spyOn(service['http'], 'post').and.returnValue(
+      of(response)
+    );
 
-  //   expect(httpClientPostSpy).toHaveBeenCalledTimes(1);
+    const userServiceSetAuthTokenSpy = spyOn(
+      service['userService'],
+      'setAuthToken'
+    );
 
-  //   expect(cookieSetSpy).toHaveBeenCalledTimes(1);
-  //   expect(cookieSetSpy).toHaveBeenCalledWith('authToken', expectedToken, {
-  //     expires: 7,
-  //   });
+    const userServiceSetUsernameSpy = spyOn(
+      service['userService'],
+      'setUsername'
+    );
 
-  //   expect(userServiceSetUsernameSpy).toHaveBeenCalledWith('testUser');
-  //   expect(userServiceSetUserTypeSpy).toHaveBeenCalledWith('customer');
+    const routerNavigateSpy = spyOn(service['router'], 'navigate');
+    const matSnackBarOpenSpy = spyOn(service['matSnackBar'], 'open');
 
-  //   expect(routerNavigateSpy).toHaveBeenCalledWith(['customer/home']);
+    // Act
+    service.authenticateUser(username, password, userType, authType);
 
-  //   expect(snackBarOpenSpy).toHaveBeenCalledWith(
-  //     'Logged in successfully!',
-  //     'Close',
-  //     { duration: 3000 }
-  //   );
-  // });
+    // Assert
+    expect(httpPostSpy).toHaveBeenCalledWith(
+      `${environment.authUrl}/${userType}/${authType}`,
+      { username, password },
+      { headers: jasmine.any(HttpHeaders) }
+    );
+
+    // Simulate the asynchronous nature of the HTTP request
+    setTimeout(() => {
+      expect(userServiceSetAuthTokenSpy).toHaveBeenCalledWith(authToken);
+
+      expect(userServiceSetUsernameSpy).toHaveBeenCalledWith(username);
+
+      expect(routerNavigateSpy).toHaveBeenCalledWith([`${userType}/home`]);
+
+      expect(matSnackBarOpenSpy).toHaveBeenCalledWith(
+        'Logged in successfully!',
+        'Close',
+        {
+          duration: 3000,
+        }
+      );
+
+      expect(service['isLoading']).toBeFalse();
+
+      done();
+    }, 0);
+  });
 });

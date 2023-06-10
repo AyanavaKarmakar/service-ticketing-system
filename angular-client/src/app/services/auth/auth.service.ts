@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, catchError, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 import { IAuthResponse } from 'src/app/types/AuthResponse';
@@ -45,7 +44,6 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private matSnackBar: MatSnackBar,
-    private cookieService: CookieService,
     private userService: UserService,
     private router: Router
   ) {}
