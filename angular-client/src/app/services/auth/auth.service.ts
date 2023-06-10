@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   private checkInitialAuthStatus(): boolean {
-    const token = this.cookieService.get('authToken');
+    const token = this.userService.getAuthToken();
     return !!token;
   }
 
@@ -57,24 +57,10 @@ export class AuthService {
     return this.isAuthenticatedSubject.getValue();
   }
 
-  /**
-   * @param name name of the cookie to be deleted
-   */
-  private deleteCookie(name: string): void {
-    const path = '/';
-    const domain = window.location.hostname;
-    const secure = true;
-    const sameSite = 'None';
-
-    this.cookieService.delete(name, path, domain, secure, sameSite);
-  }
-
   logOut(): void {
     this.isAuthenticatedSubject.next(false);
 
-    this.deleteCookie('authToken');
-    this.deleteCookie('username');
-    this.deleteCookie('userType');
+    this.userService.deleteAllCookies(['authToken', 'username', 'username']);
 
     this.router.navigate(['/auth']);
 
@@ -130,7 +116,7 @@ export class AuthService {
       )
       .subscribe({
         next: (response) => {
-          this.cookieService.set('authToken', response.token, { expires: 7 });
+          this.userService.setAuthToken(response.token);
           this.userService.setUsername(username);
 
           if (username === 'employee1') {
