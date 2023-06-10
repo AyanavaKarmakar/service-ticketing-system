@@ -14,7 +14,7 @@ export class UserService {
     const path = '/';
     const domain = window.location.hostname;
     const secure = true;
-    const sameSite = 'None';
+    const sameSite = 'Lax';
     console.log(window.location.hostname);
     this.cookieService.delete(name, path, domain, secure, sameSite);
   }

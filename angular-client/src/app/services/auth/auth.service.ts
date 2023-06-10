@@ -60,7 +60,7 @@ export class AuthService {
   logOut(): void {
     this.isAuthenticatedSubject.next(false);
 
-    this.userService.deleteAllCookies(['authToken', 'username', 'username']);
+    this.userService.deleteAllCookies(['authToken', 'username', 'userType']);
 
     this.router.navigate(['/auth']);
 
