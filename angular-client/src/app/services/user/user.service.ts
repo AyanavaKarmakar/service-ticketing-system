@@ -34,14 +34,26 @@ export class UserService {
    * @param authToken token of the user
    */
   setAuthToken(authToken: string): void {
-    this.cookieService.set('authToken', authToken, { expires: 7 });
+    this.cookieService.set('authToken', authToken, {
+      expires: 7,
+      secure: true,
+      sameSite: 'Lax',
+      domain: window.location.hostname,
+      path: '/',
+    });
   }
 
   /**
    * @param username username of the user
    */
   setUsername(username: string): void {
-    this.cookieService.set('username', username, { expires: 7 });
+    this.cookieService.set('username', username, {
+      expires: 7,
+      secure: true,
+      sameSite: 'Lax',
+      domain: window.location.hostname,
+      path: '/',
+    });
   }
 
   getUsername(): string {
@@ -52,7 +64,13 @@ export class UserService {
    * @param userType type of the user
    */
   setUserType(userType: string): void {
-    this.cookieService.set('userType', userType, { expires: 7 });
+    this.cookieService.set('userType', userType, {
+      expires: 7,
+      secure: true,
+      sameSite: 'Lax',
+      domain: window.location.hostname,
+      path: '/',
+    });
   }
 
   getUserType(): string {
