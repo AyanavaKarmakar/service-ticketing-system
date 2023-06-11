@@ -1,3 +1,15 @@
+<style>
+    button {
+        padding: 1rem;
+    }
+
+    @media (max-width: 640px) {
+        button {
+            padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+        }
+    }
+</style>
+
 <mat-toolbar color="primary" class="max-w-full mx-auto border-x flex justify-between">
     <a [routerLink]="this.authService.isAuthenticated() ? this.userService.getUserType() + '/home' : '/auth'">
         <span class="text-lg lg:text-3xl">
@@ -6,5 +18,5 @@
     </a>
 
     <button *ngIf="authService.isAuthenticated$ | async" (click)="authService.logOut()" mat-flat-button color="warn"
-        class="text-lg lg:text-xl">Log Out</button>
+        class="text-base lg:text-xl">Log Out</button>
 </mat-toolbar>
