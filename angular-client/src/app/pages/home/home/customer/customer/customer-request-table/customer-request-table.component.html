@@ -1,13 +1,18 @@
 <h1 class="text-2xl lg:text-3xl font-semibold text-center">My Requests</h1>
 
+<h2 class="text-left block lg:hidden m-5">Open in the site in a large screen to view table data</h2>
+
 <!-- Search bar -->
-<mat-form-field class="w-full mt-5">
-    <mat-label>Search Products</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Eg. Laptop" #input />
-</mat-form-field>
+<div class="hidden lg:block">
+    <mat-form-field class="w-full mt-5">
+        <mat-label>Search Products</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Eg. Laptop" #input />
+    </mat-form-field>
+</div>
+
 
 <!-- Table container -->
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 hidden lg:block">
     <table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
 
         <!-- Product Type Column -->
