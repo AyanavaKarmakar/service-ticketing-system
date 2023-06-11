@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -22,8 +24,10 @@ describe('HomeComponent', () => {
       imports: [
         MatIconModule,
         MatFormFieldModule,
+        MatInputModule,
         MatPaginatorModule,
         MatTableModule,
+        RouterModule,
       ],
     }).compileComponents();
   });
