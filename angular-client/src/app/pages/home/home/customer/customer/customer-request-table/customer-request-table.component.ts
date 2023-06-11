@@ -1,7 +1,82 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+export interface IUserRequestsData {
+  id: string;
+  productType: string;
+  issueType: string[];
+  status: 'Open' | 'On Hold' | 'Completed';
+  dateOfSubmission: string;
+}
 
 @Component({
   selector: 'app-customer-request-table',
   templateUrl: './customer-request-table.component.html',
 })
-export class CustomerRequestTableComponent {}
+export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = [
+    'productType',
+    'issueType',
+    'status',
+    'dateOfSubmission',
+  ];
+
+  dataSource?: MatTableDataSource<IUserRequestsData>;
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild(MatSort) sort?: MatSort;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    const userRequestsData: IUserRequestsData[] = [
+      {
+        id: '1',
+        productType: 'Laptop',
+        issueType: ['Screen', 'Keyboard'],
+        status: 'Open',
+        dateOfSubmission: '2021-01-01',
+      },
+      {
+        id: '2',
+        productType: 'Laptop',
+        issueType: ['Screen', 'Keyboard'],
+        status: 'On Hold',
+        dateOfSubmission: '2021-01-01',
+      },
+      {
+        id: '3',
+        productType: 'Laptop',
+        issueType: ['Screen', 'Keyboard'],
+        status: 'Completed',
+        dateOfSubmission: '2021-01-01',
+      },
+    ];
+
+    this.dataSource = new MatTableDataSource(userRequestsData);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.dataSource && this.paginator && this.sort) {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  /**
+   * @param event
+   */
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    if (this.dataSource) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    }
+  }
+}
