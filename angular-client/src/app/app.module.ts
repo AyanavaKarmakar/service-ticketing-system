@@ -23,9 +23,10 @@ import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
 import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service';
 import { CustomerComponent } from './pages/home/home/customer/customer/customer.component';
+import { CustomerRequestTableComponent } from './pages/home/home/customer/customer/customer-request-table/customer-request-table.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent, CustomerComponent],
+  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent, CustomerComponent, CustomerRequestTableComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
