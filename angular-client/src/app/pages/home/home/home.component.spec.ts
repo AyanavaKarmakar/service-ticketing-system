@@ -6,6 +6,7 @@ import { CustomerRequestTableComponent } from './customer/customer/customer-requ
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -18,7 +19,12 @@ describe('HomeComponent', () => {
         CustomerComponent,
         CustomerRequestTableComponent,
       ],
-      imports: [MatIconModule, MatFormFieldModule, MatPaginatorModule],
+      imports: [
+        MatIconModule,
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatTableModule,
+      ],
     }).compileComponents();
   });
 

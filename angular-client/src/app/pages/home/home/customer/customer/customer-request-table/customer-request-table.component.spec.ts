@@ -19,7 +19,6 @@ describe('CustomerRequestTableComponent', () => {
         BrowserAnimationsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatInputModule,
         MatPaginatorModule,
         MatTableModule,
         RouterModule,
