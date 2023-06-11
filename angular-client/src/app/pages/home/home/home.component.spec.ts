@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { CustomerComponent } from './customer/customer/customer.component';
 import { CustomerRequestTableComponent } from './customer/customer/customer-request-table/customer-request-table.component';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -15,6 +16,7 @@ describe('HomeComponent', () => {
         CustomerComponent,
         CustomerRequestTableComponent,
       ],
+      imports: [MatIconModule],
     }).compileComponents();
   });
 
