@@ -26,6 +26,7 @@ import { CustomerComponent } from './pages/home/home/customer/customer/customer.
 import { CustomerRequestTableComponent } from './pages/home/home/customer/customer/customer-request-table/customer-request-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     MatSelectModule,
     MatToolbarModule,
+    MatTableModule,
     HttpClientModule,
     MatSnackBarModule,
     FormsModule,

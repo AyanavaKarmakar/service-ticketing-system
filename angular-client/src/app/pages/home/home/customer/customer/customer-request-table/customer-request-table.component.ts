@@ -21,6 +21,7 @@ export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
     'issueType',
     'status',
     'dateOfSubmission',
+    'action',
   ];
 
   dataSource?: MatTableDataSource<IUserRequestsData>;
@@ -41,15 +42,15 @@ export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
       },
       {
         id: '2',
-        productType: 'Laptop',
+        productType: 'Desktop',
         issueType: ['Screen', 'Keyboard'],
         status: 'On Hold',
         dateOfSubmission: '2021-01-01',
       },
       {
         id: '3',
-        productType: 'Laptop',
-        issueType: ['Screen', 'Keyboard'],
+        productType: 'Mobile',
+        issueType: ['Screen', 'Battery'],
         status: 'Completed',
         dateOfSubmission: '2021-01-01',
       },
