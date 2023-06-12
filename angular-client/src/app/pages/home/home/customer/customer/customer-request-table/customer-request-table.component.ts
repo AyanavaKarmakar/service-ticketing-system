@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CustomerRequestsService } from 'src/app/services/customer/customer-requests/customer-requests.service';
 
 export interface IUserRequestsData {
   id: string;
@@ -29,7 +30,7 @@ export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
 
-  constructor() {}
+  constructor(public customerRequestsService: CustomerRequestsService) {}
 
   ngOnInit(): void {
     const userRequestsData: IUserRequestsData[] = [
