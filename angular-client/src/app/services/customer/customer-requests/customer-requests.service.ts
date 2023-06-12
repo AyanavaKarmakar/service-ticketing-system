@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../../user/user.service';
 import { environment } from 'src/environments/environment';
 import { throwError, catchError, tap } from 'rxjs';
+import { ICustomerRequestFormResponse } from 'src/app/types/CustomerRequestFormResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -21,19 +22,31 @@ export class CustomerRequestsService {
     };
 
     this.http
-      .get<any>(environment.customerRequestUrl, httpOptions)
+      .get<ICustomerRequestFormResponse>(
+        environment.customerRequestUrl,
+        httpOptions
+      )
       .pipe(
-        tap((response) => {
-          console.log(response);
-        }),
+        tap((_) => {}),
         catchError((error) => {
-          console.log(error);
+          console.error(error);
           return throwError(() => new Error(error));
         })
       )
       .subscribe({
         next: (response) => {
-          console.log(response);
+          const data = response.requestForms.map((requestForm) => {
+            return {
+              productType: requestForm.productType,
+              issueType: requestForm.issueType,
+              status: requestForm.status,
+              dateOfSubmission: requestForm.dateOfSubmission,
+            };
+          });
+
+          console.log(data);
+
+          // TODO: create obserable to pass data to component
         },
 
         error: (error) => {
