@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -30,6 +31,7 @@ describe('HomeComponent', () => {
         MatPaginatorModule,
         MatTableModule,
         RouterModule,
+        HttpClientModule,
       ],
     }).compileComponents();
   });

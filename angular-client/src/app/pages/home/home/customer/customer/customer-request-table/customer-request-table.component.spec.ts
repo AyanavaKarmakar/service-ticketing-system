@@ -1,3 +1,4 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -7,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomerRequestsService } from 'src/app/services/customer/customer-requests/customer-requests.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CustomerRequestTableComponent', () => {
   let component: CustomerRequestTableComponent;
@@ -22,7 +25,10 @@ describe('CustomerRequestTableComponent', () => {
         MatPaginatorModule,
         MatTableModule,
         RouterModule,
+        HttpClientModule,
+        MatProgressSpinnerModule,
       ],
+      providers: [CustomerRequestsService],
     }).compileComponents();
   });
 

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CustomerComponent } from './customer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomerRequestTableComponent } from './customer-request-table/customer-request-table.component';
@@ -10,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('CustomerComponent', () => {
   let component: CustomerComponent;
@@ -27,6 +28,8 @@ describe('CustomerComponent', () => {
         MatTableModule,
         MatButtonModule,
         RouterModule,
+        HttpClientModule,
+        MatProgressSpinnerModule,
       ],
     }).compileComponents();
   });
