@@ -12,10 +12,14 @@
     </mat-form-field>
 </div>
 
+<!-- Loading Spinner -->
+<div class="justify-center hidden lg:flex">
+    <mat-spinner *ngIf="isLoading" class="m-12"></mat-spinner>
+</div>
 
 <!-- Table container -->
 <div class="mat-elevation-z8 hidden lg:block">
-    <table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+    <table mat-table *ngIf="!isLoading && dataSource" [dataSource]="dataSource" matSort>
 
         <!-- Product Type Column -->
         <ng-container matColumnDef="productType">

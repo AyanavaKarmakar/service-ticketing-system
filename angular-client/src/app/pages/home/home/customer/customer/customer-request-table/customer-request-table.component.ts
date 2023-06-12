@@ -17,6 +17,8 @@ export interface IUserRequestsData {
   templateUrl: './customer-request-table.component.html',
 })
 export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
+  isLoading = false;
+
   displayedColumns: string[] = [
     'productType',
     'issueType',
@@ -33,6 +35,10 @@ export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
   constructor(public customerRequestsService: CustomerRequestsService) {}
 
   ngOnInit(): void {
+    this.customerRequestsService.isLoading$.subscribe(
+      (isLoading) => (this.isLoading = isLoading)
+    );
+
     const userRequestsData: IUserRequestsData[] = [
       {
         id: '1',

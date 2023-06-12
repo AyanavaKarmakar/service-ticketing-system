@@ -27,6 +27,7 @@ import { CustomerRequestTableComponent } from './pages/home/home/customer/custom
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSortModule,
     MatPaginatorModule,
     AppRoutingModule,
+    MatProgressSpinnerModule,
   ],
   providers: [AuthService, UserService, AuthGuardService],
   bootstrap: [AppComponent],
