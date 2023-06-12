@@ -2,8 +2,6 @@
 
 <h2 class="text-left block lg:hidden m-5">Open in the site in a large screen to view table data</h2>
 
-<button (click)="this.customerRequestsService.getCustomerRequestForms()">get data</button>
-
 <!-- Search bar -->
 <div class="hidden lg:block">
     <mat-form-field class="w-full mt-5">
@@ -42,7 +40,7 @@
         <!-- Date of Submission Column -->
         <ng-container matColumnDef="dateOfSubmission">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Submission</th>
-            <td mat-cell *matCellDef="let row">{{row.dateOfSubmission}}</td>
+            <td mat-cell *matCellDef="let row">{{row.dateOfSubmission | slice:0:-14}}</td>
         </ng-container>
 
         <!-- Action Column -->

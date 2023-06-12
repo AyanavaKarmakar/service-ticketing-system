@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../../user/user.service';
 import { environment } from 'src/environments/environment';
 import { throwError, catchError, tap, BehaviorSubject, Observable } from 'rxjs';
-import { ICustomerRequestFormResponse } from 'src/app/types/CustomerRequestFormResponse';
+import {
+  ICustomerRequestFormResponse,
+  IRequestForm,
+} from 'src/app/types/CustomerRequestFormResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +28,25 @@ export class CustomerRequestsService {
    */
   set isLoading(isLoading: boolean) {
     this.isLoadingSubject.next(isLoading);
+  }
+
+  private dataSubject: BehaviorSubject<IRequestForm[]> = new BehaviorSubject<
+    IRequestForm[]
+  >([]);
+
+  get data$(): Observable<IRequestForm[]> {
+    return this.dataSubject.asObservable();
+  }
+
+  get data(): IRequestForm[] {
+    return this.dataSubject.getValue();
+  }
+
+  /**
+   * @param data the data to be passed to the component
+   */
+  set data(data: IRequestForm[]) {
+    this.dataSubject.next(data);
   }
 
   constructor(private http: HttpClient, private userService: UserService) {}
@@ -64,9 +86,7 @@ export class CustomerRequestsService {
             };
           });
 
-          console.log(data);
-
-          // TODO: create obserable to pass data to component
+          this.data = data;
 
           this.isLoading = false;
         },
