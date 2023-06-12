@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -8,10 +8,12 @@ import { UserService } from 'src/app/services/user/user.service';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   hide = true;
 
   isLoading = false;
+  isLoginLoading = false;
+  isSignupLoading = false;
 
   userTypes: string[] = ['customer', 'employee'];
 
@@ -44,6 +46,11 @@ export class AuthComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.isLoginLoading = false;
+    this.isSignupLoading = false;
+  }
+
   /**
    * It redirects the user to the home page if the user is authenticated.
    * Otherwise, it redirects the user to the auth page.
@@ -65,7 +72,19 @@ export class AuthComponent implements OnInit {
     );
   }
 
+  /**
+   * @param authType either login or signup.
+   */
   authenticateUser(authType: string): void {
+    /**
+     * sets the loading state to true depending on the auth type.
+     */
+    if (authType === 'login') {
+      this.isLoginLoading = true;
+    } else if (authType === 'signup') {
+      this.isSignupLoading = true;
+    }
+
     this.authService.authenticateUser(
       this.usernameFormControl.value!,
       this.passwordFormControl.value!,
