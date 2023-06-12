@@ -28,6 +28,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CustomerFormDataService } from './services/customer/customer-form-data/customer-form-data.service';
+import { CustomerRequestsService } from './services/customer/customer-requests/customer-requests.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AppRoutingModule,
     MatProgressSpinnerModule,
   ],
-  providers: [AuthService, UserService, AuthGuardService],
+  providers: [
+    AuthService,
+    UserService,
+    AuthGuardService,
+    CustomerRequestsService,
+    CustomerFormDataService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

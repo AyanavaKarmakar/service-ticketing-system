@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import { CustomerComponent } from './customer/customer/customer.component';
 import { CustomerRequestTableComponent } from './customer/customer/customer-request-table/customer-request-table.component';
@@ -11,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -32,6 +32,7 @@ describe('HomeComponent', () => {
         MatTableModule,
         RouterModule,
         HttpClientModule,
+        MatProgressSpinnerModule,
       ],
     }).compileComponents();
   });
