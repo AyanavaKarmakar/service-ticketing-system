@@ -54,15 +54,13 @@
     </mat-form-field>
 
     <div class=" flex flex-row gap-3 justify-between">
-        <button mat-raised-button color="primary" class="text-lg lg:text-2xl"
-            [ngClass]="{'animate-bounce': isLoading && isLoginLoading}" [disabled]="!isFormValid() || isLoading"
-            (click)="authenticateUser('login')">
+        <button mat-raised-button color="primary" class="text-lg lg:text-2xl" [ngClass]="{'animate-bounce': isLoading}"
+            [disabled]="!isFormValid() || isLoading" (click)="authenticateUser('login')">
             {{isLoading ? '...' :'Login'}}
         </button>
 
-        <button mat-raised-button color="accent" class="text-lg lg:text-2xl"
-            [ngClass]="{'animate-bounce': isLoading && isSignupLoading}" [disabled]="!isFormValid() || isLoading"
-            (click)="authenticateUser('signup')">
+        <button mat-raised-button color="accent" class="text-lg lg:text-2xl" [ngClass]="{'animate-bounce': isLoading}"
+            [disabled]="!isFormValid() || isLoading" (click)="authenticateUser('signup')">
             {{isLoading ? '...' : 'Signup'}}
         </button>
     </div>
