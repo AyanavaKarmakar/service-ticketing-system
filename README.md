@@ -2,6 +2,24 @@
 
 ---
 
+## Table of Contents
+
+- [Monorepo Structure](#monorepo-structure)
+- [Screenshots](#screenshots)
+  - [Shared](#1-shared)
+  - [Customer](#2-customer)
+  - [Employee (ADMIN)](#3-employee-admin)
+  - [Employee (NON-ADMIN)](#4-employee-non-admin)
+- [Technologies Used](#technologies-used)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Getting Started](#getting-started)
+  - [Backend](#backend-1)
+  - [Frontend](#frontend-1)
+  - [WIP Angular Client](#wip-angular-client)
+
+---
+
 ## Monorepo Structure
 
 ```bash
@@ -158,7 +176,7 @@ VITE_API_URL = http://localhost:3000
 npm run dev
 ```
 
---- 
+---
 
 ### WIP [Angular CLient](https://service-ticketing-system-bql1.vercel.app)
 
