@@ -1,35 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HomeComponent } from './home.component';
-import { CustomerComponent } from './customer/customer/customer.component';
-import { CustomerRequestTableComponent } from './customer/customer/customer-request-table/customer-request-table.component';
+import { CustomerComponent } from './customer.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CustomerRequestTableComponent } from './customer-request-table/customer-request-table.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('CustomerComponent', () => {
+  let component: CustomerComponent;
+  let fixture: ComponentFixture<CustomerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HomeComponent,
-        CustomerComponent,
-        CustomerRequestTableComponent,
-      ],
+      declarations: [CustomerComponent, CustomerRequestTableComponent],
       imports: [
         BrowserAnimationsModule,
         MatIconModule,
         MatFormFieldModule,
-        MatInputModule,
         MatPaginatorModule,
+        MatInputModule,
         MatTableModule,
+        MatButtonModule,
         RouterModule,
         HttpClientModule,
         MatProgressSpinnerModule,
@@ -38,7 +35,7 @@ describe('HomeComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(CustomerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -13,6 +13,7 @@ const routes: Routes = [
     path: ':userType/home',
     component: HomeComponent,
     canActivate: [AuthGuardService],
+    title: 'Dashboard',
   },
   {
     path: '**',

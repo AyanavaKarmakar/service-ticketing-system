@@ -22,9 +22,24 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
 import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service';
+import { CustomerComponent } from './pages/home/home/customer/customer/customer.component';
+import { CustomerRequestTableComponent } from './pages/home/home/customer/customer/customer-request-table/customer-request-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CustomerFormDataService } from './services/customer/customer-form-data/customer-form-data.service';
+import { CustomerRequestsService } from './services/customer/customer-requests/customer-requests.service';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, AuthComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    AuthComponent,
+    HomeComponent,
+    CustomerComponent,
+    CustomerRequestTableComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,14 +49,25 @@ import { AuthGuardService } from './services/auth/auth-guard/auth-guard.service'
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    MatToolbarModule,
+    MatTableModule,
     HttpClientModule,
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    MatSortModule,
+    MatPaginatorModule,
     AppRoutingModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [AuthService, UserService, AuthGuardService],
+  providers: [
+    AuthService,
+    UserService,
+    AuthGuardService,
+    CustomerRequestsService,
+    CustomerFormDataService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,22 @@
-<mat-toolbar color="primary" class="max-w-full mx-auto border-x flex justify-between">
-    <a [routerLink]="this.authService.isAuthenticated() ? this.userService.getUserType() + '/home' : '/auth'">Service
-        Ticketing System</a>
+<style>
+    button {
+        padding: 1rem;
+    }
+
+    @media (max-width: 640px) {
+        button {
+            padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+        }
+    }
+</style>
+
+<mat-toolbar color="primary" class="sticky top-0 max-w-full mx-auto border-x flex justify-between">
+    <a [routerLink]=" this.authService.isAuthenticated() ? this.userService.getUserType() + '/home' : '/auth'">
+        <span class=" text-lg lg:text-3xl">
+            Service Ticketing System
+        </span>
+    </a>
 
     <button *ngIf="authService.isAuthenticated$ | async" (click)="authService.logOut()" mat-flat-button color="warn"
-        class="text-xl">Log Out</button>
+        class="text-base lg:text-xl">Log Out</button>
 </mat-toolbar>

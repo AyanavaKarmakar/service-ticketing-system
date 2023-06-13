@@ -65,6 +65,9 @@ export class AuthComponent implements OnInit {
     );
   }
 
+  /**
+   * @param authType either login or signup.
+   */
   authenticateUser(authType: string): void {
     this.authService.authenticateUser(
       this.usernameFormControl.value!,

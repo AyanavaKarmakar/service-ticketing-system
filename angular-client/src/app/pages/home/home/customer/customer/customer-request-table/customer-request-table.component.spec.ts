@@ -1,44 +1,39 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RouterModule } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HomeComponent } from './home.component';
-import { CustomerComponent } from './customer/customer/customer.component';
-import { CustomerRequestTableComponent } from './customer/customer/customer-request-table/customer-request-table.component';
-import { MatIconModule } from '@angular/material/icon';
+
+import { CustomerRequestTableComponent } from './customer-request-table.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomerRequestsService } from 'src/app/services/customer/customer-requests/customer-requests.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('CustomerRequestTableComponent', () => {
+  let component: CustomerRequestTableComponent;
+  let fixture: ComponentFixture<CustomerRequestTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HomeComponent,
-        CustomerComponent,
-        CustomerRequestTableComponent,
-      ],
+      declarations: [CustomerRequestTableComponent],
       imports: [
         BrowserAnimationsModule,
-        MatIconModule,
-        MatFormFieldModule,
         MatInputModule,
+        MatFormFieldModule,
         MatPaginatorModule,
         MatTableModule,
         RouterModule,
         HttpClientModule,
         MatProgressSpinnerModule,
       ],
+      providers: [CustomerRequestsService],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(CustomerRequestTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
