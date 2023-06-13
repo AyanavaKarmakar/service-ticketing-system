@@ -31,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomerFormDataService } from './services/customer/customer-form-data/customer-form-data.service';
 import { CustomerRequestsService } from './services/customer/customer-requests/customer-requests.service';
 import { CustomerFormDetailsComponent } from './pages/home/home/customer/customer/customer-form-details/customer-form-details.component';
+import { CustomerNewRequestFormService } from './services/customer/customer-new-request-form/customer-new-request-form.service';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CustomerFormDetailsComponent } from './pages/home/home/customer/custome
     AuthGuardService,
     CustomerRequestsService,
     CustomerFormDataService,
+    CustomerNewRequestFormService,
   ],
   bootstrap: [AppComponent],
 })
