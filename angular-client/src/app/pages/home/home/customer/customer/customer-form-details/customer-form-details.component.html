@@ -1,8 +1,42 @@
+<style>
+    button {
+        padding: 1.5rem;
+        border-radius: 2.5rem;
+    }
+</style>
+
 <!-- Loading Spinner -->
 <div *ngIf="isLoading" class="flex justify-center items-center min-h-[calc(100vh-65px)]">
     <mat-spinner color="primary"></mat-spinner>
 </div>
 
-<div *ngIf="!isLoading">
-    Product Type: {{formData.productType}}
+<div *ngIf="!isLoading"
+    class="flex flex-col gap-y-5 justify-center m-10 p-10 border-2 border-solid border-black shadow-md shadow-black">
+    <h1 class="text-3xl font-bold text-center">Request Form Details</h1>
+
+    <div class="text-2xl font-semibold mx-20 my-5">
+        <h2>Product Type:&nbsp;&nbsp;<span class="font-medium">{{formData.productType}}</span>
+        </h2>
+
+        <h2>Issue Type:&nbsp;&nbsp;<span class="font-medium">{{formData.issueType}}</span></h2>
+
+        <h2 *ngIf="formData.issueDescription">Issue Description:&nbsp;&nbsp;<span
+                class="font-medium">{{formData.issueDescription}}</span></h2>
+
+        <!-- Image Upload -->
+        <h2>Policy Upload:&nbsp;&nbsp;<span>
+                <a [href]="formData.policyUpload" target="_blank"
+                    class="text-sm font-medium p-1 border-2 border-solid border-black rounded-lg">View</a>
+            </span></h2>
+
+        <h2>Date of Submission:&nbsp;&nbsp;<span class="font-medium">{{formData.dateOfSubmission | slice:0:-14}}</span>
+        </h2>
+
+        <h2>Status:&nbsp;&nbsp;<span class="font-medium">{{formData.status}}</span></h2>
+    </div>
+
+</div>
+
+<div class="flex items-center justify-center mx-auto">
+    <button mat-flat-button color="primary" class="text-xl font-medium" routerLink="/customer/home">Go Back</button>
 </div>

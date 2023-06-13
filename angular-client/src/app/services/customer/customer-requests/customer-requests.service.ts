@@ -7,6 +7,7 @@ import {
   ICustomerRequestFormResponse,
   IRequestForm,
 } from 'src/app/types/CustomerRequestFormResponse';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +50,11 @@ export class CustomerRequestsService {
     this.dataSubject.next(data);
   }
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+    private matSnackbar: MatSnackBar
+  ) {}
 
   getCustomerRequestForms(): void {
     this.isLoading = true;
@@ -99,6 +104,14 @@ export class CustomerRequestsService {
           );
 
           this.isLoading = false;
+
+          this.matSnackbar.open(
+            'An error occurred during fetching customer request forms',
+            'Close',
+            {
+              duration: 5000,
+            }
+          );
         },
       });
   }
