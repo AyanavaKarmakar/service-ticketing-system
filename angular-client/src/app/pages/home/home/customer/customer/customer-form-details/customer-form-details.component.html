@@ -1,1 +1,8 @@
-<p>customer-form-details works!</p>
+<!-- Loading Spinner -->
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-[calc(100vh-65px)]">
+    <mat-spinner color="primary"></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+    Product Type: {{formData.productType}}
+</div>

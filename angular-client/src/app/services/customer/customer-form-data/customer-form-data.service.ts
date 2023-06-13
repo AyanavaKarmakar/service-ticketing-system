@@ -31,14 +31,7 @@ export class CustomerFormDataService {
   }
 
   private dataSubject: BehaviorSubject<IRequestFormData> =
-    new BehaviorSubject<IRequestFormData>({
-      productType: '',
-      issueType: [],
-      issueDescription: '',
-      policyUpload: '',
-      dateOfSubmission: '',
-      status: 'Open',
-    });
+    new BehaviorSubject<IRequestFormData>({} as IRequestFormData);
 
   get data$(): Observable<IRequestFormData> {
     return this.dataSubject.asObservable();
@@ -92,9 +85,6 @@ export class CustomerFormDataService {
             dateOfSubmission: requestForm.dateOfSubmission,
             status: requestForm.status,
           };
-
-          // TODO - remove console.log
-          console.log(data);
 
           this.data = data;
 
