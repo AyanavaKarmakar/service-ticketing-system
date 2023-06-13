@@ -8,6 +8,8 @@ export interface IRequestForm {
   dateOfSubmission: string;
 }
 
+/** FOR GET REQUEST OF ALL CUSTOMER REQUEST FORMS */
+
 export interface ICustomerRequestFormResponse {
   requestForms: IRequestForm[];
 }
@@ -22,6 +24,8 @@ export interface IRequestFormData {
   dateOfSubmission: string;
   status: 'Open' | 'In Progress' | 'On Hold' | 'Completed';
 }
+
+/** FOR GET REQUEST OF GETTING DATA OF A SINGLE CUSTOMER REQUEST FORM */
 
 export interface ICustomerRequestFormDataResponse {
   requestForm: IRequestFormData;

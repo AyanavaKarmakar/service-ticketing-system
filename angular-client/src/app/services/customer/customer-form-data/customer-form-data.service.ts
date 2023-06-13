@@ -3,15 +3,63 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../../user/user.service';
 import { environment } from 'src/environments/environment';
 import { throwError, catchError, tap, BehaviorSubject, Observable } from 'rxjs';
-import { ICustomerRequestFormDataResponse } from 'src/app/types/CustomerRequestFormResponse';
+import {
+  ICustomerRequestFormDataResponse,
+  IRequestFormData,
+} from 'src/app/types/CustomerRequestFormResponse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerFormDataService {
+  private isLoadingSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+
+  get isLoading$(): Observable<boolean> {
+    return this.isLoadingSubject.asObservable();
+  }
+
+  get isLoading(): boolean {
+    return this.isLoadingSubject.getValue();
+  }
+
+  /**
+   * @param isLoading true if the data is loading, false otherwise
+   */
+  set isLoading(isLoading: boolean) {
+    this.isLoadingSubject.next(isLoading);
+  }
+
+  private dataSubject: BehaviorSubject<IRequestFormData> =
+    new BehaviorSubject<IRequestFormData>({
+      productType: '',
+      issueType: [],
+      issueDescription: '',
+      policyUpload: '',
+      dateOfSubmission: '',
+      status: 'Open',
+    });
+
+  get data$(): Observable<IRequestFormData> {
+    return this.dataSubject.asObservable();
+  }
+
+  get data(): IRequestFormData {
+    return this.dataSubject.getValue();
+  }
+
+  /**
+   * @param data the data to be passed to the component
+   */
+  set data(data: IRequestFormData) {
+    this.dataSubject.next(data);
+  }
+
   constructor(private http: HttpClient, private userService: UserService) {}
 
   getCustomerRequestFormData(formId: string): void {
+    this.isLoading = true;
+
     const authToken = this.userService.getAuthToken();
 
     const httpOptions = {
@@ -47,6 +95,10 @@ export class CustomerFormDataService {
 
           // TODO - remove console.log
           console.log(data);
+
+          this.data = data;
+
+          this.isLoading = false;
         },
 
         error: (error) => {
@@ -54,6 +106,8 @@ export class CustomerFormDataService {
             'An error occurred during fetching customer request form data:',
             error.message
           );
+
+          this.isLoading = false;
         },
       });
   }
