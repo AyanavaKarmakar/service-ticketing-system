@@ -76,9 +76,10 @@ export class CustomerRequestsService {
         })
       )
       .subscribe({
-        next: (response) => {
-          const data = response.requestForms.map((requestForm) => {
+        next: ({ requestForms }) => {
+          const data = requestForms.map((requestForm) => {
             return {
+              _id: requestForm._id,
               productType: requestForm.productType,
               issueType: requestForm.issueType,
               status: requestForm.status,
