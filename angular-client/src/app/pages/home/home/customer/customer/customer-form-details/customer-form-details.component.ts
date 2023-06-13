@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerFormDataService } from 'src/app/services/customer/customer-form-data/customer-form-data.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { IRequestFormData } from 'src/app/types/CustomerRequestFormResponse';
 
 @Component({
@@ -14,12 +15,17 @@ export class CustomerFormDetailsComponent implements OnInit {
 
   formData!: IRequestFormData;
 
+  username!: string;
+
   constructor(
     private route: ActivatedRoute,
+    private userService: UserService,
     private customerFormDataService: CustomerFormDataService
   ) {}
 
   ngOnInit(): void {
+    this.username = this.userService.getUsername();
+
     this.formId = this.route.snapshot.params['id'];
 
     this.customerFormDataService.isLoading$.subscribe(
