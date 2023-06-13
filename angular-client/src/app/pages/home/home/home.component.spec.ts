@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -33,6 +34,7 @@ describe('HomeComponent', () => {
         RouterModule,
         HttpClientModule,
         MatProgressSpinnerModule,
+        MatSnackBarModule,
       ],
     }).compileComponents();
   });
