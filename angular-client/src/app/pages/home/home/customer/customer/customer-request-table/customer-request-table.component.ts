@@ -65,7 +65,6 @@ export class CustomerRequestTableComponent implements AfterViewInit, OnInit {
   }
 
   /**
-   *
    * @param id id of the request form
    */
   viewFormDetails(id: string): void {
