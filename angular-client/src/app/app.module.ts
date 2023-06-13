@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomerFormDataService } from './services/customer/customer-form-data/customer-form-data.service';
 import { CustomerRequestsService } from './services/customer/customer-requests/customer-requests.service';
+import { CustomerFormDetailsComponent } from './pages/home/home/customer/customer/customer-form-details/customer-form-details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CustomerRequestsService } from './services/customer/customer-requests/c
     HomeComponent,
     CustomerComponent,
     CustomerRequestTableComponent,
+    CustomerFormDetailsComponent,
   ],
   imports: [
     BrowserModule,

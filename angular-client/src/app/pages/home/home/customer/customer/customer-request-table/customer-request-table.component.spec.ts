@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomerRequestsService } from 'src/app/services/customer/customer-requests/customer-requests.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('CustomerRequestTableComponent', () => {
   let component: CustomerRequestTableComponent;
@@ -27,6 +28,7 @@ describe('CustomerRequestTableComponent', () => {
         RouterModule,
         HttpClientModule,
         MatProgressSpinnerModule,
+        MatSnackBarModule,
       ],
       providers: [CustomerRequestsService],
     }).compileComponents();

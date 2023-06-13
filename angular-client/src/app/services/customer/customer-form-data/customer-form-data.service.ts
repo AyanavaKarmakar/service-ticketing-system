@@ -7,6 +7,7 @@ import {
   ICustomerRequestFormDataResponse,
   IRequestFormData,
 } from 'src/app/types/CustomerRequestFormResponse';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -31,14 +32,7 @@ export class CustomerFormDataService {
   }
 
   private dataSubject: BehaviorSubject<IRequestFormData> =
-    new BehaviorSubject<IRequestFormData>({
-      productType: '',
-      issueType: [],
-      issueDescription: '',
-      policyUpload: '',
-      dateOfSubmission: '',
-      status: 'Open',
-    });
+    new BehaviorSubject<IRequestFormData>({} as IRequestFormData);
 
   get data$(): Observable<IRequestFormData> {
     return this.dataSubject.asObservable();
@@ -55,7 +49,11 @@ export class CustomerFormDataService {
     this.dataSubject.next(data);
   }
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(
+    private http: HttpClient,
+    private userService: UserService,
+    private matSnackbar: MatSnackBar
+  ) {}
 
   getCustomerRequestFormData(formId: string): void {
     this.isLoading = true;
@@ -93,9 +91,6 @@ export class CustomerFormDataService {
             status: requestForm.status,
           };
 
-          // TODO - remove console.log
-          console.log(data);
-
           this.data = data;
 
           this.isLoading = false;
@@ -108,6 +103,14 @@ export class CustomerFormDataService {
           );
 
           this.isLoading = false;
+
+          this.matSnackbar.open(
+            'An error occurred during fetching customer request form data',
+            'Close',
+            {
+              duration: 3000,
+            }
+          );
         },
       });
   }

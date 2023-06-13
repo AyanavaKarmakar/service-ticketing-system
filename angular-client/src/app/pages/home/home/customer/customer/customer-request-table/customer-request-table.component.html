@@ -48,8 +48,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
 
             <td mat-cell *matCellDef="let row">
-                <button mat-raised-button color="primary"
-                    (click)="this.customerFormDataService.getCustomerRequestFormData(row._id)">
+                <button mat-raised-button color="primary" (click)="viewFormDetails(row._id)">
                     View
                 </button>
             </td>
