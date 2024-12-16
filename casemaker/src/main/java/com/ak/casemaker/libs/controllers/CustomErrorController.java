@@ -1,4 +1,4 @@
-package com.ak.casemaker.controllers;
+package com.ak.casemaker.libs.controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
