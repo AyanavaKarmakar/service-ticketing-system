@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomApiResponse<T> {
+public class ResponseWrapper<T> {
     private T data;
     private String message;
 }
