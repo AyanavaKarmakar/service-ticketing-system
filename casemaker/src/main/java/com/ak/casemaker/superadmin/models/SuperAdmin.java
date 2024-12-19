@@ -18,7 +18,6 @@ public class SuperAdmin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @NotEmpty
     private Long id;
 
     @NotNull

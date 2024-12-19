@@ -18,7 +18,6 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @NotEmpty
     private Long id;
 
     @NotNull
