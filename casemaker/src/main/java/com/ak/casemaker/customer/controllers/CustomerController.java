@@ -45,8 +45,8 @@ public class CustomerController {
     public ResponseEntity<String> deleteCustomer(Long id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(
-                "Customer with ID: " + id + ", has been delete successfully"
-                , HttpStatus.OK
+                "Customer with ID: " + id + ", has been delete successfully",
+                HttpStatus.OK
         );
     }
 }
