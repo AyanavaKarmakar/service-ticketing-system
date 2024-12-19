@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/super-admin")
 @Tag(name = "Super Admin Management", description = "APIs for managing Super Admins")
@@ -27,6 +29,17 @@ public class SuperAdminController {
         CustomApiResponse<SuperAdmin> customApiResponse = new CustomApiResponse<>(
                 superAdmin,
                 "Super Admin with id: " + id + ", found");
+        return new ResponseEntity<>(customApiResponse, HttpStatus.FOUND);
+    }
+
+    @Operation(summary = "Get all Super Admins", description = "Fetch list of all Super Admins")
+    @GetMapping("/all")
+    public ResponseEntity<CustomApiResponse<List<SuperAdmin>>> getAllSuperAdmins() {
+        List<SuperAdmin> superAdmins = superAdminService.getAllSuperAdmins();
+        CustomApiResponse<List<SuperAdmin>> customApiResponse = new CustomApiResponse<>(
+                superAdmins,
+                "List of all Super Admins"
+        );
         return new ResponseEntity<>(customApiResponse, HttpStatus.FOUND);
     }
 }

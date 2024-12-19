@@ -35,4 +35,16 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
         LOGGER.info("Returning list of all Super Admins");
         return superAdminRepository.findAll();
     }
+
+    @Override
+    public void deleteSuperAdmin(Long id) {
+        SuperAdmin superAdmin = superAdminRepository.findById(id).orElseThrow(() -> {
+            String errorMessage = "Super Admin with id: " + id + ", not found. Unable to delete Super Admin";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        superAdminRepository.delete(superAdmin);
+        LOGGER.info("Super Admin with id: {}, deleted successfully", id);
+    }
 }

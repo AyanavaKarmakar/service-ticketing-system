@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Entity(name = "super_admin")
+@Entity(name = "super_admins")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
