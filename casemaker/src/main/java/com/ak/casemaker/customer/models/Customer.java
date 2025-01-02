@@ -1,5 +1,6 @@
 package com.ak.casemaker.customer.models;
 
+import com.ak.casemaker.cases.insuranceClaim.models.InsuranceClaim;
 import com.ak.casemaker.libs.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -10,6 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "customers")
 @Data
 @NoArgsConstructor
@@ -18,6 +22,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
+    @Column(name = "customer_id")
     private Long id;
 
     @NotNull
@@ -29,6 +34,10 @@ public class Customer {
 
     @JsonIgnore
     private String password;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<InsuranceClaim> insuranceClaims = new ArrayList<>();
 
     public void setPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

@@ -1,5 +1,6 @@
 package com.ak.casemaker.cases.insuranceClaim.models;
 
+import com.ak.casemaker.customer.models.Customer;
 import com.ak.casemaker.libs.utils.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -41,6 +42,10 @@ public class InsuranceClaim {
     @Column(nullable = false)
     @NotNull
     private LocalDateTime lastUpdatedOn;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @PrePersist
     public void onCreate() {
