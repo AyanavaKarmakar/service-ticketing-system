@@ -1,5 +1,6 @@
 package com.ak.casemaker.cases.insuranceClaim.controllers;
 
+import com.ak.casemaker.cases.insuranceClaim.DTOs.createInsuranceClaimDTO;
 import com.ak.casemaker.cases.insuranceClaim.models.InsuranceClaim;
 import com.ak.casemaker.cases.insuranceClaim.services.InsuranceClaimServiceInterface;
 import com.ak.casemaker.libs.utils.ResponseWrapper;
@@ -39,6 +40,17 @@ public class InsuranceClaimController {
                 "List of all Insurance Claims"
         );
         return new ResponseEntity<>(responseWrapper, HttpStatus.FOUND);
+    }
+
+    @Operation(summary = "Create new Insurance Claim", description = "Create a new Insurance Claim")
+    @PostMapping("/new")
+    public ResponseEntity<ResponseWrapper<InsuranceClaim>> createInsuranceClaim(createInsuranceClaimDTO newInsuranceClaim) {
+        InsuranceClaim savedInsuranceClaim = insuranceClaimService.createInsuranceClaim(newInsuranceClaim);
+        ResponseWrapper<InsuranceClaim> responseWrapper = new ResponseWrapper<>(
+                savedInsuranceClaim,
+                "new Insurance Claim created successfully"
+        );
+        return new ResponseEntity<>(responseWrapper, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Delete an Insurance Claim", description = "Delete an Insurance Claim by their ID")
