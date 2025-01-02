@@ -84,4 +84,38 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
         LOGGER.info("Insurance Claim with id: {} assigned to Customer with id: {}", claimId, customerId);
         return insuranceClaim;
     }
+
+    @Override
+    public InsuranceClaim removeInsuranceClaimFromCustomer(long claimId, long customerId) {
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(claimId).orElseThrow(() -> {
+            String errorMessage = "Insurance Claim with id: " + claimId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getCustomer() == null) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to any Customer";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> {
+            String errorMessage = "Customer with id: " + customerId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        customer.getInsuranceClaims().remove(insuranceClaim);
+        insuranceClaim.setCustomer(null);
+        customerRepository.save(customer);
+        insuranceClaimRepository.save(insuranceClaim);
+
+        LOGGER.info("Insurance Claim with id: {} de-assigned from Customer with id: {}", claimId, customerId);
+        return null;
+    }
+
+    @Override
+    public InsuranceClaim reAssignInsuranceClaimFromCustomer(long claimId, long oldCustomerId, long newCustomerId) {
+        return null;
+    }
 }
