@@ -111,7 +111,7 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
         insuranceClaimRepository.save(insuranceClaim);
 
         LOGGER.info("Insurance Claim with id: {} de-assigned from Customer with id: {}", claimId, customerId);
-        return null;
+        return insuranceClaim;
     }
 
     @Override
