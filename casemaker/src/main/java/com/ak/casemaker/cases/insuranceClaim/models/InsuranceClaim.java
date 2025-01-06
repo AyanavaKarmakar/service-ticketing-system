@@ -1,6 +1,7 @@
 package com.ak.casemaker.cases.insuranceClaim.models;
 
 import com.ak.casemaker.customer.models.Customer;
+import com.ak.casemaker.employee.models.Employee;
 import com.ak.casemaker.libs.utils.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -46,6 +47,10 @@ public class InsuranceClaim {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     @PrePersist
     public void onCreate() {
