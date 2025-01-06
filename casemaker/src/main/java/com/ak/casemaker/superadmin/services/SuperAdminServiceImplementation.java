@@ -116,6 +116,46 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
 
     @Override
     public InsuranceClaim reAssignInsuranceClaimFromCustomer(long claimId, long oldCustomerId, long newCustomerId) {
-        return null;
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(claimId).orElseThrow(() -> {
+            String errorMessage = "Insurance Claim with id: " + claimId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getCustomer() == null) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to any Customer";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        Customer oldCustomer = customerRepository.findById(oldCustomerId).orElseThrow(() -> {
+            String errorMessage = "Old Customer with id: " + oldCustomerId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        Customer newCustomer = customerRepository.findById(newCustomerId).orElseThrow(() -> {
+            String errorMessage = "New Customer with id: " + newCustomerId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getCustomer() == oldCustomer) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to old Customer";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        oldCustomer.getInsuranceClaims().remove(insuranceClaim);
+        insuranceClaim.setCustomer(newCustomer);
+        insuranceClaimRepository.save(insuranceClaim);
+        customerRepository.save(oldCustomer);
+        customerRepository.save(newCustomer);
+
+        LOGGER.info(
+                "Insurance Claim with id: {} de-assigned from old Customer with id: {} & assigned to new Customer with id: {}",
+                claimId, oldCustomerId, newCustomerId
+        );
+        return insuranceClaim;
     }
 }
