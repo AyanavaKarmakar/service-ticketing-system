@@ -38,5 +38,13 @@ public class CustomerServiceImplementation implements CustomerServiceInterface {
 
     @Override
     public void deleteCustomer(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> {
+            String errorMessage = "Customer with id: " + id + ", not found";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        customerRepository.delete(customer);
+        LOGGER.info("Customer with id: {}, deleted successfully", id);
     }
 }
