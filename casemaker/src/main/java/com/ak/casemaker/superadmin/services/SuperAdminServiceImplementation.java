@@ -4,6 +4,8 @@ import com.ak.casemaker.cases.insuranceClaim.models.InsuranceClaim;
 import com.ak.casemaker.cases.insuranceClaim.repository.InsuranceClaimRepository;
 import com.ak.casemaker.customer.models.Customer;
 import com.ak.casemaker.customer.repository.CustomerRepository;
+import com.ak.casemaker.employee.models.Employee;
+import com.ak.casemaker.employee.repository.EmployeeRepository;
 import com.ak.casemaker.superadmin.models.SuperAdmin;
 import com.ak.casemaker.superadmin.repository.SuperAdminRepository;
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +25,8 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
     private InsuranceClaimRepository insuranceClaimRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -140,7 +144,7 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
             return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
         });
 
-        if (insuranceClaim.getCustomer() == oldCustomer) {
+        if (insuranceClaim.getCustomer() != oldCustomer) {
             String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to old Customer";
             LOGGER.error(errorMessage);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
@@ -155,6 +159,109 @@ public class SuperAdminServiceImplementation implements SuperAdminServiceInterfa
         LOGGER.info(
                 "Insurance Claim with id: {} de-assigned from old Customer with id: {} & assigned to new Customer with id: {}",
                 claimId, oldCustomerId, newCustomerId
+        );
+        return insuranceClaim;
+    }
+
+    @Override
+    public InsuranceClaim assignInsuranceClaimToEmployee(long claimId, long employeeId) {
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(claimId).orElseThrow(() -> {
+            String errorMessage = "Insurance Claim with id: " + claimId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getEmployee() != null) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is already assigned to Employee with id: " + insuranceClaim.getCustomer().getId();
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> {
+            String errorMessage = "Employee with id: " + employeeId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        employee.getInsuranceClaims().add(insuranceClaim);
+        insuranceClaim.setEmployee(employee);
+        employeeRepository.save(employee);
+        insuranceClaimRepository.save(insuranceClaim);
+
+        LOGGER.info("Insurance Claim with id: {} assigned to Employee with id: {}", claimId, employeeId);
+        return insuranceClaim;
+    }
+
+    @Override
+    public InsuranceClaim removeInsuranceClaimFromEmployee(long claimId, long employeeId) {
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(claimId).orElseThrow(() -> {
+            String errorMessage = "Insurance Claim with id: " + claimId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getEmployee() == null) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to any Employee";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> {
+            String errorMessage = "Employee with id: " + employeeId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        employee.getInsuranceClaims().remove(insuranceClaim);
+        insuranceClaim.setEmployee(null);
+        employeeRepository.save(employee);
+        insuranceClaimRepository.save(insuranceClaim);
+
+        LOGGER.info("Insurance Claim with id: {} de-assigned from Employee with id: {}", claimId, employeeId);
+        return insuranceClaim;
+    }
+
+    @Override
+    public InsuranceClaim reAssignInsuranceClaimFromEmployee(long claimId, long oldEmployeeId, long newEmployeeId) {
+        InsuranceClaim insuranceClaim = insuranceClaimRepository.findById(claimId).orElseThrow(() -> {
+            String errorMessage = "Insurance Claim with id: " + claimId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
+        });
+
+        if (insuranceClaim.getEmployee() == null) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to any employee";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        Employee oldEmployee = employeeRepository.findById(oldEmployeeId).orElseThrow(() -> {
+            String errorMessage = "Old Employee with id: " + oldEmployeeId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        });
+
+        Employee newEmployee = employeeRepository.findById(newEmployeeId).orElseThrow(() -> {
+            String errorMessage = "New Employee with id: " + newEmployeeId + " not found.";
+            LOGGER.error(errorMessage);
+            return new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        });
+
+        if (insuranceClaim.getEmployee() != oldEmployee) {
+            String errorMessage = "Insurance Claim with id: " + claimId + " is NOT assigned to old Employee";
+            LOGGER.error(errorMessage);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorMessage);
+        }
+
+        oldEmployee.getInsuranceClaims().remove(insuranceClaim);
+        insuranceClaim.setEmployee(newEmployee);
+        insuranceClaimRepository.save(insuranceClaim);
+        employeeRepository.save(oldEmployee);
+        employeeRepository.save(newEmployee);
+
+        LOGGER.info(
+                "Insurance Claim with id: {} de-assigned from old Customer with id: {} & assigned to new Customer with id: {}",
+                claimId, oldEmployeeId, newEmployeeId
         );
         return insuranceClaim;
     }
